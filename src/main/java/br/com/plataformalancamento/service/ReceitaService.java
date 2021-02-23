@@ -2,7 +2,6 @@ package br.com.plataformalancamento.service;
 
 import java.io.Serializable;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -14,7 +13,6 @@ import br.com.plataformalancamento.entity.ParcelamentoEntity;
 import br.com.plataformalancamento.entity.ReceitaEntity;
 import br.com.plataformalancamento.enumeration.TipoPeriodoFinanceiroEnumeration;
 import br.com.plataformalancamento.enumeration.TipoReceitaEnumeration;
-import br.com.plataformalancamento.repository.ParcelamentoRepository;
 import br.com.plataformalancamento.repository.ReceitaRepository;
 import br.com.plataformalancamento.utility.DateUtility;
 
@@ -25,9 +23,6 @@ public class ReceitaService implements Serializable {
 	
 	@Autowired
 	private ReceitaRepository receitaRepository;
-	
-	@Autowired
-	private ParcelamentoRepository parcelamentoRepository;
 	
 	@Transactional
 	public List<ReceitaEntity> recuperar() {
@@ -41,7 +36,7 @@ public class ReceitaService implements Serializable {
 			receitaEntity.setTipoPeriodoFinanceiroEnumeration(TipoPeriodoFinanceiroEnumeration.UNICO);
 		}
 		if(receitaEntity.getTipoReceitaEnumeration().equals(TipoReceitaEnumeration.RECEITA_FIXA)) {
-			receitaEntity.setNumeroParcelamentoEntity(gerarParcelamento(receitaEntity));
+			this.gerarParcelamento(receitaEntity);
 		}
 		return this.receitaRepository.save(receitaEntity);
 	}
@@ -74,18 +69,16 @@ public class ReceitaService implements Serializable {
 		}
 	}
 	
-	private ParcelamentoEntity gerarParcelamento(ReceitaEntity receitaEntity) {
-		List<ParcelamentoEntity> parcelamentoEntityList = new ArrayList<>();
-		ParcelamentoEntity parcelamentoEntity = new ParcelamentoEntity();
-		for( int index = 1 ; index < receitaEntity.getQuantidadeParcela() ; index++ ) {
+	private void gerarParcelamento(ReceitaEntity receitaEntity) {
+		for( int index = 0 ; index < receitaEntity.getQuantidadeParcela() ; index++ ) {
+			ParcelamentoEntity parcelamentoEntity = new ParcelamentoEntity();
 				parcelamentoEntity.setIsPago(false);
-				parcelamentoEntity.setNumeroParcela(index);
+				parcelamentoEntity.setNumeroParcela(index+1);
 				parcelamentoEntity.setValorParcela(receitaEntity.getValorPagamento());
 				parcelamentoEntity.setValorTotalParcelamento(receitaEntity.getValorPagamento() * receitaEntity.getQuantidadeParcela());
-				parcelamentoEntityList.add(parcelamentoEntity);
-				parcelamentoRepository.save(parcelamentoEntity);
+				parcelamentoEntity.setReceitaEntity(receitaEntity);
+				receitaEntity.adicionarParcelamentoReceita(parcelamentoEntity);
 		}
-		return parcelamentoEntity;
 	}
 	
 }

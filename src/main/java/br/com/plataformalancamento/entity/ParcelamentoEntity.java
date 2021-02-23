@@ -7,8 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "TB_PARCELAMENTO")
@@ -34,6 +38,11 @@ public class ParcelamentoEntity implements Serializable {
 	@Column(name = "IS_PAGO", nullable = false)
 	private Boolean isPago;
 	
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "ID_RECEITA", referencedColumnName = "codigo", nullable = false)
+	private ReceitaEntity receitaEntity;
+	
 	public ParcelamentoEntity() { }
 
 	public ParcelamentoEntity(Integer numeroParcela, Double valorParcela, Double valorTotalParcela, Boolean isPago) {
@@ -44,7 +53,6 @@ public class ParcelamentoEntity implements Serializable {
 	}
 
 	public ParcelamentoEntity(Boolean isPago) {
-		super();
 		this.isPago = isPago;
 	}
 
@@ -86,6 +94,14 @@ public class ParcelamentoEntity implements Serializable {
 
 	public void setIsPago(Boolean isPago) {
 		this.isPago = isPago;
+	}
+
+	public ReceitaEntity getReceitaEntity() {
+		return receitaEntity;
+	}
+
+	public void setReceitaEntity(ReceitaEntity receitaEntity) {
+		this.receitaEntity = receitaEntity;
 	}
 
 	@Override
