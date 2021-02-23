@@ -30,6 +30,16 @@ public class ReceitaController implements Serializable {
 		return ResponseEntity.ok(this.receitaService.recuperar());
 	}
 	
+	@GetMapping("fixa")
+	public ResponseEntity<List<ReceitaEntity>> recuperarReceitasFixas() {
+		return ResponseEntity.ok(this.receitaService.recuperarReceitasFixas());
+	}
+	
+	@GetMapping("variavel")
+	public ResponseEntity<List<ReceitaEntity>> recuperarReceitasVariaveis() {
+		return ResponseEntity.ok(this.receitaService.recuperarReceitasVariaveis());
+	}
+	
 	@PostMapping
 	public ResponseEntity<ReceitaEntity> cadastrar(@RequestBody ReceitaEntity receitaEntity) throws ParseException {
 		return ResponseEntity.status(HttpStatus.CREATED).body(this.receitaService.cadastrar(receitaEntity));

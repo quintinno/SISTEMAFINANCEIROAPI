@@ -41,6 +41,16 @@ public class ReceitaService implements Serializable {
 		return this.receitaRepository.save(receitaEntity);
 	}
 	
+	@Transactional
+	public List<ReceitaEntity> recuperarReceitasFixas() {
+		return this.receitaRepository.findByTipoReceitaEnumeration(TipoReceitaEnumeration.RECEITA_FIXA);
+	}
+	
+	@Transactional
+	public List<ReceitaEntity> recuperarReceitasVariaveis() {
+		return this.receitaRepository.findByTipoReceitaEnumeration(TipoReceitaEnumeration.RECEITA_VARIAVEL);
+	}
+	
 	/**
 	 * Receita Fixa = REC<ANO><MES_PREVISAO_PAGAMENTO><DIA_PREVISAO_PAGAMENTO>[00]<CONTROLE_DIARIO><FIX>
 	 * Receita Variavel = REC<ANO><MES_PREVISAO_PAGAMENTO><DIA_PREVISAO_PAGAMENTO>[00]<CONTROLE_DIARIO><VAR>
