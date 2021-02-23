@@ -1,16 +1,21 @@
 package br.com.plataformalancamento.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -64,11 +69,9 @@ public class ReceitaEntity implements Serializable {
 	@JoinColumn(name = "ID_RESPONSAVEL_PAGAMENTO", referencedColumnName = "codigo", nullable = false)
 	private PessoaEntity responsavelPagamento;
 	
-	// TODO -- Refatorar esse mapeamento para @OneToMany
 	@JsonProperty("parcelamento")
-	@OneToOne
-	@JoinColumn(name = "ID_PARCELAMENTO", referencedColumnName = "codigo")
-	private ParcelamentoEntity parcelamentoEntity;
+	@OneToMany(mappedBy = "receitaEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<ParcelamentoEntity> parcelamentoEntityList = new ArrayList<>();
 	
 	@JsonProperty("tipoFormaPagamento")
 	@OneToOne
@@ -95,6 +98,16 @@ public class ReceitaEntity implements Serializable {
 	private CategoriaReceitaEntity categoriaReceitaEntity;
 
 	public ReceitaEntity() { }
+	
+	public void adicionarParcelamentoReceita(ParcelamentoEntity parcelamentoEntity) {
+		parcelamentoEntity.setReceitaEntity(this);
+		this.parcelamentoEntityList.add(parcelamentoEntity);
+	}
+	
+	@SuppressWarnings("unlikely-arg-type")
+	public void removerParcelamentoReceita(Integer index) {
+		this.parcelamentoEntityList.remove(index);
+	}
 
 	public Long getCodigo() {
 		return codigo;
@@ -160,12 +173,12 @@ public class ReceitaEntity implements Serializable {
 		this.responsavelPagamento = responsavelPagamento;
 	}
 
-	public ParcelamentoEntity getNumeroParcelamentoEntity() {
-		return parcelamentoEntity;
+	public List<ParcelamentoEntity> getParcelamentoEntityList() {
+		return parcelamentoEntityList;
 	}
 
-	public void setNumeroParcelamentoEntity(ParcelamentoEntity numeroParcelaEntity) {
-		this.parcelamentoEntity = numeroParcelaEntity;
+	public void setParcelamentoEntityList(List<ParcelamentoEntity> parcelamentoEntityList) {
+		this.parcelamentoEntityList = parcelamentoEntityList;
 	}
 
 	public TipoFormaPagamentoEntity getTipoFormaPagamentoEntity() {
