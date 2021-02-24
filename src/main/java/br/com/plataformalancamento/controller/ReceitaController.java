@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +44,11 @@ public class ReceitaController implements Serializable {
 	@PostMapping
 	public ResponseEntity<ReceitaEntity> cadastrar(@RequestBody ReceitaEntity receitaEntity) throws ParseException {
 		return ResponseEntity.status(HttpStatus.CREATED).body(this.receitaService.cadastrar(receitaEntity));
+	}
+	
+	@GetMapping("{codigo}")
+	public ResponseEntity<ReceitaEntity> recuperar(@PathVariable Long codigo) {
+		return ResponseEntity.ok(this.receitaService.recuperar(codigo));
 	}
 
 }

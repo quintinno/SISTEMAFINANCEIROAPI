@@ -3,6 +3,7 @@ package br.com.plataformalancamento.service;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -49,6 +50,12 @@ public class ReceitaService implements Serializable {
 	@Transactional
 	public List<ReceitaEntity> recuperarReceitasVariaveis() {
 		return this.receitaRepository.findByTipoReceitaEnumeration(TipoReceitaEnumeration.RECEITA_VARIAVEL);
+	}
+	
+	@Transactional
+	public ReceitaEntity recuperar(Long codigo) {
+		Optional<ReceitaEntity> receitaEntityOptional = this.receitaRepository.findById(codigo);
+		return receitaEntityOptional.get(); 
 	}
 	
 	/**
