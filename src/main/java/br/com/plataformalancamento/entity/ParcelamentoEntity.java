@@ -1,9 +1,12 @@
 package br.com.plataformalancamento.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,8 +14,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import br.com.plataformalancamento.enumeration.TipoSituacaoPagamentoEnumeration;
 
 @Entity
 @Table(name = "TB_PARCELAMENTO")
@@ -29,14 +38,29 @@ public class ParcelamentoEntity implements Serializable {
 	@Column(name = "NUMERO_PARCELA", nullable = false)
 	private Integer numeroParcela;
 	
-	@Column(name = "VALOR_PARCELA", scale = 10, precision = 2, nullable = false)
-	private Double valorParcela;
+	@Column(name = "VALOR_PREVISTO_PARCELA", scale = 10, precision = 2, nullable = false)
+	private Double valorPrevistoParcela;
+	
+	@Column(name = "VALOR_EFETIVO_PARCELA", scale = 10, precision = 2)
+	private Double valorEfetivoParcela;
 	
 	@Column(name = "VALOR_TOTAL_PARCELAMENTO", scale = 10, precision = 2, nullable = false)
 	private Double valorTotalParcelamento;
 	
-	@Column(name = "IS_PAGO", nullable = false)
-	private Boolean isPago;
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.DATE)
+	@Column(name = "DATA_VENCIMENTO_PARCELA")
+	private Date dataVencimentoParcela;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.DATE)
+	@Column(name = "DATA_PAGAMENTO_PARCELA")
+	private Date dataPagamentoParcela;
+	
+	@JsonProperty("situacaoPagamento")
+	@Enumerated(EnumType.STRING)
+	@Column(name = "SITUACAO_PAGAMENTO")
+	private TipoSituacaoPagamentoEnumeration tipoSituacaoPagamentoEnumeration;
 	
 	@JsonIgnore
 	@ManyToOne
@@ -44,18 +68,7 @@ public class ParcelamentoEntity implements Serializable {
 	private ReceitaEntity receitaEntity;
 	
 	public ParcelamentoEntity() { }
-
-	public ParcelamentoEntity(Integer numeroParcela, Double valorParcela, Double valorTotalParcela, Boolean isPago) {
-		this.numeroParcela = numeroParcela;
-		this.valorParcela = valorParcela;
-		this.valorTotalParcelamento = valorTotalParcela;
-		this.isPago = isPago;
-	}
-
-	public ParcelamentoEntity(Boolean isPago) {
-		this.isPago = isPago;
-	}
-
+	
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -72,28 +85,52 @@ public class ParcelamentoEntity implements Serializable {
 		this.numeroParcela = numeroParcela;
 	}
 
-	public Double getValorParcela() {
-		return valorParcela;
+	public Double getValorPrevistoParcela() {
+		return valorPrevistoParcela;
 	}
 
-	public void setValorParcela(Double valorParcela) {
-		this.valorParcela = valorParcela;
+	public void setValorPrevistoParcela(Double valorPrevistoParcela) {
+		this.valorPrevistoParcela = valorPrevistoParcela;
+	}
+
+	public Double getValorEfetivoParcela() {
+		return valorEfetivoParcela;
+	}
+
+	public void setValorEfetivoParcela(Double valorEfetivoParcela) {
+		this.valorEfetivoParcela = valorEfetivoParcela;
 	}
 
 	public Double getValorTotalParcelamento() {
 		return valorTotalParcelamento;
 	}
 
-	public void setValorTotalParcelamento(Double valorTotalParcela) {
-		this.valorTotalParcelamento = valorTotalParcela;
+	public void setValorTotalParcelamento(Double valorTotalParcelamento) {
+		this.valorTotalParcelamento = valorTotalParcelamento;
 	}
 
-	public Boolean getIsPago() {
-		return isPago;
+	public Date getDataVencimentoParcela() {
+		return dataVencimentoParcela;
 	}
 
-	public void setIsPago(Boolean isPago) {
-		this.isPago = isPago;
+	public void setDataVencimentoParcela(Date dataVencimentoParcela) {
+		this.dataVencimentoParcela = dataVencimentoParcela;
+	}
+
+	public Date getDataPagamentoParcela() {
+		return dataPagamentoParcela;
+	}
+
+	public void setDataPagamentoParcela(Date dataPagamentoParcela) {
+		this.dataPagamentoParcela = dataPagamentoParcela;
+	}
+
+	public TipoSituacaoPagamentoEnumeration getTipoSituacaoPagamentoEnumeration() {
+		return tipoSituacaoPagamentoEnumeration;
+	}
+
+	public void setTipoSituacaoPagamentoEnumeration(TipoSituacaoPagamentoEnumeration tipoSituacaoPagamentoEnumeration) {
+		this.tipoSituacaoPagamentoEnumeration = tipoSituacaoPagamentoEnumeration;
 	}
 
 	public ReceitaEntity getReceitaEntity() {

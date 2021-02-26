@@ -2,6 +2,8 @@ package br.com.plataformalancamento.utility;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class DateUtility {
 
@@ -23,10 +25,13 @@ public class DateUtility {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateUtility.FORMAT_DD);
 		return simpleDateFormat.format(date);
 	}
-	
-//	private java.util.Date formatarData(String data) throws ParseException {
-//		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateUtility.FORMAT_AAAA);
-//		return simpleDateFormat.parse(data);
-//	}
+
+	public static Date gerarDataVencimentoPorNumeroDias(Integer numeroDias, Date dataReferencia) {
+		Calendar dataCalculada = Calendar.getInstance();
+			dataCalculada.setTime(dataReferencia);
+			dataCalculada.add(Calendar.DAY_OF_MONTH, 1);
+			dataCalculada.add(Calendar.MONTH, numeroDias);
+		return dataCalculada.getTime();
+	}
 	
 }

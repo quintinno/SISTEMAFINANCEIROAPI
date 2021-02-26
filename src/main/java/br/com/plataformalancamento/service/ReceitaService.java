@@ -2,6 +2,7 @@ package br.com.plataformalancamento.service;
 
 import java.io.Serializable;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +15,7 @@ import br.com.plataformalancamento.entity.ParcelamentoEntity;
 import br.com.plataformalancamento.entity.ReceitaEntity;
 import br.com.plataformalancamento.enumeration.TipoPeriodoFinanceiroEnumeration;
 import br.com.plataformalancamento.enumeration.TipoReceitaEnumeration;
+import br.com.plataformalancamento.enumeration.TipoSituacaoPagamentoEnumeration;
 import br.com.plataformalancamento.repository.ReceitaRepository;
 import br.com.plataformalancamento.utility.DateUtility;
 
@@ -89,13 +91,18 @@ public class ReceitaService implements Serializable {
 	private void gerarParcelamento(ReceitaEntity receitaEntity) {
 		for( int index = 0 ; index < receitaEntity.getQuantidadeParcela() ; index++ ) {
 			ParcelamentoEntity parcelamentoEntity = new ParcelamentoEntity();
-				parcelamentoEntity.setIsPago(false);
+				parcelamentoEntity.setTipoSituacaoPagamentoEnumeration(TipoSituacaoPagamentoEnumeration.PENDENTE);
 				parcelamentoEntity.setNumeroParcela(index+1);
-				parcelamentoEntity.setValorParcela(receitaEntity.getValorPagamento());
+				parcelamentoEntity.setValorPrevistoParcela(receitaEntity.getValorPagamento());
 				parcelamentoEntity.setValorTotalParcelamento(receitaEntity.getValorPagamento() * receitaEntity.getQuantidadeParcela());
+				parcelamentoEntity.setDataVencimentoParcela(gerarDataVencimentoParcelamento(index, receitaEntity.getDataPrevisaoRecebimento()));
 				parcelamentoEntity.setReceitaEntity(receitaEntity);
 				receitaEntity.adicionarParcelamentoReceita(parcelamentoEntity);
 		}
+	}
+	
+	private Date gerarDataVencimentoParcelamento(int numeroMes, Date dataPrevisaoRecebimentoReceita) {
+		return DateUtility.gerarDataVencimentoPorNumeroDias(numeroMes, dataPrevisaoRecebimentoReceita);
 	}
 	
 }

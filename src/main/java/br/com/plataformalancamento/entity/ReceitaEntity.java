@@ -62,7 +62,7 @@ public class ReceitaEntity implements Serializable {
 	
 	@JsonProperty("tipoReceita")
 	@Enumerated(EnumType.STRING)
-	@Column(name = "ID_TIPO_RECEITA")
+	@Column(name = "TIPO_RECEITA")
 	private TipoReceitaEnumeration tipoReceitaEnumeration;
 	
 	@OneToOne
@@ -75,7 +75,7 @@ public class ReceitaEntity implements Serializable {
 	
 	@JsonProperty("tipoFormaPagamento")
 	@OneToOne
-	@JoinColumn(name = "ID_TIPO_FORMA_PAGAMENTO", referencedColumnName = "codigo", nullable = false)
+	@JoinColumn(name = "TIPO_FORMA_PAGAMENTO", referencedColumnName = "codigo", nullable = false)
 	private TipoFormaPagamentoEntity tipoFormaPagamentoEntity;
 	
 	@OneToOne
@@ -84,12 +84,12 @@ public class ReceitaEntity implements Serializable {
 
 	@JsonProperty("tipoSituacaoPagamento")
 	@Enumerated(EnumType.STRING)
-	@Column(name = "ID_TIPO_SITUACAO_PAGAMENTO")
+	@Column(name = "TIPO_SITUACAO_PAGAMENTO")
 	private TipoSituacaoPagamentoEnumeration tipoSituacaoPagamentoEnumeration;
 	
 	@JsonProperty("tipoPeriodoFinanceiro")
 	@Enumerated(EnumType.STRING)
-	@Column(name = "ID_TIPO_PERIODO_FINANCEIRO")
+	@Column(name = "TIPO_PERIODO_FINANCEIRO")
 	private TipoPeriodoFinanceiroEnumeration tipoPeriodoFinanceiroEnumeration;
 	
 	@JsonProperty("categoriaReceita")
