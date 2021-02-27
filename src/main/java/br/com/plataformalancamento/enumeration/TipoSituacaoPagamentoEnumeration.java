@@ -8,8 +8,11 @@ public enum TipoSituacaoPagamentoEnumeration {
 	PENDENTE(1, "Pendente", "PND"),
 	
 	@JsonProperty("Pago")
-	PAGO(2, "Pago", "PG"), 
-	
+	PAGO(2, "Pago", "PG"),
+
+	@JsonProperty("Parcialmente Pago")
+	PARCIALMENTE_PAGO(2, "Pago", "PG"),
+
 	@JsonProperty("Vencido")
 	VENCIDO(3, "Vencido", "VC"),
 	

@@ -40,7 +40,7 @@ public class ReceitaEntity implements Serializable {
 	@SequenceGenerator(name = "SEQ_RECEITA", sequenceName = "SEQ_RECEITA", schema = "public", initialValue = 1, allocationSize = 1)
 	@Column(name = "CODIGO")
 	private Long codigo;
-	
+
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_PREVISAO_PAGAMENTO")
@@ -50,11 +50,11 @@ public class ReceitaEntity implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_RECEBIMENTO_PAGAMENTO")
 	private Date dataRecebimentoPagamento;
+
+	@Column(name = "VALOR_PAGO", scale = 10, precision = 2, nullable = false)
+	private Double valorPago;
 	
-	@Column(name = "VALOR_PAGAMENTO", scale = 10, precision = 2, nullable = false)
-	private Double valorPagamento;
-	
-	@Column(name = "IDENTIFICADOR", unique = false, nullable = false)
+	@Column(name = "IDENTIFICADOR", unique = true, nullable = false)
 	private String identificador;
 	
 	@Column(name = "QUANTIDADE_PARCELA")
@@ -133,12 +133,12 @@ public class ReceitaEntity implements Serializable {
 		this.dataRecebimentoPagamento = dataRecebimento;
 	}
 
-	public Double getValorPagamento() {
-		return valorPagamento;
+	public Double getValorPago() {
+		return valorPago;
 	}
 
-	public void setValorPagamento(Double valorPagamento) {
-		this.valorPagamento = valorPagamento;
+	public void setValorPago(Double valorPago) {
+		this.valorPago = valorPago;
 	}
 
 	public String getIdentificador() {

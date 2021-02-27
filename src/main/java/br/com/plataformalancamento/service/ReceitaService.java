@@ -5,17 +5,24 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import br.com.plataformalancamento.dto.ReceitaDTO;
 import br.com.plataformalancamento.entity.ParcelamentoEntity;
 import br.com.plataformalancamento.entity.ReceitaEntity;
 import br.com.plataformalancamento.enumeration.TipoPeriodoFinanceiroEnumeration;
 import br.com.plataformalancamento.enumeration.TipoReceitaEnumeration;
 import br.com.plataformalancamento.enumeration.TipoSituacaoPagamentoEnumeration;
+import br.com.plataformalancamento.exception.ObjectNotFoundException;
+import br.com.plataformalancamento.exception.ConfiguradorErrorException;
+import br.com.plataformalancamento.repository.ReceitaImplementacaoDao;
 import br.com.plataformalancamento.repository.ReceitaRepository;
 import br.com.plataformalancamento.utility.DateUtility;
 
@@ -26,16 +33,32 @@ public class ReceitaService implements Serializable {
 	
 	@Autowired
 	private ReceitaRepository receitaRepository;
+
+	@Autowired
+	private ReceitaImplementacaoDao receitaImplementacaoDao;
 	
 	@Transactional
-	public List<ReceitaEntity> recuperar() {
-		return this.receitaRepository.findAll();
+	public List<ReceitaDTO> recuperar() {
+		return this.receitaRepository.findAll().stream().map( receitaEntity -> new ReceitaDTO(receitaEntity)).collect(Collectors.toList());
+	}
+	
+	public void remover(Long codigo) {
+		try {
+			this.receitaRepository.deleteById(codigo);
+		} catch (EmptyResultDataAccessException emptyResultDataAccessException) {
+			new ObjectNotFoundException(ConfiguradorErrorException.recuperarMensagemErroObjetoNaoEncontradoRequisicao(codigo));
+		} catch (DataIntegrityViolationException dataIntegrityViolationException) {
+			throw new br.com.plataformalancamento.exception.DataIntegrityViolationException(ConfiguradorErrorException.recuperarMensagemErroObjetoNaoPodeSerDeletadoRequisicao(codigo));
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	@Transactional
 	public ReceitaEntity cadastrar(ReceitaEntity receitaEntity) throws ParseException {
 		receitaEntity.setIdentificador(gerarIdentificadorReceita(receitaEntity));
 		if(receitaEntity.getTipoReceitaEnumeration().equals(TipoReceitaEnumeration.RECEITA_VARIAVEL)) {
+			receitaEntity.setQuantidadeParcela(0);
 			receitaEntity.setTipoPeriodoFinanceiroEnumeration(TipoPeriodoFinanceiroEnumeration.UNICO);
 		}
 		if(receitaEntity.getTipoReceitaEnumeration().equals(TipoReceitaEnumeration.RECEITA_FIXA)) {
@@ -57,7 +80,7 @@ public class ReceitaService implements Serializable {
 	@Transactional
 	public ReceitaEntity recuperar(Long codigo) {
 		Optional<ReceitaEntity> receitaEntityOptional = this.receitaRepository.findById(codigo);
-		return receitaEntityOptional.get(); 
+		return receitaEntityOptional.orElseThrow( () -> new ObjectNotFoundException(ConfiguradorErrorException.recuperarMensagemErroObjetoNaoEncontradoRequisicao(codigo)));
 	}
 	
 	/**
@@ -77,15 +100,25 @@ public class ReceitaService implements Serializable {
 					.append("FIX")
 					.toString();
 		} else {
-			return identificador
-					.append(DateUtility.extrairAnoData(receitaEntity.getDataRecebimentoPagamento()))
-					.append(DateUtility.extrairMesData(receitaEntity.getDataRecebimentoPagamento()))
-					.append(DateUtility.extrairDiaData(receitaEntity.getDataRecebimentoPagamento()))
-					.append("00")
-					.append("1")
-					.append("VAR")
-					.toString();
+			identificador
+			.append(DateUtility.extrairAnoData(receitaEntity.getDataRecebimentoPagamento()))
+			.append(DateUtility.extrairMesData(receitaEntity.getDataRecebimentoPagamento()))
+			.append(DateUtility.extrairDiaData(receitaEntity.getDataRecebimentoPagamento()))
+			.append("00");
+			if(this.recuperarNumeroControleDiario(receitaEntity.getTipoReceitaEnumeration(), receitaEntity.getDataRecebimentoPagamento()) <= 9) {
+				identificador.append("0").append(this.recuperarNumeroControleDiario(receitaEntity.getTipoReceitaEnumeration(), receitaEntity.getDataRecebimentoPagamento()));
+			} else {
+				identificador.append(this.recuperarNumeroControleDiario(receitaEntity.getTipoReceitaEnumeration(), receitaEntity.getDataRecebimentoPagamento()));
+			}
+			identificador
+			.append("VAR")
+			.toString();
+			return identificador.toString();
 		}
+	}
+	
+	private Integer recuperarNumeroControleDiario(TipoReceitaEnumeration tipoReceitaEnumeration, Date dataRecebimentoPagamento) {
+		return this.receitaImplementacaoDao.recuperarNumeroControleDiario(tipoReceitaEnumeration, dataRecebimentoPagamento);
 	}
 	
 	private void gerarParcelamento(ReceitaEntity receitaEntity) {
@@ -93,8 +126,8 @@ public class ReceitaService implements Serializable {
 			ParcelamentoEntity parcelamentoEntity = new ParcelamentoEntity();
 				parcelamentoEntity.setTipoSituacaoPagamentoEnumeration(TipoSituacaoPagamentoEnumeration.PENDENTE);
 				parcelamentoEntity.setNumeroParcela(index+1);
-				parcelamentoEntity.setValorPrevistoParcela(receitaEntity.getValorPagamento());
-				parcelamentoEntity.setValorTotalParcelamento(receitaEntity.getValorPagamento() * receitaEntity.getQuantidadeParcela());
+				parcelamentoEntity.setValorPrevistoParcela(receitaEntity.getValorPago());
+				parcelamentoEntity.setValorTotalParcelamento(receitaEntity.getValorPago() * receitaEntity.getQuantidadeParcela());
 				parcelamentoEntity.setDataVencimentoParcela(gerarDataVencimentoParcelamento(index, receitaEntity.getDataPrevisaoRecebimento()));
 				parcelamentoEntity.setReceitaEntity(receitaEntity);
 				receitaEntity.adicionarParcelamentoReceita(parcelamentoEntity);
@@ -103,6 +136,21 @@ public class ReceitaService implements Serializable {
 	
 	private Date gerarDataVencimentoParcelamento(int numeroMes, Date dataPrevisaoRecebimentoReceita) {
 		return DateUtility.gerarDataVencimentoPorNumeroDias(numeroMes, dataPrevisaoRecebimentoReceita);
+	}
+
+	public ReceitaEntity atualizarValorPago(Long codigoReceita, Double valorPagamento) {
+		ReceitaEntity receitaEntity = this.recuperar(codigoReceita);
+			receitaEntity.setValorPago(receitaEntity.getValorPago() + valorPagamento);
+			receitaEntity.setTipoSituacaoPagamentoEnumeration(TipoSituacaoPagamentoEnumeration.PARCIALMENTE_PAGO);
+		return this.receitaRepository.save(receitaEntity);
+	}
+
+	public Double recuperarTotalizadorReceitaRecebida() {
+		return this.receitaImplementacaoDao.recuperarReceitasVariavelRecebidas() + this.receitaImplementacaoDao.recuperarReceitasFixasRecebidas();
+	}
+
+	public Double recuperarTotalizadorReceitaPendente() {
+		return this.receitaImplementacaoDao.recuperarReceitasVariaveisPendentes() + this.receitaImplementacaoDao.recuperarReceitasFixasPendentes();
 	}
 	
 }

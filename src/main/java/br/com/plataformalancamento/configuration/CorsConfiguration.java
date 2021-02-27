@@ -12,7 +12,9 @@ public class CorsConfiguration extends WebMvcConfigurerAdapter {
 	
 	@Override
 	public void addCorsMappings(CorsRegistry corsRegistry) {
-		corsRegistry.addMapping("/**").allowedMethods("GET", "POST", "PUT", "DELETE");
+		corsRegistry
+			.addMapping("/**")
+			.allowedMethods("GET", "POST", "PUT", "DELETE");
 	}
 
 }
