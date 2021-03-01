@@ -51,8 +51,8 @@ public class ReceitaEntity implements Serializable {
 	@Column(name = "DATA_RECEBIMENTO_PAGAMENTO")
 	private Date dataRecebimentoPagamento;
 
-	@Column(name = "VALOR_PAGO", scale = 10, precision = 2, nullable = false)
-	private Double valorPago;
+	@Column(name = "VALOR_PAGAMENTO", scale = 10, precision = 2, nullable = false)
+	private Double valorPagamento;
 	
 	@Column(name = "IDENTIFICADOR", unique = true, nullable = false)
 	private String identificador;
@@ -76,7 +76,7 @@ public class ReceitaEntity implements Serializable {
 	@JsonProperty("tipoFormaPagamento")
 	@OneToOne
 	@JoinColumn(name = "TIPO_FORMA_PAGAMENTO", referencedColumnName = "codigo", nullable = false)
-	private TipoFormaPagamentoEntity tipoFormaPagamentoEntity;
+	private FormaPagamentoEntity tipoFormaPagamentoEntity;
 	
 	@OneToOne
 	@JoinColumn(name = "ID_CONTA_BANCARIA_DEPOSITO", referencedColumnName = "codigo", nullable = false)
@@ -133,12 +133,12 @@ public class ReceitaEntity implements Serializable {
 		this.dataRecebimentoPagamento = dataRecebimento;
 	}
 
-	public Double getValorPago() {
-		return valorPago;
+	public Double getValorPagamento() {
+		return valorPagamento;
 	}
 
-	public void setValorPago(Double valorPago) {
-		this.valorPago = valorPago;
+	public void setValorPagamento(Double valorPagamento) {
+		this.valorPagamento = valorPagamento;
 	}
 
 	public String getIdentificador() {
@@ -181,11 +181,11 @@ public class ReceitaEntity implements Serializable {
 		this.parcelamentoEntityList = parcelamentoEntityList;
 	}
 
-	public TipoFormaPagamentoEntity getTipoFormaPagamentoEntity() {
+	public FormaPagamentoEntity getTipoFormaPagamentoEntity() {
 		return tipoFormaPagamentoEntity;
 	}
 
-	public void setTipoFormaPagamentoEntity(TipoFormaPagamentoEntity tipoFormaPagamentoEntity) {
+	public void setTipoFormaPagamentoEntity(FormaPagamentoEntity tipoFormaPagamentoEntity) {
 		this.tipoFormaPagamentoEntity = tipoFormaPagamentoEntity;
 	}
 

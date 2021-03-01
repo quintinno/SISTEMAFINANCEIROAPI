@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.plataformalancamento.dto.ReceitaDTO;
 import br.com.plataformalancamento.entity.ReceitaEntity;
 import br.com.plataformalancamento.service.ReceitaService;
 
@@ -30,7 +29,7 @@ public class ReceitaController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@GetMapping
-	public ResponseEntity<List<ReceitaDTO>> recuperar() {
+	public ResponseEntity<List<ReceitaEntity>> recuperar() {
 		return ResponseEntity.ok(this.receitaService.recuperar());
 	}
 	

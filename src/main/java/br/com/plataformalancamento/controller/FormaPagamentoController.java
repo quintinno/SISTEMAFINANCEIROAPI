@@ -8,20 +8,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.plataformalancamento.entity.TipoFormaPagamentoEntity;
-import br.com.plataformalancamento.service.TipoFormaPagamentoService;
+import br.com.plataformalancamento.entity.FormaPagamentoEntity;
+import br.com.plataformalancamento.service.FormaPagamentoService;
 
 @RestController
-@RequestMapping("/tipo-forma-pagamento")
-public class TipoFormaPagamentoController implements Serializable {
+@RequestMapping("/forma-pagamento")
+public class FormaPagamentoController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
-	private TipoFormaPagamentoService tipoFormaPagamentoService;
+	private FormaPagamentoService tipoFormaPagamentoService;
 	
 	@GetMapping
-	public List<TipoFormaPagamentoEntity> recuperar() {
+	public List<FormaPagamentoEntity> recuperar() {
 		return this.tipoFormaPagamentoService.recuperar();
 	}
 

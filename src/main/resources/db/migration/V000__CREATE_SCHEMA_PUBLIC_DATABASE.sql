@@ -1,3 +1,5 @@
+CREATE SEQUENCE public.hibernate_sequence START 1 INCREMENT 1 MINVALUE 1 OWNED BY TB_TIPO_PESSOA.CODIGO;
+
 -- DROP SCHEMA if exists public CASCADE;
 -- CREATE SCHEMA if not exists  public;
 -- DROP TABLE IF EXISTS flyway_schema_history;

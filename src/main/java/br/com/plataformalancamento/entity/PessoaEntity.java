@@ -29,9 +29,6 @@ public class PessoaEntity implements Serializable {
 	@Column(name = "NOME", unique = true)
 	private String nome;
 	
-	@Column(name = "IS_PESSOA_FINANCEIRA")
-	private Boolean isPessoaFinanceira;
-	
 	@Column(name = "IS_ATIVO", nullable = false)
 	private Boolean isAtivo;
 	
@@ -45,16 +42,14 @@ public class PessoaEntity implements Serializable {
 
 	public PessoaEntity() { }
 
-	public PessoaEntity(String nome, String nomeFantasia, Boolean isPessoaFinanceira, Boolean isAtivo, TipoPessoaEntity tipoPessoaEntity) {
+	public PessoaEntity(String nome, String nomeFantasia, Boolean isAtivo, TipoPessoaEntity tipoPessoaEntity) {
 		this.nome = nome;
-		this.isPessoaFinanceira = isPessoaFinanceira;
 		this.isAtivo = isAtivo;
 		this.tipoPessoaEntity = tipoPessoaEntity;
 	}
 
-	public PessoaEntity(String nome, Boolean isPessoaFinanceira, Boolean isAtivo, Boolean isInstituicaoFinanceira, TipoPessoaEntity tipoPessoaEntity) {
+	public PessoaEntity(String nome, Boolean isAtivo, Boolean isInstituicaoFinanceira, TipoPessoaEntity tipoPessoaEntity) {
 		this.nome = nome;
-		this.isPessoaFinanceira = isPessoaFinanceira;
 		this.isAtivo = isAtivo;
 		this.isInstituicaoFinanceira = isInstituicaoFinanceira;
 		this.tipoPessoaEntity = tipoPessoaEntity;
@@ -74,14 +69,6 @@ public class PessoaEntity implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public Boolean getIsPessoaFinanceira() {
-		return isPessoaFinanceira;
-	}
-
-	public void setIsPessoaFinanceira(Boolean isPessoaFinanceira) {
-		this.isPessoaFinanceira = isPessoaFinanceira;
 	}
 
 	public Boolean getIsAtivo() {

@@ -14,7 +14,6 @@ public class DateUtility {
 	private static final String FORMAT_HORA = "H";
 	private static final String FORMAT_MINUTO = "mm";
 	private static final String FORMAT_SEGUNDO = "s";
-	private static final String FORMAT_DDMMAAAA = FORMAT_DD.concat(FORMAT_MM).concat(FORMAT_AAAA);
 	private static final String FORMAT_DDMMAAAA_HHMMSS = FORMAT_DD.concat("/").concat(FORMAT_MM).concat("/").concat(FORMAT_AAAA).concat(" - ").concat(FORMAT_HORA).concat(":").concat(FORMAT_MINUTO).concat(":").concat(FORMAT_SEGUNDO);
 	
 	public static String extrairAnoData(java.util.Date date) throws ParseException {
@@ -54,6 +53,10 @@ public class DateUtility {
 	public static String gerarDataHoraAtualFormatoDDMMAAAAHHMMSS() {
 		SimpleDateFormat simpleDateFormat = configurarFormatoData(FORMAT_DDMMAAAA_HHMMSS);
 		return simpleDateFormat.format(new Date());
+	}
+	
+	public static Date gerarDataFormatoDate(Integer anoReferencia, Integer mesReferencia, Integer diaMesReferencia) {
+		return new GregorianCalendar(anoReferencia, mesReferencia, diaMesReferencia).getTime();
 	}
 	
 }

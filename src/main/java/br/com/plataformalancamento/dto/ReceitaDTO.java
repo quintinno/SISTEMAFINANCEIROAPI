@@ -27,7 +27,7 @@ public class ReceitaDTO implements Serializable {
     public ReceitaDTO(ReceitaEntity receitaEntity) {
         this.codigo = receitaEntity.getCodigo();
         this.identificador = receitaEntity.getIdentificador();
-        this.valorPago = receitaEntity.getValorPago();
+        this.valorPago = receitaEntity.getValorPagamento();
         this.tipoSituacaoPagamentoEnumeration = receitaEntity.getTipoSituacaoPagamentoEnumeration();
         this.tipoReceitaEnumeration = receitaEntity.getTipoReceitaEnumeration();
     }

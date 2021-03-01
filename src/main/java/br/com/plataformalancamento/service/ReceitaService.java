@@ -5,7 +5,6 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -14,14 +13,13 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import br.com.plataformalancamento.dto.ReceitaDTO;
 import br.com.plataformalancamento.entity.ParcelamentoEntity;
 import br.com.plataformalancamento.entity.ReceitaEntity;
 import br.com.plataformalancamento.enumeration.TipoPeriodoFinanceiroEnumeration;
 import br.com.plataformalancamento.enumeration.TipoReceitaEnumeration;
 import br.com.plataformalancamento.enumeration.TipoSituacaoPagamentoEnumeration;
-import br.com.plataformalancamento.exception.ObjectNotFoundException;
 import br.com.plataformalancamento.exception.ConfiguradorErrorException;
+import br.com.plataformalancamento.exception.ObjectNotFoundException;
 import br.com.plataformalancamento.repository.ReceitaImplementacaoDao;
 import br.com.plataformalancamento.repository.ReceitaRepository;
 import br.com.plataformalancamento.utility.DateUtility;
@@ -38,8 +36,8 @@ public class ReceitaService implements Serializable {
 	private ReceitaImplementacaoDao receitaImplementacaoDao;
 	
 	@Transactional
-	public List<ReceitaDTO> recuperar() {
-		return this.receitaRepository.findAll().stream().map( receitaEntity -> new ReceitaDTO(receitaEntity)).collect(Collectors.toList());
+	public List<ReceitaEntity> recuperar() {
+		return this.receitaRepository.findAll();
 	}
 	
 	public void remover(Long codigo) {
@@ -126,8 +124,8 @@ public class ReceitaService implements Serializable {
 			ParcelamentoEntity parcelamentoEntity = new ParcelamentoEntity();
 				parcelamentoEntity.setTipoSituacaoPagamentoEnumeration(TipoSituacaoPagamentoEnumeration.PENDENTE);
 				parcelamentoEntity.setNumeroParcela(index+1);
-				parcelamentoEntity.setValorPrevistoParcela(receitaEntity.getValorPago());
-				parcelamentoEntity.setValorTotalParcelamento(receitaEntity.getValorPago() * receitaEntity.getQuantidadeParcela());
+				parcelamentoEntity.setValorPrevistoParcela(receitaEntity.getValorPagamento());
+				parcelamentoEntity.setValorTotalParcelamento(receitaEntity.getValorPagamento() * receitaEntity.getQuantidadeParcela());
 				parcelamentoEntity.setDataVencimentoParcela(gerarDataVencimentoParcelamento(index, receitaEntity.getDataPrevisaoRecebimento()));
 				parcelamentoEntity.setReceitaEntity(receitaEntity);
 				receitaEntity.adicionarParcelamentoReceita(parcelamentoEntity);
@@ -140,7 +138,7 @@ public class ReceitaService implements Serializable {
 
 	public ReceitaEntity atualizarValorPago(Long codigoReceita, Double valorPagamento) {
 		ReceitaEntity receitaEntity = this.recuperar(codigoReceita);
-			receitaEntity.setValorPago(receitaEntity.getValorPago() + valorPagamento);
+			receitaEntity.setValorPagamento(receitaEntity.getValorPagamento() + valorPagamento);
 			receitaEntity.setTipoSituacaoPagamentoEnumeration(TipoSituacaoPagamentoEnumeration.PARCIALMENTE_PAGO);
 		return this.receitaRepository.save(receitaEntity);
 	}

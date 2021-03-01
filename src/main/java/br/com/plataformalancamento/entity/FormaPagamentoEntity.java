@@ -11,8 +11,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "TB_TIPO_FORMA_PAGAMENTO")
-public class TipoFormaPagamentoEntity implements Serializable {
+@Table(name = "TB_FORMA_PAGAMENTO")
+public class FormaPagamentoEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -28,9 +28,9 @@ public class TipoFormaPagamentoEntity implements Serializable {
 	@Column(name = "SIGLA", unique = true)
 	private String sigla;
 	
-	public TipoFormaPagamentoEntity() { }
+	public FormaPagamentoEntity() { }
 
-	public TipoFormaPagamentoEntity(String descricao, String sigla) {
+	public FormaPagamentoEntity(String descricao, String sigla) {
 		super();
 		this.descricao = descricao;
 		this.sigla = sigla;
@@ -76,7 +76,7 @@ public class TipoFormaPagamentoEntity implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		TipoFormaPagamentoEntity other = (TipoFormaPagamentoEntity) obj;
+		FormaPagamentoEntity other = (FormaPagamentoEntity) obj;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;

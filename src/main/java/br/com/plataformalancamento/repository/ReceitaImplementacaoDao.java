@@ -25,7 +25,7 @@ public class ReceitaImplementacaoDao implements ReceitaInterfaceDao, Serializabl
     @SuppressWarnings("deprecation")
 	@Override
     public Double recuperarReceitasVariavelRecebidas() {
-        StringBuilder query = new StringBuilder("SELECT SUM(receitaEntity.valorPago) ")
+        StringBuilder query = new StringBuilder("SELECT SUM(receitaEntity.valorPagamento) ")
                 .append("FROM ReceitaEntity receitaEntity ")
                 .append("WHERE receitaEntity.tipoSituacaoPagamentoEnumeration = :situacao_pagamento_ ");
         TypedQuery<Double> typedQuery = entityManager.createQuery(query.toString(), Double.class);

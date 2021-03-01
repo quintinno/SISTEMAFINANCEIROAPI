@@ -6,18 +6,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.plataformalancamento.entity.TipoFormaPagamentoEntity;
-import br.com.plataformalancamento.repository.TipoFormaPagamentoRepository;
+import br.com.plataformalancamento.entity.FormaPagamentoEntity;
+import br.com.plataformalancamento.repository.FormaPagamentoRepository;
 
 @Service
-public class TipoFormaPagamentoService implements Serializable {
+public class FormaPagamentoService implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
-	private TipoFormaPagamentoRepository tipoFormaPagamentoRepository;
+	private FormaPagamentoRepository tipoFormaPagamentoRepository;
 	
-	public List<TipoFormaPagamentoEntity> recuperar() {
+	public List<FormaPagamentoEntity> recuperar() {
 		return this.tipoFormaPagamentoRepository.findAll();
 	}
 	
