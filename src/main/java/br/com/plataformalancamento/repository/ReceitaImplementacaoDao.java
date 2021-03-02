@@ -1,18 +1,15 @@
 package br.com.plataformalancamento.repository;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
+import br.com.plataformalancamento.entity.ReceitaEntity;
+import br.com.plataformalancamento.enumeration.TipoReceitaEnumeration;
+import br.com.plataformalancamento.enumeration.TipoSituacaoPagamentoEnumeration;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-
-import org.springframework.stereotype.Repository;
-
-import br.com.plataformalancamento.entity.ReceitaEntity;
-import br.com.plataformalancamento.enumeration.TipoReceitaEnumeration;
-import br.com.plataformalancamento.enumeration.TipoSituacaoPagamentoEnumeration;
+import java.io.Serializable;
+import java.util.List;
 
 @Repository
 public class ReceitaImplementacaoDao implements ReceitaInterfaceDao, Serializable {
@@ -86,16 +83,24 @@ public class ReceitaImplementacaoDao implements ReceitaInterfaceDao, Serializabl
     }
     
     // TODO -- [N]
-    public Integer recuperarNumeroControleDiario(TipoReceitaEnumeration tipoReceitaEnumeration, Date dataRecebimentoPagamento) {
+    public Integer recuperarNumeroControleDiario(ReceitaEntity receitaEntity) {
     	StringBuilder query = new StringBuilder("SELECT receitaEntity ")
     		.append("FROM ReceitaEntity receitaEntity ")
-    		.append("WHERE receitaEntity.tipoReceitaEnumeration = :tipo_receita_ ")
-    		.append("AND receitaEntity.dataRecebimentoPagamento = :data_recebimento_pagamento_ ");
+    		.append("WHERE receitaEntity.tipoReceitaEnumeration = :tipo_receita_ ");
+                if(receitaEntity.getTipoReceitaEnumeration().equals(TipoReceitaEnumeration.RECEITA_FIXA)) {
+    		        query.append("AND receitaEntity.dataPrevisaoRecebimento = :data_previsao_recebimento_pagamento_ ");
+                } else {
+                    query.append("AND receitaEntity.dataRecebimentoPagamento = :data_recebimento_pagamento_ ");
+                }
     	TypedQuery<ReceitaEntity> typedQuery = entityManager.createQuery(query.toString(), ReceitaEntity.class);
-    		typedQuery.setParameter("tipo_receita_", tipoReceitaEnumeration);
-    		typedQuery.setParameter("data_recebimento_pagamento_", dataRecebimentoPagamento);
+    		typedQuery.setParameter("tipo_receita_", receitaEntity.getTipoReceitaEnumeration());
+                if(receitaEntity.getTipoReceitaEnumeration().equals(TipoReceitaEnumeration.RECEITA_FIXA)) {
+                    typedQuery.setParameter("data_previsao_recebimento_pagamento_", receitaEntity.getDataPrevisaoRecebimento());
+                } else {
+                    typedQuery.setParameter("data_recebimento_pagamento_", receitaEntity.getDataRecebimentoPagamento());
+                }
     	List<ReceitaEntity> receitaEntityList = typedQuery.getResultList();
-    	Integer totalizadorDiario = receitaEntityList.size(); 
+    	Integer totalizadorDiario = receitaEntityList.size();
     	if(totalizadorDiario != 0) {
     		return totalizadorDiario + 1;
     	} else {

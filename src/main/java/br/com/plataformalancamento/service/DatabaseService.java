@@ -1,27 +1,16 @@
 package br.com.plataformalancamento.service;
 
 import java.util.Arrays;
+import java.util.Calendar;
 
+import br.com.plataformalancamento.entity.*;
+import br.com.plataformalancamento.enumeration.TipoPeriodoFinanceiroEnumeration;
+import br.com.plataformalancamento.enumeration.TipoReceitaEnumeration;
+import br.com.plataformalancamento.enumeration.TipoSituacaoPagamentoEnumeration;
+import br.com.plataformalancamento.repository.*;
+import br.com.plataformalancamento.utility.DateUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import br.com.plataformalancamento.entity.CategoriaReceitaEntity;
-import br.com.plataformalancamento.entity.ContaBancariaEntity;
-import br.com.plataformalancamento.entity.ContratoEntity;
-import br.com.plataformalancamento.entity.FormaPagamentoEntity;
-import br.com.plataformalancamento.entity.PessoaEntity;
-import br.com.plataformalancamento.entity.TipoContaBancariaEntity;
-import br.com.plataformalancamento.entity.TipoContratoEntity;
-import br.com.plataformalancamento.entity.TipoPessoaEntity;
-import br.com.plataformalancamento.repository.CategoriaReceitaRepository;
-import br.com.plataformalancamento.repository.ContaBancariaRepository;
-import br.com.plataformalancamento.repository.ContratoRepository;
-import br.com.plataformalancamento.repository.FormaPagamentoRepository;
-import br.com.plataformalancamento.repository.PessoaRepository;
-import br.com.plataformalancamento.repository.ReceitaRepository;
-import br.com.plataformalancamento.repository.TipoContaBancariaRepository;
-import br.com.plataformalancamento.repository.TipoContratoRepository;
-import br.com.plataformalancamento.repository.TipoPessoaRepository;
 
 @Service
 public class DatabaseService {
@@ -146,16 +135,47 @@ public class DatabaseService {
     		contaBancariaEntity1.setValorSaldoInicial(0D);
     		
     		this.contaBancariaRepository.saveAll(Arrays.asList(contaBancariaEntity1));
-    		
-    	// TODO -- Criar fluxo de Receita Fixa (com Parcelamento)
-//    	ReceitaEntity receitaEntity1 = new ReceitaEntity();
-//    		receitaEntity1.setCategoriaReceitaEntity(categoriaReceitaEntity4);
-//    		receitaEntity1.setContaBancariaDeposito(contaBancariaEntity1);
-//    		receitaEntity1.setDataPrevisaoRecebimento(DateUtility.gerarDataFormatoDate(2021, Calendar.FEBRUARY, 16));
-//    		receitaEntity1.setDataRecebimentoPagamento(null);
-//    		receitaEntity1.setIdentificador("REC20210214001FIX");
-//    		receitaEntity1.setParcelamentoEntityList(null);
-    		
+
+		// TODO -- Criar fluxo de Receita Fixa (com Parcelamento)
+		ReceitaEntity receitaEntity1 = new ReceitaEntity();
+			receitaEntity1.setCategoriaReceitaEntity(categoriaReceitaEntity4);
+			receitaEntity1.setContaBancariaDeposito(contaBancariaEntity1);
+			receitaEntity1.setDataPrevisaoRecebimento(DateUtility.gerarDataFormatoDate(2021, Calendar.FEBRUARY, 13));
+			receitaEntity1.setDataRecebimentoPagamento(null);
+			receitaEntity1.setIdentificador("REC202102130001FIX");
+			receitaEntity1.setQuantidadeParcela(2);
+			receitaEntity1.setResponsavelPagamento(pessoaEntity3);
+			receitaEntity1.setValorPagamento(0D);
+			receitaEntity1.setTipoFormaPagamentoEntity(formaPagamentoEntity2);
+			receitaEntity1.setTipoPeriodoFinanceiroEnumeration(TipoPeriodoFinanceiroEnumeration.MENSAL);
+			receitaEntity1.setTipoSituacaoPagamentoEnumeration(TipoSituacaoPagamentoEnumeration.PENDENTE);
+			receitaEntity1.setTipoReceitaEnumeration(TipoReceitaEnumeration.RECEITA_FIXA);
+
+    	ParcelamentoEntity parcelamentoEntity1 = new ParcelamentoEntity();
+    		parcelamentoEntity1.setNumeroParcela(1);
+    		parcelamentoEntity1.setValorTotalParcelamento(2000D);
+    		parcelamentoEntity1.setDataVencimentoParcela(DateUtility.gerarDataFormatoDate(2021, Calendar.FEBRUARY, 13));
+    		parcelamentoEntity1.setDataPagamentoParcela(null);
+    		parcelamentoEntity1.setValorEfetivoParcela(null);
+			parcelamentoEntity1.setValorPrevistoParcela(2000D);
+    		parcelamentoEntity1.setTipoSituacaoPagamentoEnumeration(TipoSituacaoPagamentoEnumeration.PENDENTE);
+    		parcelamentoEntity1.setReceitaEntity(receitaEntity1);
+
+		ParcelamentoEntity parcelamentoEntity2 = new ParcelamentoEntity();
+			parcelamentoEntity2.setNumeroParcela(2);
+			parcelamentoEntity2.setValorTotalParcelamento(2000D);
+			parcelamentoEntity2.setDataVencimentoParcela(DateUtility.gerarDataFormatoDate(2021, Calendar.MARCH, 13));
+			parcelamentoEntity2.setDataPagamentoParcela(null);
+			parcelamentoEntity2.setValorEfetivoParcela(null);
+			parcelamentoEntity2.setValorPrevistoParcela(2000D);
+			parcelamentoEntity2.setTipoSituacaoPagamentoEnumeration(TipoSituacaoPagamentoEnumeration.PENDENTE);
+			parcelamentoEntity2.setReceitaEntity(receitaEntity1);
+
+			receitaEntity1.adicionarParcelamentoReceita(parcelamentoEntity1);
+			receitaEntity1.adicionarParcelamentoReceita(parcelamentoEntity2);
+
+		receitaRepository.save(receitaEntity1);
+
     }
 
 }

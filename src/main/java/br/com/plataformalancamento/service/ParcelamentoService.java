@@ -4,6 +4,7 @@ import br.com.plataformalancamento.entity.ParcelamentoEntity;
 import br.com.plataformalancamento.entity.ReceitaEntity;
 import br.com.plataformalancamento.exception.ObjectNotFoundException;
 import br.com.plataformalancamento.exception.ConfiguradorErrorException;
+import br.com.plataformalancamento.repository.ParcelamentoImplementacaoRepository;
 import br.com.plataformalancamento.repository.ParcelamentoRepository;
 import br.com.plataformalancamento.utility.DateUtility;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +24,19 @@ public class ParcelamentoService implements Serializable {
 	private ParcelamentoRepository parcelamentoRepository;
 
 	@Autowired
+	private ParcelamentoImplementacaoRepository parcelamentoImplementacaoRepository;
+
+	@Autowired
 	private ReceitaService receitaService;
 	
 	@Transactional
 	public List<ParcelamentoEntity> recuperar() {
 		return this.parcelamentoRepository.findAll();
+	}
+
+	@Transactional
+	public List<ParcelamentoEntity> recuperarPorCodigoReceita(Long codigo) {
+		return this.parcelamentoImplementacaoRepository.recuperarParcelamentoPorCodigoReceita(codigo);
 	}
 	
 	@Transactional

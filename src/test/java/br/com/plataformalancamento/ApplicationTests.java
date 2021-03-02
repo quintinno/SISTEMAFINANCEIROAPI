@@ -103,7 +103,6 @@ class ApplicationTests {
 		TipoPessoaEntity tipoPessoaEntity = new TipoPessoaEntity("PESSOA FÍSICA", "PF");
 		PessoaEntity pessoaEntity = new PessoaEntity();
 			pessoaEntity.setNome("JOSE QUINTINN");
-			pessoaEntity.setIsPessoaFinanceira(true);
 			pessoaEntity.setIsAtivo(true);
 			pessoaEntity.setTipoPessoaEntity(tipoPessoaEntity);
 			pessoaEntity.setIsInstituicaoFinanceira(false);
@@ -141,7 +140,7 @@ class ApplicationTests {
 	@Test
 	public void cadastrarEmail() {
 		TipoPessoaEntity tipoPessoaEntity = new TipoPessoaEntity("PESSOA AUTORIDADE", "PA");
-		PessoaEntity pessoaEntity = new PessoaEntity("JOSE", true, true, false, tipoPessoaEntity);
+		PessoaEntity pessoaEntity = new PessoaEntity("JOSE", true, true, tipoPessoaEntity);
 		EmailEntity emailEntity1 = new EmailEntity("josequintino@hotmail.com.br", true, pessoaEntity);
 		EmailEntity emailEntity2 = new EmailEntity("chromium@plataformalancamentofinanceiro.com.br", true, pessoaEntity);
 		EmailEntity emailEntity3 = new EmailEntity("arsenicum@outlook.com.br", true, pessoaEntity);
@@ -179,13 +178,11 @@ class ApplicationTests {
 		PessoaEntity pessoaContratado = new PessoaEntity();
 		
 			pessoaContratante.setIsAtivo(true);
-			pessoaContratante.setIsPessoaFinanceira(true);
 			pessoaContratante.setNome("Empresa Contratante I");
 			pessoaContratante.setTipoPessoaEntity(tipoPessoaEntityI);
 			pessoaContratante.setIsInstituicaoFinanceira(true);
 	
 			pessoaContratado.setIsAtivo(true);
-			pessoaContratado.setIsPessoaFinanceira(true);
 			pessoaContratado.setNome("Pessoa Contratada I");
 			pessoaContratado.setTipoPessoaEntity(tipoPessoaEntityII);
 			pessoaContratado.setIsInstituicaoFinanceira(false);

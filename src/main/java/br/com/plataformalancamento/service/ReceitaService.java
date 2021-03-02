@@ -1,18 +1,5 @@
 package br.com.plataformalancamento.service;
 
-import java.io.Serializable;
-import java.text.ParseException;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-
-import javax.transaction.Transactional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.stereotype.Service;
-
 import br.com.plataformalancamento.entity.ParcelamentoEntity;
 import br.com.plataformalancamento.entity.ReceitaEntity;
 import br.com.plataformalancamento.enumeration.TipoPeriodoFinanceiroEnumeration;
@@ -23,6 +10,17 @@ import br.com.plataformalancamento.exception.ObjectNotFoundException;
 import br.com.plataformalancamento.repository.ReceitaImplementacaoDao;
 import br.com.plataformalancamento.repository.ReceitaRepository;
 import br.com.plataformalancamento.utility.DateUtility;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.io.Serializable;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReceitaService implements Serializable {
@@ -62,6 +60,7 @@ public class ReceitaService implements Serializable {
 		if(receitaEntity.getTipoReceitaEnumeration().equals(TipoReceitaEnumeration.RECEITA_FIXA)) {
 			this.gerarParcelamento(receitaEntity);
 		}
+		receitaEntity.setValorPagamento(0D);
 		return this.receitaRepository.save(receitaEntity);
 	}
 	
@@ -89,34 +88,38 @@ public class ReceitaService implements Serializable {
 	private String gerarIdentificadorReceita(ReceitaEntity receitaEntity) throws ParseException {
 		StringBuilder identificador = new StringBuilder("REC");
 		if(receitaEntity.getTipoReceitaEnumeration().equals(TipoReceitaEnumeration.RECEITA_FIXA)) {
-			return identificador
+			identificador
 					.append(DateUtility.extrairAnoData(receitaEntity.getDataPrevisaoRecebimento()))
 					.append(DateUtility.extrairMesData(receitaEntity.getDataPrevisaoRecebimento()))
 					.append(DateUtility.extrairDiaData(receitaEntity.getDataPrevisaoRecebimento()))
-					.append("00")
-					.append("1")
-					.append("FIX")
-					.toString();
+					.append("00");
+					configurarNumeroControleDiario(receitaEntity, identificador);
+					identificador.append("FIX");
+			return identificador.toString();
 		} else {
 			identificador
 			.append(DateUtility.extrairAnoData(receitaEntity.getDataRecebimentoPagamento()))
 			.append(DateUtility.extrairMesData(receitaEntity.getDataRecebimentoPagamento()))
 			.append(DateUtility.extrairDiaData(receitaEntity.getDataRecebimentoPagamento()))
 			.append("00");
-			if(this.recuperarNumeroControleDiario(receitaEntity.getTipoReceitaEnumeration(), receitaEntity.getDataRecebimentoPagamento()) <= 9) {
-				identificador.append("0").append(this.recuperarNumeroControleDiario(receitaEntity.getTipoReceitaEnumeration(), receitaEntity.getDataRecebimentoPagamento()));
-			} else {
-				identificador.append(this.recuperarNumeroControleDiario(receitaEntity.getTipoReceitaEnumeration(), receitaEntity.getDataRecebimentoPagamento()));
-			}
+			configurarNumeroControleDiario(receitaEntity, identificador);
 			identificador
 			.append("VAR")
 			.toString();
 			return identificador.toString();
 		}
 	}
-	
-	private Integer recuperarNumeroControleDiario(TipoReceitaEnumeration tipoReceitaEnumeration, Date dataRecebimentoPagamento) {
-		return this.receitaImplementacaoDao.recuperarNumeroControleDiario(tipoReceitaEnumeration, dataRecebimentoPagamento);
+
+	private void configurarNumeroControleDiario(ReceitaEntity receitaEntity, StringBuilder identificador) {
+		if(this.recuperarNumeroControleDiario(receitaEntity) <= 9) {
+			identificador.append("0").append(this.recuperarNumeroControleDiario(receitaEntity));
+		} else {
+			identificador.append(this.recuperarNumeroControleDiario(receitaEntity));
+		}
+	}
+
+	private Integer recuperarNumeroControleDiario(ReceitaEntity receitaEntity) {
+		return this.receitaImplementacaoDao.recuperarNumeroControleDiario(receitaEntity);
 	}
 	
 	private void gerarParcelamento(ReceitaEntity receitaEntity) {
