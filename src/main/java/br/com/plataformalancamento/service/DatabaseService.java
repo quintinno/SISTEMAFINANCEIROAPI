@@ -78,8 +78,9 @@ public class DatabaseService {
     	CategoriaReceitaEntity categoriaReceitaEntity2 = new CategoriaReceitaEntity("Solicitação de Empréstimo (Obtenção)");
     	CategoriaReceitaEntity categoriaReceitaEntity3 = new CategoriaReceitaEntity("Pagamento de Salário Mensalista");
     	CategoriaReceitaEntity categoriaReceitaEntity4 = new CategoriaReceitaEntity("Benefício (Seguro Desemprego)");
-    	
-    		this.categoriaReceitaRepository.saveAll(Arrays.asList(categoriaReceitaEntity1, categoriaReceitaEntity2, categoriaReceitaEntity3, categoriaReceitaEntity4));
+		CategoriaReceitaEntity categoriaReceitaEntity5 = new CategoriaReceitaEntity("Prestação de Serviços de Internet");
+
+    		this.categoriaReceitaRepository.saveAll(Arrays.asList(categoriaReceitaEntity1, categoriaReceitaEntity2, categoriaReceitaEntity3, categoriaReceitaEntity4, categoriaReceitaEntity5));
     		
     	FormaPagamentoEntity formaPagamentoEntity1 = new FormaPagamentoEntity("Dinheiro", "DN");
     	FormaPagamentoEntity formaPagamentoEntity2 = new FormaPagamentoEntity("Tranferência Bancária", "TB");
@@ -153,7 +154,7 @@ public class DatabaseService {
 
     	ParcelamentoEntity parcelamentoEntity1 = new ParcelamentoEntity();
     		parcelamentoEntity1.setNumeroParcela(1);
-    		parcelamentoEntity1.setValorTotalParcelamento(2000D);
+    		parcelamentoEntity1.setValorTotalParcelamento(4000D);
     		parcelamentoEntity1.setDataVencimentoParcela(DateUtility.gerarDataFormatoDate(2021, Calendar.FEBRUARY, 13));
     		parcelamentoEntity1.setDataPagamentoParcela(null);
     		parcelamentoEntity1.setValorEfetivoParcela(null);
@@ -163,7 +164,7 @@ public class DatabaseService {
 
 		ParcelamentoEntity parcelamentoEntity2 = new ParcelamentoEntity();
 			parcelamentoEntity2.setNumeroParcela(2);
-			parcelamentoEntity2.setValorTotalParcelamento(2000D);
+			parcelamentoEntity2.setValorTotalParcelamento(4000D);
 			parcelamentoEntity2.setDataVencimentoParcela(DateUtility.gerarDataFormatoDate(2021, Calendar.MARCH, 13));
 			parcelamentoEntity2.setDataPagamentoParcela(null);
 			parcelamentoEntity2.setValorEfetivoParcela(null);

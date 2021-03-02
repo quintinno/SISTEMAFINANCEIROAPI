@@ -5,8 +5,11 @@ import br.com.plataformalancamento.enumeration.TipoReceitaEnumeration;
 import br.com.plataformalancamento.enumeration.TipoSituacaoPagamentoEnumeration;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,7 +39,10 @@ public class ReceitaEntity implements Serializable {
 
 	@Column(name = "VALOR_PAGAMENTO", scale = 10, precision = 2, nullable = false)
 	private Double valorPagamento;
-	
+
+	@NotEmpty(message = "O campo do Identificador não pode ser Vazio")
+	@NotNull(message = "O campo do Identificador não pode ser Nullo")
+	@Length(min = 5, max = 45,message = "O campo do Identificador precisa ter entre {min} e {max} caracteres")
 	@Column(name = "IDENTIFICADOR", unique = true, nullable = false)
 	private String identificador;
 	

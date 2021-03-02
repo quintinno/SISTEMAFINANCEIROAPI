@@ -19,6 +19,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.plataformalancamento.entity.ReceitaEntity;
 import br.com.plataformalancamento.service.ReceitaService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/receita")
 public class ReceitaController implements Serializable {
@@ -44,7 +46,7 @@ public class ReceitaController implements Serializable {
 	}
 	
 	@PostMapping
-	public ResponseEntity<ReceitaEntity> cadastrar(@RequestBody ReceitaEntity receitaEntity) throws ParseException {
+	public ResponseEntity<ReceitaEntity> cadastrar(@Valid @RequestBody ReceitaEntity receitaEntity) throws ParseException {
 		ReceitaEntity receitaEntityCadastrada = this.receitaService.cadastrar(receitaEntity);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(receitaEntityCadastrada.getCodigo()).toUri();
 		return ResponseEntity.created(uri).body(receitaEntityCadastrada);
