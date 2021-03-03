@@ -1,5 +1,7 @@
 package br.com.plataformalancamento.entity;
 
+import org.hibernate.validator.constraints.Length;
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -9,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "TB_FORMA_PAGAMENTO")
@@ -21,11 +25,17 @@ public class FormaPagamentoEntity implements Serializable {
 	@SequenceGenerator(name = "SEQ_TIPO_FORMA_PAGAMENTO", sequenceName = "SEQ_TIPO_FORMA_PAGAMENTO", schema = "public", initialValue = 1, allocationSize = 1)
 	@Column(name = "CODIGO")
 	private Long codigo;
-	
-	@Column(name = "DESCRICAO", unique = true, nullable = false)
+
+	@Length(min = 5, max = 60, message = "O campo DESCRICAO deve conter entre {min} e {max} de caracteres!")
+	@NotEmpty(message = "O campo DESCRICAO  não pode ser vazio!")
+	@NotNull(message = "O campo DESCRICAO não pode ser nulo!")
+	@Column(name = "DESCRICAO", length = 60, unique = true, nullable = false)
 	private String descricao;
-	
-	@Column(name = "SIGLA", unique = true)
+
+	@Length(min = 2, max = 6, message = "O campo SIGLA deve conter entre {min} e {max} de caracteres!")
+	@NotEmpty(message = "O campo SIGLA não pode ser vazio!")
+	@NotNull(message = "O campo SIGLA não pode ser nulo!")
+	@Column(name = "SIGLA", length = 6, unique = true, nullable = false)
 	private String sigla;
 	
 	public FormaPagamentoEntity() { }

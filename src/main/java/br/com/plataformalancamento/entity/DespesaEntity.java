@@ -22,6 +22,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import br.com.plataformalancamento.enumeration.TipoCanalPagamentoEnumeration;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "TB_DESPESA")
@@ -53,10 +54,12 @@ public class DespesaEntity implements Serializable {
 	@Column(name = "TIPO_CANAL_PAGAMENTO", nullable = false)
 	private TipoCanalPagamentoEnumeration tipoCanalPagamentoEnumeration;
 
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_VENCIMENTO")
 	private Date dataVencimento;
 
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_PAGAMENTO")
 	private Date dataPagamento;

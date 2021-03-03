@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "97994d65-1ffc-48ae-a38a-49486864fb8d",
+		"_postman_id": "5498f4cc-154f-404d-8343-6b8be826a27e",
 		"name": "SISTEMAFINANCEIROAPI (Desenvolvimento)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -166,7 +166,9 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				}
@@ -195,12 +197,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL_API}}{{BASE_URL_RECEITA}}/45",
+							"raw": "{{BASE_URL_API}}{{BASE_URL_RECEITA}}/38",
 							"host": [
 								"{{BASE_URL_API}}{{BASE_URL_RECEITA}}"
 							],
 							"path": [
-								"45"
+								"38"
 							]
 						}
 					},
@@ -305,6 +307,24 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Recuperar Parcelamento (Por código da Receita)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL_API}}{{BASE_URL_PARCELAMENTO}}/receita/38",
+							"host": [
+								"{{BASE_URL_API}}{{BASE_URL_PARCELAMENTO}}"
+							],
+							"path": [
+								"receita",
+								"38"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -337,6 +357,98 @@
 							],
 							"path": [
 								"14"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Forma de Pagamento",
+			"item": [
+				{
+					"name": "Recuperar Formas de Pagamento",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL_API}}/forma-pagamento",
+							"host": [
+								"{{BASE_URL_API}}"
+							],
+							"path": [
+								"forma-pagamento"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Conta Bancária",
+			"item": [
+				{
+					"name": "Recuperar Contas Bancárias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL_API}}/conta-bancaria",
+							"host": [
+								"{{BASE_URL_API}}"
+							],
+							"path": [
+								"conta-bancaria"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Despesa",
+			"item": [
+				{
+					"name": "Recuperar Despesas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/despesa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"despesa"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Forma de Pagamento da Despesa",
+			"item": [
+				{
+					"name": "Recuperar - Forma de Pagamento da Despesa",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/forma-pagamento-despesa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"forma-pagamento-despesa"
 							]
 						}
 					},
