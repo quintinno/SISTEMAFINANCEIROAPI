@@ -23,6 +23,7 @@ import javax.persistence.TemporalType;
 
 import br.com.plataformalancamento.enumeration.TipoCanalPagamentoEnumeration;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "TB_DESPESA")
@@ -39,17 +40,20 @@ public class DespesaEntity implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "ID_PESSOA_ESTABELECIMENTO", referencedColumnName = "codigo", nullable = false)
 	private PessoaEntity pessoaEstabelecimento;
-	
+
+	@JsonProperty("categoriaDespesa")
 	@OneToOne
 	@JoinColumn(name = "ID_CATEGORIA_DESPESA", referencedColumnName = "codigo", nullable = false)
 	private CategoriaDespesaEntity categoriaDespesaEntity;
-	
+
+	@JsonProperty("produtoServico")
 	@OneToMany(mappedBy = "despesaEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<ProdutoServicoEntity> produtoServicoEntityList = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "despesaEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<FormaPagamentoDespesaEntity> formaPagamentoDespesaEntityList = new ArrayList<>();
-	
+
+	@JsonProperty("canalPagamento")
 	@Enumerated(EnumType.STRING)
 	@Column(name = "TIPO_CANAL_PAGAMENTO", nullable = false)
 	private TipoCanalPagamentoEnumeration tipoCanalPagamentoEnumeration;
