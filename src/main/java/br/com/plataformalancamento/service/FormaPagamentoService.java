@@ -15,10 +15,14 @@ public class FormaPagamentoService implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
-	private FormaPagamentoRepository tipoFormaPagamentoRepository;
+	private FormaPagamentoRepository formaPagamentoRepository;
 	
 	public List<FormaPagamentoEntity> recuperar() {
-		return this.tipoFormaPagamentoRepository.findAll();
+		return this.formaPagamentoRepository.findAll();
+	}
+
+	public FormaPagamentoEntity cadastrar(FormaPagamentoEntity formaPagamentoEntity) {
+		return this.formaPagamentoRepository.save(formaPagamentoEntity);
 	}
 	
 }

@@ -2,15 +2,41 @@ package br.com.plataformalancamento.service;
 
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 
-import br.com.plataformalancamento.entity.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import br.com.plataformalancamento.entity.CategoriaDespesaEntity;
+import br.com.plataformalancamento.entity.CategoriaReceitaEntity;
+import br.com.plataformalancamento.entity.ContaBancariaEntity;
+import br.com.plataformalancamento.entity.ContratoEntity;
+import br.com.plataformalancamento.entity.DespesaEntity;
+import br.com.plataformalancamento.entity.FormaPagamentoDespesaEntity;
+import br.com.plataformalancamento.entity.FormaPagamentoEntity;
+import br.com.plataformalancamento.entity.ParcelamentoEntity;
+import br.com.plataformalancamento.entity.PessoaEntity;
+import br.com.plataformalancamento.entity.ProdutoServicoEntity;
+import br.com.plataformalancamento.entity.ReceitaEntity;
+import br.com.plataformalancamento.entity.TipoContaBancariaEntity;
+import br.com.plataformalancamento.entity.TipoContratoEntity;
+import br.com.plataformalancamento.entity.TipoPessoaEntity;
+import br.com.plataformalancamento.enumeration.TipoCanalPagamentoEnumeration;
 import br.com.plataformalancamento.enumeration.TipoPeriodoFinanceiroEnumeration;
 import br.com.plataformalancamento.enumeration.TipoReceitaEnumeration;
 import br.com.plataformalancamento.enumeration.TipoSituacaoPagamentoEnumeration;
-import br.com.plataformalancamento.repository.*;
+import br.com.plataformalancamento.repository.CategoriaDespesaRepository;
+import br.com.plataformalancamento.repository.CategoriaReceitaRepository;
+import br.com.plataformalancamento.repository.ContaBancariaRepository;
+import br.com.plataformalancamento.repository.ContratoRepository;
+import br.com.plataformalancamento.repository.DespesaRepository;
+import br.com.plataformalancamento.repository.FormaPagamentoRepository;
+import br.com.plataformalancamento.repository.PessoaRepository;
+import br.com.plataformalancamento.repository.ReceitaRepository;
+import br.com.plataformalancamento.repository.TipoContaBancariaRepository;
+import br.com.plataformalancamento.repository.TipoContratoRepository;
+import br.com.plataformalancamento.repository.TipoPessoaRepository;
 import br.com.plataformalancamento.utility.DateUtility;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 @Service
 public class DatabaseService {
@@ -41,6 +67,12 @@ public class DatabaseService {
     
     @Autowired
     private ReceitaRepository receitaRepository;
+    
+    @Autowired
+    private CategoriaDespesaRepository categoriaDespesaRepository;
+    
+    @Autowired
+    private DespesaRepository despesaRepository;
 
     public void instanciarBaseDados() {
     	
@@ -72,7 +104,19 @@ public class DatabaseService {
     		pessoaEntity4.setIsInstituicaoFinanceira(true);
     		pessoaEntity4.setIsAtivo(true);
     		
-    		this.pessoaRepository.saveAll(Arrays.asList(pessoaEntity1, pessoaEntity2, pessoaEntity3, pessoaEntity4));
+    	PessoaEntity pessoaEntity5 = new PessoaEntity();
+	    	pessoaEntity5.setNome("Bomba Burguer Pizzas e Refeições");
+	    	pessoaEntity5.setTipoPessoaEntity(tipoPessoaEntity2);
+	    	pessoaEntity5.setIsInstituicaoFinanceira(false);
+	    	pessoaEntity5.setIsAtivo(true);
+	    	
+	    PessoaEntity pessoaEntity6 = new PessoaEntity();
+    		pessoaEntity6.setNome("Jamille Alves");
+    		pessoaEntity6.setTipoPessoaEntity(tipoPessoaEntity1);
+    		pessoaEntity6.setIsInstituicaoFinanceira(false);
+    		pessoaEntity6.setIsAtivo(true);
+    		
+    		this.pessoaRepository.saveAll(Arrays.asList(pessoaEntity1, pessoaEntity2, pessoaEntity3, pessoaEntity4, pessoaEntity5, pessoaEntity6));
     		
     	CategoriaReceitaEntity categoriaReceitaEntity1 = new CategoriaReceitaEntity("Devolução de Empréstimo (Concessão)");
     	CategoriaReceitaEntity categoriaReceitaEntity2 = new CategoriaReceitaEntity("Solicitação de Empréstimo (Obtenção)");
@@ -175,7 +219,64 @@ public class DatabaseService {
 			receitaEntity1.adicionarParcelamentoReceita(parcelamentoEntity1);
 			receitaEntity1.adicionarParcelamentoReceita(parcelamentoEntity2);
 
-		receitaRepository.save(receitaEntity1);
+			receitaRepository.save(receitaEntity1);
+			
+		// TODO -- Criar fluxo de Despesa Variavel (com Produtos e Serviços e Forma de Pagamento Multiplo)
+		
+		CategoriaDespesaEntity categoriaDespesaEntity1 = new CategoriaDespesaEntity();
+			categoriaDespesaEntity1.setDescricao("Despesa Fixa");
+			categoriaDespesaEntity1.setSigla("DFI");
+			
+		CategoriaDespesaEntity categoriaDespesaEntity2 = new CategoriaDespesaEntity();
+			categoriaDespesaEntity2.setDescricao("Despesa Variável");
+			categoriaDespesaEntity2.setSigla("DVA");
+			
+			this.categoriaDespesaRepository.saveAll(Arrays.asList(categoriaDespesaEntity1, categoriaDespesaEntity2));
+			
+		ProdutoServicoEntity produtoServicoEntity1 = new ProdutoServicoEntity();
+			produtoServicoEntity1.setDescricao("Pizza de Alho");
+			produtoServicoEntity1.setQuantidade(1);
+			produtoServicoEntity1.setValorUnitario(25D);
+			
+		ProdutoServicoEntity produtoServicoEntity2 = new ProdutoServicoEntity();
+			produtoServicoEntity2.setDescricao("Pizza de Mussarela");
+			produtoServicoEntity2.setQuantidade(1);
+			produtoServicoEntity2.setValorUnitario(25D);
+			
+		ProdutoServicoEntity produtoServicoEntity3 = new ProdutoServicoEntity();
+			produtoServicoEntity3.setDescricao("Guaraná Antártica 2L");
+			produtoServicoEntity3.setQuantidade(1);
+			produtoServicoEntity3.setValorUnitario(6.99);
+			
+		FormaPagamentoDespesaEntity formaPagamentoDespesaEntity1 = new FormaPagamentoDespesaEntity();
+			formaPagamentoDespesaEntity1.setNumeroParcelamento(1);
+			formaPagamentoDespesaEntity1.setValorPagamento(18.49);
+			formaPagamentoDespesaEntity1.setPessoaPagamento(pessoaEntity6);
+			formaPagamentoDespesaEntity1.setFormaPagamentoEntity(formaPagamentoEntity6);
+			
+		FormaPagamentoDespesaEntity formaPagamentoDespesaEntity2 = new FormaPagamentoDespesaEntity();
+			formaPagamentoDespesaEntity2.setNumeroParcelamento(1);
+			formaPagamentoDespesaEntity2.setValorPagamento(18.49);
+			formaPagamentoDespesaEntity2.setPessoaPagamento(pessoaEntity1);
+			formaPagamentoDespesaEntity2.setFormaPagamentoEntity(formaPagamentoEntity6);
+			
+		DespesaEntity despesaEntity1 = new DespesaEntity();
+			despesaEntity1.setCategoriaDespesaEntity(categoriaDespesaEntity2);
+			despesaEntity1.setPessoaEstabelecimento(pessoaEntity5);
+			despesaEntity1.setDataPagamento(new Date());
+			despesaEntity1.setDataVencimento(new Date());
+			despesaEntity1.setObservacao(null);
+			despesaEntity1.setTipoCanalPagamentoEnumeration(TipoCanalPagamentoEnumeration.TRANSACAO_ONLINE);
+			despesaEntity1.setValorTotal(50.99);
+			despesaEntity1.setValorDesconto(20D);
+			despesaEntity1.setValorPagamento(36.99);
+			despesaEntity1.adicionarProdutoServicoDespesa(produtoServicoEntity1);
+			despesaEntity1.adicionarProdutoServicoDespesa(produtoServicoEntity2);
+			despesaEntity1.adicionarProdutoServicoDespesa(produtoServicoEntity3);
+			despesaEntity1.adicionarFormaPagamentoDespesa(formaPagamentoDespesaEntity1);
+			despesaEntity1.adicionarFormaPagamentoDespesa(formaPagamentoDespesaEntity2);
+			
+			this.despesaRepository.save(despesaEntity1);
 
     }
 

@@ -4,6 +4,8 @@ import javax.servlet.ServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -31,6 +33,15 @@ public class ControllerHandlerException {
     public ResponseEntity<ConfiguradorErrorException> emptyResultDataAccessException(EmptyResultDataAccessException emptyResultDataAccessException, ServletRequest servletRequest) {
         ConfiguradorErrorException configuradorErrorException = new ConfiguradorErrorException(DateUtility.gerarDataHoraAtualFormatoDDMMAAAAHHMMSS(), HttpStatus.NO_CONTENT, emptyResultDataAccessException.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(configuradorErrorException);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ConfiguradorErrorException> emptyResultDataAccessException(MethodArgumentNotValidException methodArgumentNotValidException, ServletRequest servletRequest) {
+        ConfiguradorValidationException configuradorErrorException = new ConfiguradorValidationException(DateUtility.gerarDataHoraAtualFormatoDDMMAAAAHHMMSS(), HttpStatus.BAD_REQUEST, "Erro na validação dos campos!");
+        for(FieldError fieldError : methodArgumentNotValidException.getBindingResult().getFieldErrors()) {
+            configuradorErrorException.adicionarErrosConfigurador(fieldError.getField(), fieldError.getDefaultMessage());
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(configuradorErrorException);
     }
 
 }
