@@ -115,8 +115,14 @@ public class DatabaseService {
     		pessoaEntity6.setTipoPessoaEntity(tipoPessoaEntity1);
     		pessoaEntity6.setIsInstituicaoFinanceira(false);
     		pessoaEntity6.setIsAtivo(true);
+
+		PessoaEntity pessoaEntity7 = new PessoaEntity();
+			pessoaEntity7.setNome("Indra Company Brasil");
+			pessoaEntity7.setTipoPessoaEntity(tipoPessoaEntity2);
+			pessoaEntity7.setIsInstituicaoFinanceira(false);
+			pessoaEntity7.setIsAtivo(false);
     		
-    		this.pessoaRepository.saveAll(Arrays.asList(pessoaEntity1, pessoaEntity2, pessoaEntity3, pessoaEntity4, pessoaEntity5, pessoaEntity6));
+    		this.pessoaRepository.saveAll(Arrays.asList(pessoaEntity1, pessoaEntity2, pessoaEntity3, pessoaEntity4, pessoaEntity5, pessoaEntity6, pessoaEntity7));
     		
     	CategoriaReceitaEntity categoriaReceitaEntity1 = new CategoriaReceitaEntity("Devolução de Empréstimo (Concessão)");
     	CategoriaReceitaEntity categoriaReceitaEntity2 = new CategoriaReceitaEntity("Solicitação de Empréstimo (Obtenção)");
@@ -147,8 +153,9 @@ public class DatabaseService {
     	TipoContaBancariaEntity tipoContaBancariaEntity3 = new TipoContaBancariaEntity("Conta Corrente (Conta Salario)");
     	TipoContaBancariaEntity tipoContaBancariaEntity4 = new TipoContaBancariaEntity("Poupança");
     	TipoContaBancariaEntity tipoContaBancariaEntity5 = new TipoContaBancariaEntity("Conta Investimento");
+		TipoContaBancariaEntity tipoContaBancariaEntity6 = new TipoContaBancariaEntity("Conta Carteira (Conta Especial)");
     	
-    		this.tipoContaBancariaRepository.saveAll(Arrays.asList(tipoContaBancariaEntity1, tipoContaBancariaEntity2, tipoContaBancariaEntity3, tipoContaBancariaEntity4, tipoContaBancariaEntity5));
+    		this.tipoContaBancariaRepository.saveAll(Arrays.asList(tipoContaBancariaEntity1, tipoContaBancariaEntity2, tipoContaBancariaEntity3, tipoContaBancariaEntity4, tipoContaBancariaEntity5, tipoContaBancariaEntity6));
     	
     	TipoContratoEntity tipoContratoEntity1 = new TipoContratoEntity("Contrato de Conta Bancária");
     	TipoContratoEntity tipoContratoEntity2 = new TipoContratoEntity("Contrato de Trabalho CLT");
@@ -157,8 +164,9 @@ public class DatabaseService {
     	TipoContratoEntity tipoContratoEntity5 = new TipoContratoEntity("Contrato de Benefício (Seguro Desemprego)");
     	TipoContratoEntity tipoContratoEntity6 = new TipoContratoEntity("Contrato de Benefício (Auxílio Doença)");
     	TipoContratoEntity tipoContratoEntity7 = new TipoContratoEntity("Contrato de Benefício (INSS Saúde)");
+		TipoContratoEntity tipoContratoEntity8 = new TipoContratoEntity("Conta Carteira (Conta Especial)");
     	
-    		this.tipoContratoRepository.saveAll(Arrays.asList(tipoContratoEntity1, tipoContratoEntity2, tipoContratoEntity3, tipoContratoEntity4, tipoContratoEntity5, tipoContratoEntity6, tipoContratoEntity7));
+    		this.tipoContratoRepository.saveAll(Arrays.asList(tipoContratoEntity1, tipoContratoEntity2, tipoContratoEntity3, tipoContratoEntity4, tipoContratoEntity5, tipoContratoEntity6, tipoContratoEntity7, tipoContratoEntity8));
     	
     	ContratoEntity contratoEntity1 = new ContratoEntity();
     		contratoEntity1.setDataInicioVigencia(null);
@@ -222,7 +230,6 @@ public class DatabaseService {
 			receitaRepository.save(receitaEntity1);
 			
 		// TODO -- Criar fluxo de Despesa Variavel (com Produtos e Serviços e Forma de Pagamento Multiplo)
-		
 		CategoriaDespesaEntity categoriaDespesaEntity1 = new CategoriaDespesaEntity();
 			categoriaDespesaEntity1.setDescricao("Despesa Fixa");
 			categoriaDespesaEntity1.setSigla("DFI");
