@@ -121,8 +121,14 @@ public class DatabaseService {
 			pessoaEntity7.setTipoPessoaEntity(tipoPessoaEntity2);
 			pessoaEntity7.setIsInstituicaoFinanceira(false);
 			pessoaEntity7.setIsAtivo(false);
+
+        PessoaEntity pessoaEntity8 = new PessoaEntity();
+            pessoaEntity8.setNome("Sinagoga Keter Torah");
+            pessoaEntity8.setTipoPessoaEntity(tipoPessoaEntity2);
+            pessoaEntity8.setIsInstituicaoFinanceira(false);
+            pessoaEntity8.setIsAtivo(true);
     		
-    		this.pessoaRepository.saveAll(Arrays.asList(pessoaEntity1, pessoaEntity2, pessoaEntity3, pessoaEntity4, pessoaEntity5, pessoaEntity6, pessoaEntity7));
+    		this.pessoaRepository.saveAll(Arrays.asList(pessoaEntity1, pessoaEntity2, pessoaEntity3, pessoaEntity4, pessoaEntity5, pessoaEntity6, pessoaEntity7, pessoaEntity8));
     		
     	CategoriaReceitaEntity categoriaReceitaEntity1 = new CategoriaReceitaEntity("Devolução de Empréstimo (Concessão)");
     	CategoriaReceitaEntity categoriaReceitaEntity2 = new CategoriaReceitaEntity("Solicitação de Empréstimo (Obtenção)");
@@ -284,6 +290,23 @@ public class DatabaseService {
 			despesaEntity1.adicionarFormaPagamentoDespesa(formaPagamentoDespesaEntity2);
 			
 			this.despesaRepository.save(despesaEntity1);
+
+		// TODO -- Criar fluxo de Despesa Fixa (com Produtos e Serviços e Forma de Pagamento Multiplo)
+        ProdutoServicoEntity produtoServicoEntity4 = new ProdutoServicoEntity();
+            produtoServicoEntity4.setQuantidade(1);
+            produtoServicoEntity4.setDescricao("Mensalidade");
+            produtoServicoEntity4.setValorUnitario(150.0);
+
+//        DespesaEntity despesaEntity2 = new DespesaEntity();
+//            despesaEntity2.setCategoriaDespesaEntity(categoriaDespesaEntity1);
+//            despesaEntity2.setPessoaEstabelecimento(pessoaEntity8);
+//            despesaEntity2.setValorDesconto(0D);
+//            despesaEntity2.setValorTotal(150D);
+//            despesaEntity2.setValorPagamento(150D);
+//            despesaEntity2.setObservacao(null);
+//            despesaEntity2.setDataPagamento(null);
+//            despesaEntity2.setDataVencimento(DateUtility.gerarDataFormatoDate(2021, 3, 10));
+//            despesaEntity2.setFormaPagamentoDespesaEntityList();
 
     }
 

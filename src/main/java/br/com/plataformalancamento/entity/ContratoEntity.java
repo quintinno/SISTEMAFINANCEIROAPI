@@ -1,22 +1,12 @@
 package br.com.plataformalancamento.entity;
 
-import java.io.Serializable;
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
+import br.com.plataformalancamento.enumeration.TipoPeriodoFinanceiroEnumeration;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "TB_CONTRATO")
@@ -55,6 +45,14 @@ public class ContratoEntity implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "ID_PESSOA_CONTRATADO", referencedColumnName = "codigo", nullable = false)
 	private PessoaEntity pessoaContratado;
+
+	@JsonProperty("tipoPeriodoFinanceiro")
+	@Enumerated(EnumType.STRING)
+	@Column(name = "TIPO_PERIODO_FINANCEIRO")
+	private TipoPeriodoFinanceiroEnumeration tipoPeriodoFinanceiroEnumeration;
+
+	@Column(name = "VIGENCIA_CONTRATO")
+	private Integer vigenciaContrato;
 	
 	public ContratoEntity() { }
 
@@ -112,6 +110,30 @@ public class ContratoEntity implements Serializable {
 
 	public void setPessoaContratado(PessoaEntity pessoaContratado) {
 		this.pessoaContratado = pessoaContratado;
+	}
+
+	public Boolean getATivo() {
+		return isATivo;
+	}
+
+	public void setATivo(Boolean ATivo) {
+		isATivo = ATivo;
+	}
+
+	public TipoPeriodoFinanceiroEnumeration getTipoPeriodoFinanceiroEnumeration() {
+		return tipoPeriodoFinanceiroEnumeration;
+	}
+
+	public void setTipoPeriodoFinanceiroEnumeration(TipoPeriodoFinanceiroEnumeration tipoPeriodoFinanceiroEnumeration) {
+		this.tipoPeriodoFinanceiroEnumeration = tipoPeriodoFinanceiroEnumeration;
+	}
+
+	public Integer getVigenciaContrato() {
+		return vigenciaContrato;
+	}
+
+	public void setVigenciaContrato(Integer vigenciaContrato) {
+		this.vigenciaContrato = vigenciaContrato;
 	}
 
 	@Override
