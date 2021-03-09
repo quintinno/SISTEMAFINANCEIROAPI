@@ -171,8 +171,9 @@ public class DatabaseService {
     	TipoContratoEntity tipoContratoEntity6 = new TipoContratoEntity("Contrato de Benefício (Auxílio Doença)");
     	TipoContratoEntity tipoContratoEntity7 = new TipoContratoEntity("Contrato de Benefício (INSS Saúde)");
 		TipoContratoEntity tipoContratoEntity8 = new TipoContratoEntity("Conta Carteira (Conta Especial)");
+		TipoContratoEntity tipoContratoEntity9 = new TipoContratoEntity("Organização Religiosa");
     	
-    		this.tipoContratoRepository.saveAll(Arrays.asList(tipoContratoEntity1, tipoContratoEntity2, tipoContratoEntity3, tipoContratoEntity4, tipoContratoEntity5, tipoContratoEntity6, tipoContratoEntity7, tipoContratoEntity8));
+    		this.tipoContratoRepository.saveAll(Arrays.asList(tipoContratoEntity1, tipoContratoEntity2, tipoContratoEntity3, tipoContratoEntity4, tipoContratoEntity5, tipoContratoEntity6, tipoContratoEntity7, tipoContratoEntity8, tipoContratoEntity9));
     	
     	ContratoEntity contratoEntity1 = new ContratoEntity();
     		contratoEntity1.setDataInicioVigencia(null);
@@ -292,21 +293,6 @@ public class DatabaseService {
 			this.despesaRepository.save(despesaEntity1);
 
 		// TODO -- Criar fluxo de Despesa Fixa (com Produtos e Serviços e Forma de Pagamento Multiplo)
-        ProdutoServicoEntity produtoServicoEntity4 = new ProdutoServicoEntity();
-            produtoServicoEntity4.setQuantidade(1);
-            produtoServicoEntity4.setDescricao("Mensalidade");
-            produtoServicoEntity4.setValorUnitario(150.0);
-
-//        DespesaEntity despesaEntity2 = new DespesaEntity();
-//            despesaEntity2.setCategoriaDespesaEntity(categoriaDespesaEntity1);
-//            despesaEntity2.setPessoaEstabelecimento(pessoaEntity8);
-//            despesaEntity2.setValorDesconto(0D);
-//            despesaEntity2.setValorTotal(150D);
-//            despesaEntity2.setValorPagamento(150D);
-//            despesaEntity2.setObservacao(null);
-//            despesaEntity2.setDataPagamento(null);
-//            despesaEntity2.setDataVencimento(DateUtility.gerarDataFormatoDate(2021, 3, 10));
-//            despesaEntity2.setFormaPagamentoDespesaEntityList();
 
     }
 
