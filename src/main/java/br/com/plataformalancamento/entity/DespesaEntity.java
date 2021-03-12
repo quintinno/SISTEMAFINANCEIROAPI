@@ -46,10 +46,11 @@ public class DespesaEntity implements Serializable {
 	@JoinColumn(name = "ID_CATEGORIA_DESPESA", referencedColumnName = "codigo", nullable = false)
 	private CategoriaDespesaEntity categoriaDespesaEntity;
 
-	@JsonProperty("produtoServico")
+	@JsonProperty("produtoServicoList")
 	@OneToMany(mappedBy = "despesaEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<ProdutoServicoEntity> produtoServicoEntityList = new ArrayList<>();
 	
+	@JsonProperty("formaPagamentoDespesaList")
 	@OneToMany(mappedBy = "despesaEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<FormaPagamentoDespesaEntity> formaPagamentoDespesaEntityList = new ArrayList<>();
 
