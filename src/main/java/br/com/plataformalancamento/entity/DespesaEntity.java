@@ -56,7 +56,7 @@ public class DespesaEntity implements Serializable {
 
 	@JsonProperty("canalPagamento")
 	@Enumerated(EnumType.STRING)
-	@Column(name = "TIPO_CANAL_PAGAMENTO", nullable = false)
+	@Column(name = "TIPO_CANAL_PAGAMENTO")
 	private TipoCanalPagamentoEnumeration tipoCanalPagamentoEnumeration;
 
 	@JsonFormat(pattern = "dd/MM/yyyy")
@@ -72,7 +72,7 @@ public class DespesaEntity implements Serializable {
 	@Column(name = "VALOR_TOTAL", scale = 10, precision = 2, nullable = false)
 	private Double valorTotal;
 
-	@Column(name = "VALOR_DESCONTO", scale = 10, precision = 2, nullable = false)
+	@Column(name = "VALOR_DESCONTO", scale = 10, precision = 2)
 	private Double valorDesconto;
 
 	@Column(name = "VALOR_PAGAMENTO", scale = 10, precision = 2, nullable = false)

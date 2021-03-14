@@ -25,7 +25,7 @@ public class ProdutoServicoEntity implements Serializable {
 	@Column(name = "CODIGO", nullable = false)
 	private Long codigo;
 
-	@Column(name = "DESCRICAO", unique = true, nullable = false)
+	@Column(name = "DESCRICAO", unique = true)
 	private String descricao;
 	
 	@Column(name = "VALOR_UNITARIO", nullable = false)
