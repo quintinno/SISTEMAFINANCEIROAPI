@@ -28,12 +28,6 @@ public class ProdutoServicoEntity implements Serializable {
 	@Column(name = "DESCRICAO", unique = true)
 	private String descricao;
 	
-	@Column(name = "VALOR_UNITARIO", nullable = false)
-	private Double valorUnitario;
-	
-	@Column(name = "QUANTIDADE", nullable = false)
-	private Integer quantidade;
-	
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "ID_DESPESA", referencedColumnName = "codigo", nullable = false)
@@ -55,22 +49,6 @@ public class ProdutoServicoEntity implements Serializable {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-
-	public Double getValorUnitario() {
-		return valorUnitario;
-	}
-
-	public void setValorUnitario(Double valorUnitario) {
-		this.valorUnitario = valorUnitario;
-	}
-
-	public Integer getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
 	}
 
 	public DespesaEntity getDespesaEntity() {

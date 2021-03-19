@@ -68,6 +68,11 @@ public class DespesaEntity implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_PAGAMENTO")
 	private Date dataPagamento;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.DATE)
+	@Column(name = "DATA_CADASTRO", nullable = false)
+	private Date dataCadastro;
 
 	@Column(name = "VALOR_TOTAL", scale = 10, precision = 2, nullable = false)
 	private Double valorTotal;
@@ -155,6 +160,14 @@ public class DespesaEntity implements Serializable {
 
 	public void setDataPagamento(Date dataPagamento) {
 		this.dataPagamento = dataPagamento;
+	}
+
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 	public Double getValorTotal() {

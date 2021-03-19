@@ -1,5 +1,8 @@
 package br.com.plataformalancamento.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -7,6 +10,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.plataformalancamento.entity.ArquivoEntity;
 import br.com.plataformalancamento.entity.CategoriaDespesaEntity;
 import br.com.plataformalancamento.entity.CategoriaReceitaEntity;
 import br.com.plataformalancamento.entity.ContaBancariaEntity;
@@ -17,6 +21,7 @@ import br.com.plataformalancamento.entity.FormaPagamentoEntity;
 import br.com.plataformalancamento.entity.ParcelamentoEntity;
 import br.com.plataformalancamento.entity.PessoaEntity;
 import br.com.plataformalancamento.entity.ProdutoServicoEntity;
+import br.com.plataformalancamento.entity.ProdutoServicoOcorrenciaEntity;
 import br.com.plataformalancamento.entity.ReceitaEntity;
 import br.com.plataformalancamento.entity.TipoContaBancariaEntity;
 import br.com.plataformalancamento.entity.TipoContratoEntity;
@@ -25,6 +30,7 @@ import br.com.plataformalancamento.enumeration.TipoCanalPagamentoEnumeration;
 import br.com.plataformalancamento.enumeration.TipoPeriodoFinanceiroEnumeration;
 import br.com.plataformalancamento.enumeration.TipoReceitaEnumeration;
 import br.com.plataformalancamento.enumeration.TipoSituacaoPagamentoEnumeration;
+import br.com.plataformalancamento.repository.ArquivoRepository;
 import br.com.plataformalancamento.repository.CategoriaDespesaRepository;
 import br.com.plataformalancamento.repository.CategoriaReceitaRepository;
 import br.com.plataformalancamento.repository.ContaBancariaRepository;
@@ -32,6 +38,7 @@ import br.com.plataformalancamento.repository.ContratoRepository;
 import br.com.plataformalancamento.repository.DespesaRepository;
 import br.com.plataformalancamento.repository.FormaPagamentoRepository;
 import br.com.plataformalancamento.repository.PessoaRepository;
+import br.com.plataformalancamento.repository.ProdutoServicoOcorrenciaRepository;
 import br.com.plataformalancamento.repository.ReceitaRepository;
 import br.com.plataformalancamento.repository.TipoContaBancariaRepository;
 import br.com.plataformalancamento.repository.TipoContratoRepository;
@@ -73,6 +80,12 @@ public class DatabaseService {
     
     @Autowired
     private DespesaRepository despesaRepository;
+    
+    @Autowired
+    private ProdutoServicoOcorrenciaRepository produtoServicoOcorrenciaRepository;
+    
+    @Autowired
+    private ArquivoRepository arquivoRepository;
 
     public void instanciarBaseDados() {
     	
@@ -247,20 +260,27 @@ public class DatabaseService {
 			
 			this.categoriaDespesaRepository.saveAll(Arrays.asList(categoriaDespesaEntity1, categoriaDespesaEntity2));
 			
+		ProdutoServicoOcorrenciaEntity produtoServicoOcorrenciaEntity1 = new ProdutoServicoOcorrenciaEntity();
+		ProdutoServicoOcorrenciaEntity produtoServicoOcorrenciaEntity2 = new ProdutoServicoOcorrenciaEntity();
+		ProdutoServicoOcorrenciaEntity produtoServicoOcorrenciaEntity3 = new ProdutoServicoOcorrenciaEntity();
+			
 		ProdutoServicoEntity produtoServicoEntity1 = new ProdutoServicoEntity();
 			produtoServicoEntity1.setDescricao("Pizza de Alho");
-			produtoServicoEntity1.setQuantidade(1);
-			produtoServicoEntity1.setValorUnitario(25D);
+			produtoServicoOcorrenciaEntity1.setQuantidade(1);
+			produtoServicoOcorrenciaEntity1.setValorUnitario(25D);
+			produtoServicoOcorrenciaEntity1.setProdutoServicoEntity(produtoServicoEntity1);
 			
 		ProdutoServicoEntity produtoServicoEntity2 = new ProdutoServicoEntity();
 			produtoServicoEntity2.setDescricao("Pizza de Mussarela");
-			produtoServicoEntity2.setQuantidade(1);
-			produtoServicoEntity2.setValorUnitario(25D);
+			produtoServicoOcorrenciaEntity2.setQuantidade(1);
+			produtoServicoOcorrenciaEntity2.setValorUnitario(25D);
+			produtoServicoOcorrenciaEntity2.setProdutoServicoEntity(produtoServicoEntity2);
 			
 		ProdutoServicoEntity produtoServicoEntity3 = new ProdutoServicoEntity();
 			produtoServicoEntity3.setDescricao("Guaraná Antártica 2L");
-			produtoServicoEntity3.setQuantidade(1);
-			produtoServicoEntity3.setValorUnitario(6.99);
+			produtoServicoOcorrenciaEntity3.setQuantidade(1);
+			produtoServicoOcorrenciaEntity3.setValorUnitario(6.99);
+			produtoServicoOcorrenciaEntity3.setProdutoServicoEntity(produtoServicoEntity3);
 			
 		FormaPagamentoDespesaEntity formaPagamentoDespesaEntity1 = new FormaPagamentoDespesaEntity();
 			formaPagamentoDespesaEntity1.setNumeroParcelamento(1);
@@ -279,6 +299,7 @@ public class DatabaseService {
 			despesaEntity1.setPessoaEstabelecimento(pessoaEntity5);
 			despesaEntity1.setDataPagamento(new Date());
 			despesaEntity1.setDataVencimento(new Date());
+			despesaEntity1.setDataCadastro(new Date());
 			despesaEntity1.setObservacao(null);
 			despesaEntity1.setTipoCanalPagamentoEnumeration(TipoCanalPagamentoEnumeration.TRANSACAO_ONLINE);
 			despesaEntity1.setValorTotal(50.99);
@@ -291,9 +312,28 @@ public class DatabaseService {
 			despesaEntity1.adicionarFormaPagamentoDespesa(formaPagamentoDespesaEntity2);
 			
 			this.despesaRepository.save(despesaEntity1);
-
+			
+			this.produtoServicoOcorrenciaRepository.saveAll(Arrays.asList(produtoServicoOcorrenciaEntity1, produtoServicoOcorrenciaEntity2, produtoServicoOcorrenciaEntity3));
+			
 		// TODO -- Criar fluxo de Despesa Fixa (com Produtos e Serviços e Forma de Pagamento Multiplo)
-
+			
+		// TODO -- Inserir documentos no banco de dados
+		ArquivoEntity arquivoEntity = new ArquivoEntity();
+		File file = new File("/home/desenvolvimento/Desenvolvimento/SISTEMAFINANCEIROAPI/src/main/resources/files/BRAVA_INTERNET_FATURA_2021_03_16_001.pdf");
+			try {
+				byte[] bytes = Files.readAllBytes(file.toPath());
+				arquivoEntity.setConteudo(bytes);
+				arquivoEntity.setNome(file.getName());
+				arquivoEntity.setDataCadastro(new Date());
+				arquivoEntity.setTamanho((long) bytes.length);
+				String nomeArquivoCompleto = arquivoEntity.getNome();
+				if( nomeArquivoCompleto.contains(".") ) {
+					arquivoEntity.setTipo(nomeArquivoCompleto.substring(nomeArquivoCompleto.lastIndexOf(".") + 1));
+				}
+				this.arquivoRepository.save(arquivoEntity);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
     }
 
 }

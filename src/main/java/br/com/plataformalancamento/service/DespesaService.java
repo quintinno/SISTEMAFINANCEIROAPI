@@ -40,27 +40,27 @@ public class DespesaService implements Serializable {
     
     private DespesaEntity prepararDespesaVariavel(DespesaEntity despesaEntity) {
     	despesaEntity.setValorDesconto(null);
-    	despesaEntity.setValorPagamento(calcularValorPagamentoDespesa(despesaEntity));
+//    	despesaEntity.setValorPagamento(calcularValorPagamentoDespesa(despesaEntity));
     	despesaEntity.setTipoCanalPagamentoEnumeration(TipoCanalPagamentoEnumeration.TRANSACAO_FISICA);
     	this.prepararFormaPagamentoDespesa(despesaEntity);
     	this.prepararProdutoServicoDespesa(despesaEntity);
-    	if(despesaEntity.getValorDesconto() == null) {
-    		despesaEntity.setValorTotal(this.calcularValorPagamentoDespesa(despesaEntity));
-    	}
+//    	if(despesaEntity.getValorDesconto() == null) {
+//    		despesaEntity.setValorTotal(this.calcularValorPagamentoDespesa(despesaEntity));
+//    	}
 		return despesaEntity;
     }
     
-    private Double calcularValorPagamentoDespesa(DespesaEntity despesaEntity) {
-    	Double valorPagamentoCalculado = 0.0;
-    	for(ProdutoServicoEntity produtoServicoEntity : despesaEntity.getProdutoServicoEntityList()) {
-    		valorPagamentoCalculado = produtoServicoEntity.getValorUnitario() * produtoServicoEntity.getQuantidade();
-    	}
-    	return valorPagamentoCalculado;
-    }
+//    private Double calcularValorPagamentoDespesa(DespesaEntity despesaEntity) {
+//    	Double valorPagamentoCalculado = 0.0;
+//    	for(ProdutoServicoEntity produtoServicoEntity : despesaEntity.getProdutoServicoEntityList()) {
+//    		valorPagamentoCalculado = produtoServicoEntity.getValorUnitario() * produtoServicoEntity.getQuantidade();
+//    	}
+//    	return valorPagamentoCalculado;
+//    }
     
     private DespesaEntity prepararFormaPagamentoDespesa(DespesaEntity despesaEntity) {
     	for(FormaPagamentoDespesaEntity formaPagamentoDespesaEntity : despesaEntity.getFormaPagamentoDespesaEntityList()) {
-    		formaPagamentoDespesaEntity.setValorPagamento(this.calcularValorPagamentoDespesa(despesaEntity));
+//    		formaPagamentoDespesaEntity.setValorPagamento(this.calcularValorPagamentoDespesa(despesaEntity));
     		formaPagamentoDespesaEntity.setDespesaEntity(despesaEntity);
     	}
     	return despesaEntity;
