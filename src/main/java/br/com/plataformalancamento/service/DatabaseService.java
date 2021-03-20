@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.plataformalancamento.entity.ArquivoEntity;
+import br.com.plataformalancamento.entity.BandeiraCartaoBancarioEntity;
+import br.com.plataformalancamento.entity.CartaoBancarioEntity;
+import br.com.plataformalancamento.entity.CategoriaCartaoBancarioEntity;
 import br.com.plataformalancamento.entity.CategoriaDespesaEntity;
 import br.com.plataformalancamento.entity.CategoriaReceitaEntity;
 import br.com.plataformalancamento.entity.ContaBancariaEntity;
@@ -31,6 +34,9 @@ import br.com.plataformalancamento.enumeration.TipoPeriodoFinanceiroEnumeration;
 import br.com.plataformalancamento.enumeration.TipoReceitaEnumeration;
 import br.com.plataformalancamento.enumeration.TipoSituacaoPagamentoEnumeration;
 import br.com.plataformalancamento.repository.ArquivoRepository;
+import br.com.plataformalancamento.repository.BandeiraCartaoBancarioRepository;
+import br.com.plataformalancamento.repository.CartaoBancarioRepository;
+import br.com.plataformalancamento.repository.CategoriaCartaoBancarioRepository;
 import br.com.plataformalancamento.repository.CategoriaDespesaRepository;
 import br.com.plataformalancamento.repository.CategoriaReceitaRepository;
 import br.com.plataformalancamento.repository.ContaBancariaRepository;
@@ -86,6 +92,15 @@ public class DatabaseService {
     
     @Autowired
     private ArquivoRepository arquivoRepository;
+    
+    @Autowired
+    private CategoriaCartaoBancarioRepository categoriaCartaoBancarioRepository;
+    
+    @Autowired
+    private BandeiraCartaoBancarioRepository bandeiraCartaoBancarioRepository;
+    
+    @Autowired
+    private CartaoBancarioRepository cartaoBancarioRepository;
 
     public void instanciarBaseDados() {
     	
@@ -140,8 +155,14 @@ public class DatabaseService {
             pessoaEntity8.setTipoPessoaEntity(tipoPessoaEntity2);
             pessoaEntity8.setIsInstituicaoFinanceira(false);
             pessoaEntity8.setIsAtivo(true);
+            
+        PessoaEntity pessoaEntity9 = new PessoaEntity();
+    		pessoaEntity9.setNome("Banco Nubank");
+    		pessoaEntity9.setTipoPessoaEntity(tipoPessoaEntity2);
+    		pessoaEntity9.setIsInstituicaoFinanceira(true);
+    		pessoaEntity9.setIsAtivo(true);
     		
-    		this.pessoaRepository.saveAll(Arrays.asList(pessoaEntity1, pessoaEntity2, pessoaEntity3, pessoaEntity4, pessoaEntity5, pessoaEntity6, pessoaEntity7, pessoaEntity8));
+    		this.pessoaRepository.saveAll(Arrays.asList(pessoaEntity1, pessoaEntity2, pessoaEntity3, pessoaEntity4, pessoaEntity5, pessoaEntity6, pessoaEntity7, pessoaEntity8, pessoaEntity9));
     		
     	CategoriaReceitaEntity categoriaReceitaEntity1 = new CategoriaReceitaEntity("Devolução de Empréstimo (Concessão)");
     	CategoriaReceitaEntity categoriaReceitaEntity2 = new CategoriaReceitaEntity("Solicitação de Empréstimo (Obtenção)");
@@ -185,8 +206,9 @@ public class DatabaseService {
     	TipoContratoEntity tipoContratoEntity7 = new TipoContratoEntity("Contrato de Benefício (INSS Saúde)");
 		TipoContratoEntity tipoContratoEntity8 = new TipoContratoEntity("Conta Carteira (Conta Especial)");
 		TipoContratoEntity tipoContratoEntity9 = new TipoContratoEntity("Organização Religiosa");
+		TipoContratoEntity tipoContratoEntity10 = new TipoContratoEntity("Contrato de Conta Especial");
     	
-    		this.tipoContratoRepository.saveAll(Arrays.asList(tipoContratoEntity1, tipoContratoEntity2, tipoContratoEntity3, tipoContratoEntity4, tipoContratoEntity5, tipoContratoEntity6, tipoContratoEntity7, tipoContratoEntity8, tipoContratoEntity9));
+    		this.tipoContratoRepository.saveAll(Arrays.asList(tipoContratoEntity1, tipoContratoEntity2, tipoContratoEntity3, tipoContratoEntity4, tipoContratoEntity5, tipoContratoEntity6, tipoContratoEntity7, tipoContratoEntity8, tipoContratoEntity9, tipoContratoEntity10));
     	
     	ContratoEntity contratoEntity1 = new ContratoEntity();
     		contratoEntity1.setDataInicioVigencia(null);
@@ -196,7 +218,23 @@ public class DatabaseService {
     		contratoEntity1.setTipoContratoEntity(tipoContratoEntity1);
     		contratoEntity1.setIsATivo(true);
     		
-    		this.contratoRepository.saveAll(Arrays.asList(contratoEntity1));
+    	ContratoEntity contratoEntity2 = new ContratoEntity();
+	    	contratoEntity2.setDataInicioVigencia(null);
+	    	contratoEntity2.setDataFimVigencia(null);
+	    	contratoEntity2.setPessoaContratado(pessoaEntity9);
+	    	contratoEntity2.setPessoaContratante(pessoaEntity1);
+	    	contratoEntity2.setTipoContratoEntity(tipoContratoEntity1);
+	    	contratoEntity2.setIsATivo(true);
+	    	
+	    ContratoEntity contratoEntity3 = new ContratoEntity();
+	    	contratoEntity3.setDataInicioVigencia(null);
+	    	contratoEntity3.setDataFimVigencia(null);
+	    	contratoEntity3.setPessoaContratado(pessoaEntity1);
+	    	contratoEntity3.setPessoaContratante(pessoaEntity1);
+	    	contratoEntity3.setTipoContratoEntity(tipoContratoEntity10);
+	    	contratoEntity3.setIsATivo(true);
+    		
+    		this.contratoRepository.saveAll(Arrays.asList(contratoEntity1, contratoEntity2, contratoEntity3));
     		
     	ContaBancariaEntity contaBancariaEntity1 = new ContaBancariaEntity();
     		contaBancariaEntity1.setContratoEntity(contratoEntity1);
@@ -207,7 +245,25 @@ public class DatabaseService {
     		contaBancariaEntity1.setTipoContaBancariaEntity(tipoContaBancariaEntity1);
     		contaBancariaEntity1.setValorSaldoInicial(0D);
     		
-    		this.contaBancariaRepository.saveAll(Arrays.asList(contaBancariaEntity1));
+    	ContaBancariaEntity contaBancariaEntity2 = new ContaBancariaEntity();
+	    	contaBancariaEntity2.setContratoEntity(contratoEntity2);
+	    	contaBancariaEntity2.setDataAbertura(null);
+	    	contaBancariaEntity2.setDataFechamento(null);
+	    	contaBancariaEntity2.setNumeroAgencia("1000");
+	    	contaBancariaEntity2.setNumeroConta("00000000-1");
+	    	contaBancariaEntity2.setTipoContaBancariaEntity(tipoContaBancariaEntity1);
+	    	contaBancariaEntity2.setValorSaldoInicial(0D);
+	    	
+	    ContaBancariaEntity contaBancariaEntity3 = new ContaBancariaEntity();
+	    	contaBancariaEntity3.setContratoEntity(contratoEntity2);
+	    	contaBancariaEntity3.setDataAbertura(null);
+	    	contaBancariaEntity3.setDataFechamento(null);
+	    	contaBancariaEntity3.setNumeroAgencia("XXXX");
+	    	contaBancariaEntity3.setNumeroConta("XXXXXXXX-X");
+	    	contaBancariaEntity3.setTipoContaBancariaEntity(tipoContaBancariaEntity6);
+	    	contaBancariaEntity3.setValorSaldoInicial(0D);
+    		
+    		this.contaBancariaRepository.saveAll(Arrays.asList(contaBancariaEntity1, contaBancariaEntity2, contaBancariaEntity3));
 
 		// TODO -- Criar fluxo de Receita Fixa (com Parcelamento)
 		ReceitaEntity receitaEntity1 = new ReceitaEntity();
@@ -334,6 +390,29 @@ public class DatabaseService {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			
+		// TODO -- Fluxo de Formas de pagamentos cinculados ao contrato
+		CategoriaCartaoBancarioEntity categoriaCartaoBancarioEntity1 = new CategoriaCartaoBancarioEntity("Cartão de Crédito");
+		CategoriaCartaoBancarioEntity categoriaCartaoBancarioEntity2 = new CategoriaCartaoBancarioEntity("Cartão de Débito");
+		
+			this.categoriaCartaoBancarioRepository.saveAll(Arrays.asList(categoriaCartaoBancarioEntity1, categoriaCartaoBancarioEntity2));
+			
+		BandeiraCartaoBancarioEntity bandeiraCartaoBancarioEntity1 = new BandeiraCartaoBancarioEntity("Master Card");
+		BandeiraCartaoBancarioEntity bandeiraCartaoBancarioEntity2 = new BandeiraCartaoBancarioEntity("Visa Card");
+		
+			this.bandeiraCartaoBancarioRepository.saveAll(Arrays.asList(bandeiraCartaoBancarioEntity1, bandeiraCartaoBancarioEntity2));
+			
+		CartaoBancarioEntity cartaoBancarioEntity1 = new CartaoBancarioEntity();
+			cartaoBancarioEntity1.setBandeiraCartaoBancarioEntity(bandeiraCartaoBancarioEntity1);
+			cartaoBancarioEntity1.setCategoriaCartaoBancarioEntity(categoriaCartaoBancarioEntity1);
+			cartaoBancarioEntity1.setContaBancariaEntity(contaBancariaEntity2);
+			cartaoBancarioEntity1.setDataValidade("10/28");
+			cartaoBancarioEntity1.setDescricao("PLATINUM");
+			cartaoBancarioEntity1.setNomeImpresso("JOSE Q S JUNIOR");
+			
+			this.cartaoBancarioRepository.saveAll(Arrays.asList(cartaoBancarioEntity1));
+		
+		
     }
 
 }
