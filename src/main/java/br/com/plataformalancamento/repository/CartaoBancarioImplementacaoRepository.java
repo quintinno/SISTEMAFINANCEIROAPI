@@ -16,9 +16,10 @@ public class CartaoBancarioImplementacaoRepository {
 	@PersistenceContext
 	private EntityManager entityManager;
 	
+	// TODO -- Refatorar Query unificando-a para credito e debito 
 	public List<CartaoBancarioDTO> recuperarCartaoCreditoBancarioVinculadoContaBancaria() {
 		StringBuilder query = new StringBuilder("SELECT NEW br.com.plataformalancamento.dto.CartaoBancarioDTO(cartaoBancarioEntity.codigo, ")
-			.append("cartaoBancarioEntity.numero, funcaoCartaoBancarioEntity.descricao, ")
+			.append("cartaoBancarioEntity.contaBancariaEntity.codigo, cartaoBancarioEntity.numero, funcaoCartaoBancarioEntity.descricao, ")
 			.append("cartaoBancarioEntity.contaBancariaEntity.contratoEntity.pessoaContratado.nome ) ")
 			.append("FROM FuncaoCartaoBancarioEntity funcaoCartaoBancarioEntity ")
 			.append("JOIN funcaoCartaoBancarioEntity.cartaoBancarioEntity cartaoBancarioEntity ")
@@ -28,9 +29,11 @@ public class CartaoBancarioImplementacaoRepository {
 		return typeQuery.getResultList();
 	}
 	
+	// TODO -- Refatorar Query unificando-a para credito e debito
 	public List<CartaoBancarioDTO> recuperarCartaoDebitoBancarioVinculadoContaBancaria() {
 		StringBuilder query = new StringBuilder("SELECT NEW br.com.plataformalancamento.dto.CartaoBancarioDTO(cartaoBancarioEntity.codigo, ")
-			.append("cartaoBancarioEntity.numero, funcaoCartaoBancarioEntity.descricao) ")
+			.append("cartaoBancarioEntity.contaBancariaEntity.codigo, cartaoBancarioEntity.numero, funcaoCartaoBancarioEntity.descricao, ")
+			.append("cartaoBancarioEntity.contaBancariaEntity.contratoEntity.pessoaContratado.nome ) ")
 			.append("FROM FuncaoCartaoBancarioEntity funcaoCartaoBancarioEntity ")
 			.append("JOIN funcaoCartaoBancarioEntity.cartaoBancarioEntity cartaoBancarioEntity ")
 			.append("WHERE funcaoCartaoBancarioEntity.descricao = :funcaoDebitoParamenter ");
