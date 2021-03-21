@@ -8,13 +8,25 @@ public class CartaoBancarioDTO implements Serializable {
 
     private Long codigo;
     
-    private String numeroCartao;
+    private String numero;
+    
+    private String descricao;
+    
+    private String nomeInstiticaoFinanceira;
     
     public CartaoBancarioDTO() { }
-
-	public CartaoBancarioDTO(Long codigo, String numeroCartao) {
+    
+	public CartaoBancarioDTO(Long codigo, String numero, String descricao) {
 		this.codigo = codigo;
-		this.numeroCartao = numeroCartao;
+		this.numero = numero;
+		this.descricao = descricao;
+	}
+
+	public CartaoBancarioDTO(Long codigo, String numero, String descricao, String nomeInstiticaoFinanceira) {
+		this.codigo = codigo;
+		this.numero = numero;
+		this.descricao = descricao;
+		this.nomeInstiticaoFinanceira = nomeInstiticaoFinanceira;
 	}
 
 	public Long getCodigo() {
@@ -25,12 +37,33 @@ public class CartaoBancarioDTO implements Serializable {
 		this.codigo = codigo;
 	}
 
-	public String getNumeroCartao() {
-		return numeroCartao;
+	public String getNumero() {
+		return numero;
 	}
 
-	public void setNumeroCartao(String numeroCartao) {
-		this.numeroCartao = numeroCartao;
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getNomeInstiticaoFinanceira() {
+		return nomeInstiticaoFinanceira;
+	}
+
+	public void setNomeInstiticaoFinanceira(String nomeInstiticaoFinanceira) {
+		this.nomeInstiticaoFinanceira = nomeInstiticaoFinanceira;
+	}
+
+	@Override
+	public String toString() {
+		return "CartaoBancarioDTO [codigo=" + codigo + ", numero=" + numero + ", descricao=" + descricao + ", nomeInstiticaoFinanceira=" + nomeInstiticaoFinanceira + "]";
 	}
 
 }

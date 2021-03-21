@@ -34,8 +34,14 @@ public class CartaoBancarioService implements Serializable {
 		return this.cartaoBancarioRepository.findAll();
 	}
 	
-	public List<CartaoBancarioDTO> recuperarCartaoBancarioVinculadoContaBancaria(Long codigoContaBancaria) {
-		return this.cartaoBancarioImplementacaoRepository.recuperarCartaoBancarioVinculadoContaBancaria(codigoContaBancaria);
+	@Transactional
+	public List<CartaoBancarioDTO> recuperarCartaoCreditoBancarioVinculadoContaBancaria() {
+		return this.cartaoBancarioImplementacaoRepository.recuperarCartaoCreditoBancarioVinculadoContaBancaria();
+	}
+	
+	@Transactional
+	public List<CartaoBancarioDTO> recuperarCartaoDebitoBancarioVinculadoContaBancaria() {
+		return this.cartaoBancarioImplementacaoRepository.recuperarCartaoDebitoBancarioVinculadoContaBancaria();
 	}
 	
 }

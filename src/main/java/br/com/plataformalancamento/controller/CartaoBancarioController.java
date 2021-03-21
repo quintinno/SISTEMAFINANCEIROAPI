@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,8 +36,14 @@ public class CartaoBancarioController implements Serializable {
 		return !cartaoBancarioEntityList.isEmpty() ? ResponseEntity.status(HttpStatus.OK).body(cartaoBancarioEntityList) : ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 	
-	public ResponseEntity<List<CartaoBancarioDTO>> recuperarCartaoBancarioVinculadoContaBancaria( @PathVariable Long codigoCartaoBancario ) {
-		return ResponseEntity.ok().body(cartaoBancarioService.recuperarCartaoBancarioVinculadoContaBancaria(codigoCartaoBancario));
+	@GetMapping("/recuperar-cartao-credito")
+	public ResponseEntity<List<CartaoBancarioDTO>> recuperarCartaoCreditoBancarioVinculadoContaBancaria() {
+		return ResponseEntity.ok().body(cartaoBancarioService.recuperarCartaoCreditoBancarioVinculadoContaBancaria());
+	}
+	
+	@GetMapping("/recuperar-cartao-debito")
+	public ResponseEntity<List<CartaoBancarioDTO>> recuperarCartaoDebitoBancarioVinculadoContaBancaria() {
+		return ResponseEntity.ok().body(cartaoBancarioService.recuperarCartaoDebitoBancarioVinculadoContaBancaria());
 	}
 
 }
