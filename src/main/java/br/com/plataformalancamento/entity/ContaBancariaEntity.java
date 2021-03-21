@@ -47,7 +47,7 @@ public class ContaBancariaEntity implements Serializable {
 	@Column(name = "DATA_ENCERRAMENTO")
 	private Date dataFechamento;
 	
-	@Column(name = "VALOR_SALDO_INICIAL", nullable = false)
+	@Column(name = "VALOR_SALDO_ATUAL", nullable = false)
 	private Double valorSaldoAtual;
 
 	@JsonProperty("tipoContaBancaria")

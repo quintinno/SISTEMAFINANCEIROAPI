@@ -128,6 +128,6 @@ public class FormaPagamentoDespesaEntity implements Serializable {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
-	}
+	}	
 
 }

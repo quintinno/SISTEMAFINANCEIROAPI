@@ -39,7 +39,7 @@ public class DespesaService implements Serializable {
 	}
     
     private DespesaEntity prepararDespesaVariavel(DespesaEntity despesaEntity) {
-    	despesaEntity.setValorDesconto(null);
+//    	despesaEntity.setValorDesconto(null);
 //    	despesaEntity.setValorPagamento(calcularValorPagamentoDespesa(despesaEntity));
     	despesaEntity.setTipoCanalPagamentoEnumeration(TipoCanalPagamentoEnumeration.TRANSACAO_FISICA);
     	this.prepararFormaPagamentoDespesa(despesaEntity);
@@ -62,6 +62,7 @@ public class DespesaService implements Serializable {
     	for(FormaPagamentoDespesaEntity formaPagamentoDespesaEntity : despesaEntity.getFormaPagamentoDespesaEntityList()) {
 //    		formaPagamentoDespesaEntity.setValorPagamento(this.calcularValorPagamentoDespesa(despesaEntity));
     		formaPagamentoDespesaEntity.setDespesaEntity(despesaEntity);
+    		formaPagamentoDespesaEntity.setValorPagamento(despesaEntity.getValorPagamento());
     	}
     	return despesaEntity;
     }
