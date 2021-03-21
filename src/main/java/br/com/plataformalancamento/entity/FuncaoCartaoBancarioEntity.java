@@ -29,7 +29,7 @@ public class FuncaoCartaoBancarioEntity implements Serializable {
 	@Column(name = "DESCRICAO", length = 50, nullable = false)
 	private String descricao;
 	
-	@Column(name = "IS_ATIVO", length = 50, nullable = false)
+	@Column(name = "IS_ATIVO", nullable = false)
 	private Boolean isAtivo;
 	
 	@JsonProperty("cartaoBancario")

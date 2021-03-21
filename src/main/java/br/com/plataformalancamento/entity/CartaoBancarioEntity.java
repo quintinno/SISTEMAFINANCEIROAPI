@@ -30,6 +30,9 @@ public class CartaoBancarioEntity implements Serializable {
 	@Column(name = "DESCRICAO", length = 50, unique = true, nullable = false)
 	private String descricao;
 	
+	@Column(name = "NUMERO", length = 50, unique = true, nullable = false)
+	private String numero;
+	
 	@Column(name = "DATA_VALIDADE", nullable = false)
 	private String dataValidade;
 	
@@ -66,6 +69,14 @@ public class CartaoBancarioEntity implements Serializable {
 	
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
 	public String getDataValidade() {

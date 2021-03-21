@@ -21,6 +21,7 @@ import br.com.plataformalancamento.entity.ContratoEntity;
 import br.com.plataformalancamento.entity.DespesaEntity;
 import br.com.plataformalancamento.entity.FormaPagamentoDespesaEntity;
 import br.com.plataformalancamento.entity.FormaPagamentoEntity;
+import br.com.plataformalancamento.entity.FuncaoCartaoBancarioEntity;
 import br.com.plataformalancamento.entity.ParcelamentoEntity;
 import br.com.plataformalancamento.entity.PessoaEntity;
 import br.com.plataformalancamento.entity.ProdutoServicoEntity;
@@ -43,6 +44,7 @@ import br.com.plataformalancamento.repository.ContaBancariaRepository;
 import br.com.plataformalancamento.repository.ContratoRepository;
 import br.com.plataformalancamento.repository.DespesaRepository;
 import br.com.plataformalancamento.repository.FormaPagamentoRepository;
+import br.com.plataformalancamento.repository.FuncaoCartaoBancarioRepository;
 import br.com.plataformalancamento.repository.PessoaRepository;
 import br.com.plataformalancamento.repository.ProdutoServicoOcorrenciaRepository;
 import br.com.plataformalancamento.repository.ReceitaRepository;
@@ -101,6 +103,9 @@ public class DatabaseService {
     
     @Autowired
     private CartaoBancarioRepository cartaoBancarioRepository;
+    
+    @Autowired
+    private FuncaoCartaoBancarioRepository funcaoCartaoBancarioRepository;
 
     public void instanciarBaseDados() {
     	
@@ -243,7 +248,7 @@ public class DatabaseService {
     		contaBancariaEntity1.setNumeroAgencia("3441");
     		contaBancariaEntity1.setNumeroConta("01083366-1");
     		contaBancariaEntity1.setTipoContaBancariaEntity(tipoContaBancariaEntity1);
-    		contaBancariaEntity1.setValorSaldoInicial(0D);
+    		contaBancariaEntity1.setValorSaldoAtual(0D);
     		
     	ContaBancariaEntity contaBancariaEntity2 = new ContaBancariaEntity();
 	    	contaBancariaEntity2.setContratoEntity(contratoEntity2);
@@ -252,16 +257,16 @@ public class DatabaseService {
 	    	contaBancariaEntity2.setNumeroAgencia("1000");
 	    	contaBancariaEntity2.setNumeroConta("00000000-1");
 	    	contaBancariaEntity2.setTipoContaBancariaEntity(tipoContaBancariaEntity1);
-	    	contaBancariaEntity2.setValorSaldoInicial(0D);
+	    	contaBancariaEntity2.setValorSaldoAtual(0D);
 	    	
 	    ContaBancariaEntity contaBancariaEntity3 = new ContaBancariaEntity();
-	    	contaBancariaEntity3.setContratoEntity(contratoEntity2);
+	    	contaBancariaEntity3.setContratoEntity(contratoEntity3);
 	    	contaBancariaEntity3.setDataAbertura(null);
 	    	contaBancariaEntity3.setDataFechamento(null);
 	    	contaBancariaEntity3.setNumeroAgencia("XXXX");
 	    	contaBancariaEntity3.setNumeroConta("XXXXXXXX-X");
 	    	contaBancariaEntity3.setTipoContaBancariaEntity(tipoContaBancariaEntity6);
-	    	contaBancariaEntity3.setValorSaldoInicial(0D);
+	    	contaBancariaEntity3.setValorSaldoAtual(0D);
     		
     		this.contaBancariaRepository.saveAll(Arrays.asList(contaBancariaEntity1, contaBancariaEntity2, contaBancariaEntity3));
 
@@ -409,9 +414,22 @@ public class DatabaseService {
 			cartaoBancarioEntity1.setDataValidade("10/28");
 			cartaoBancarioEntity1.setDescricao("PLATINUM");
 			cartaoBancarioEntity1.setNomeImpresso("JOSE Q S JUNIOR");
+			cartaoBancarioEntity1.setNumero("5447-9094-8101-3037");
 			
 			this.cartaoBancarioRepository.saveAll(Arrays.asList(cartaoBancarioEntity1));
+			
+		FuncaoCartaoBancarioEntity funcaoCartaoBancarioEntity1 = new FuncaoCartaoBancarioEntity();
+			funcaoCartaoBancarioEntity1.setCartaoBancarioEntity(cartaoBancarioEntity1);
+			funcaoCartaoBancarioEntity1.setDescricao("Crédito");
+			funcaoCartaoBancarioEntity1.setIsAtivo(true);
 		
+		FuncaoCartaoBancarioEntity funcaoCartaoBancarioEntity2 = new FuncaoCartaoBancarioEntity();
+			funcaoCartaoBancarioEntity2.setCartaoBancarioEntity(cartaoBancarioEntity1);
+			funcaoCartaoBancarioEntity2.setDescricao("Débito");
+			funcaoCartaoBancarioEntity2.setIsAtivo(true);
+			
+			this.funcaoCartaoBancarioRepository.saveAndFlush(funcaoCartaoBancarioEntity1);
+			this.funcaoCartaoBancarioRepository.saveAndFlush(funcaoCartaoBancarioEntity2);
 		
     }
 

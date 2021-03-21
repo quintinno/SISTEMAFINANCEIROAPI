@@ -48,7 +48,7 @@ public class ContaBancariaEntity implements Serializable {
 	private Date dataFechamento;
 	
 	@Column(name = "VALOR_SALDO_INICIAL", nullable = false)
-	private Double valorSaldoInicial;
+	private Double valorSaldoAtual;
 
 	@JsonProperty("tipoContaBancaria")
 	@ManyToOne
@@ -102,12 +102,12 @@ public class ContaBancariaEntity implements Serializable {
 		this.dataFechamento = dataFechamento;
 	}
 
-	public Double getValorSaldoInicial() {
-		return valorSaldoInicial;
+	public Double getValorSaldoAtual() {
+		return valorSaldoAtual;
 	}
 
-	public void setValorSaldoInicial(Double valorSaldoInicial) {
-		this.valorSaldoInicial = valorSaldoInicial;
+	public void setValorSaldoAtual(Double valorSaldoAtual) {
+		this.valorSaldoAtual = valorSaldoAtual;
 	}
 
 	public TipoContaBancariaEntity getTipoContaBancariaEntity() {
