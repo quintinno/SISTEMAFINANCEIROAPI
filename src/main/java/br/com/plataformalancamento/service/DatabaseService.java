@@ -30,6 +30,8 @@ import br.com.plataformalancamento.entity.ReceitaEntity;
 import br.com.plataformalancamento.entity.TipoContaBancariaEntity;
 import br.com.plataformalancamento.entity.TipoContratoEntity;
 import br.com.plataformalancamento.entity.TipoPessoaEntity;
+import br.com.plataformalancamento.entity.TipoUsuarioSistemaEntity;
+import br.com.plataformalancamento.entity.UsuarioSistemaEntity;
 import br.com.plataformalancamento.enumeration.TipoCanalPagamentoEnumeration;
 import br.com.plataformalancamento.enumeration.TipoPeriodoFinanceiroEnumeration;
 import br.com.plataformalancamento.enumeration.TipoReceitaEnumeration;
@@ -51,6 +53,8 @@ import br.com.plataformalancamento.repository.ReceitaRepository;
 import br.com.plataformalancamento.repository.TipoContaBancariaRepository;
 import br.com.plataformalancamento.repository.TipoContratoRepository;
 import br.com.plataformalancamento.repository.TipoPessoaRepository;
+import br.com.plataformalancamento.repository.TipoUsuarioSistemaRepository;
+import br.com.plataformalancamento.repository.UsuarioSistemaRepository;
 import br.com.plataformalancamento.utility.DateUtility;
 
 @Service
@@ -106,6 +110,12 @@ public class DatabaseService {
     
     @Autowired
     private FuncaoCartaoBancarioRepository funcaoCartaoBancarioRepository;
+    
+    @Autowired
+    private UsuarioSistemaRepository usuarioSistemaRepository;
+    
+    @Autowired
+    private TipoUsuarioSistemaRepository tipoUsuarioSistemaRepository;
 
     public void instanciarBaseDados() {
     	
@@ -430,6 +440,27 @@ public class DatabaseService {
 			
 			this.funcaoCartaoBancarioRepository.saveAndFlush(funcaoCartaoBancarioEntity1);
 			this.funcaoCartaoBancarioRepository.saveAndFlush(funcaoCartaoBancarioEntity2);
+			
+		// Fluxo de Perfil de Usuarios do sistema
+		TipoUsuarioSistemaEntity tipoUsuarioSistemaEntity1 = new TipoUsuarioSistemaEntity("Administrador Financeiro");
+		TipoUsuarioSistemaEntity tipoUsuarioSistemaEntity2 = new TipoUsuarioSistemaEntity("Consultor Financeiro");
+		TipoUsuarioSistemaEntity tipoUsuarioSistemaEntity3 = new TipoUsuarioSistemaEntity("Verificador Finanaceiro"); // Usado para pessoas que tomaram emprestimos
+		UsuarioSistemaEntity usuarioSistemaEntity1 = new UsuarioSistemaEntity();
+			usuarioSistemaEntity1.setIdentificador("00000000000");
+			usuarioSistemaEntity1.setIsAtivo(true);
+			usuarioSistemaEntity1.setPessoaEntity(pessoaEntity1);
+			usuarioSistemaEntity1.setSenha("123456");
+			usuarioSistemaEntity1.setTipoUsuarioSistemaEntity(tipoUsuarioSistemaEntity1);
+			
+		UsuarioSistemaEntity usuarioSistemaEntity2 = new UsuarioSistemaEntity();
+			usuarioSistemaEntity2.setIdentificador("11111111111");
+			usuarioSistemaEntity2.setIsAtivo(true);
+			usuarioSistemaEntity2.setPessoaEntity(pessoaEntity6);
+			usuarioSistemaEntity2.setSenha("654321");
+			usuarioSistemaEntity2.setTipoUsuarioSistemaEntity(tipoUsuarioSistemaEntity1);
+			
+			this.tipoUsuarioSistemaRepository.saveAll(Arrays.asList(tipoUsuarioSistemaEntity1, tipoUsuarioSistemaEntity2, tipoUsuarioSistemaEntity3));
+			this.usuarioSistemaRepository.saveAll(Arrays.asList(usuarioSistemaEntity1, usuarioSistemaEntity2));
 		
     }
 

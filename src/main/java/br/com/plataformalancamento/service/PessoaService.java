@@ -16,6 +16,7 @@ import br.com.plataformalancamento.entity.PessoaEntity;
 import br.com.plataformalancamento.entity.TipoPessoaEntity;
 import br.com.plataformalancamento.repository.EmailRepository;
 import br.com.plataformalancamento.repository.EnderecoRepository;
+import br.com.plataformalancamento.repository.PessoaImplementacaoRepository;
 import br.com.plataformalancamento.repository.PessoaRepository;
 import br.com.plataformalancamento.repository.TipoPessoaRepository;
 
@@ -35,6 +36,9 @@ public class PessoaService implements Serializable {
 	
 	@Autowired
 	private TipoPessoaRepository tipoPessoaRepository;
+	
+	@Autowired
+	private PessoaImplementacaoRepository pessoaImplementacaoRepository;
 	
 	public List<PessoaEntity> recuperar() {
 		return this.pessoaRepository.findAll();
@@ -93,6 +97,11 @@ public class PessoaService implements Serializable {
 	
 	private List<EnderecoEntity> recuperarEnderecoVinculoPessoa(PessoaEntity pessoaEntity) {
 		return this.enderecoRepository.findByPessoaEntity(pessoaEntity);
+	}
+	
+	@Transactional
+	public List<PessoaEntity> recuperarPessoaFinanceiraSistema() {
+		return this.pessoaImplementacaoRepository.recuperarPessoaFinanceiraSistema();
 	}
 	
 }

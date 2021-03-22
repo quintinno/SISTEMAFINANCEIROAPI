@@ -67,5 +67,10 @@ public class PessoaController implements Serializable {
 	public List<PessoaEntity> recuperarPessoaFisica() {
 		return this.pessoaService.recuperarPessoaFisica();
 	}
+	
+	@GetMapping("/recuperar-pessoa-financeira-sistema")
+	public ResponseEntity<List<PessoaEntity>> recuperarPessoaFinanceiraSistema() {
+		return ResponseEntity.ok().body(this.pessoaService.recuperarPessoaFinanceiraSistema());
+	}
 
 }
