@@ -1,6 +1,7 @@
 package br.com.plataformalancamento.service;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -101,7 +102,18 @@ public class PessoaService implements Serializable {
 	
 	@Transactional
 	public List<PessoaEntity> recuperarPessoaFinanceiraSistema() {
-		return this.pessoaImplementacaoRepository.recuperarPessoaFinanceiraSistema();
+		List<PessoaEntity> pessoaEntityList = this.pessoaImplementacaoRepository.recuperarPessoaFinanceiraSistema();
+		List<PessoaEntity> pessoaEntityVerificadaList = new ArrayList<PessoaEntity>();
+		for( PessoaEntity pessoaEntityResultado : pessoaEntityList ) {
+			if(isPessoaVinculoContaBancaria(pessoaEntityResultado.getNome())) {
+				pessoaEntityVerificadaList.add(pessoaEntityResultado);
+			}
+		}
+		return pessoaEntityVerificadaList;
+	}
+	
+	private Boolean isPessoaVinculoContaBancaria(String nomePessoa) {
+		return this.pessoaImplementacaoRepository.isPessoaFinanceiraVinculoContaBancaria(nomePessoa);
 	}
 	
 }

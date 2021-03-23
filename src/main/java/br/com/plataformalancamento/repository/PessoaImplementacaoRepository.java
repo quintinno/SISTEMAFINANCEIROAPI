@@ -29,5 +29,22 @@ public class PessoaImplementacaoRepository implements Serializable {
 			typedQuery.setParameter("papelUsuarioSistemaParameter", "Administrador Financeiro");
 		return typedQuery.getResultList();
 	}
+	
+	public Boolean isPessoaFinanceiraVinculoContaBancaria(String nomePessoa) {
+		StringBuilder query = new StringBuilder("SELECT pessoaContratante ")
+			.append("FROM ContratoEntity contratoEntity ")
+			.append("JOIN contratoEntity.pessoaContratante pessoaContratante ")
+			.append("JOIN contratoEntity.pessoaContratado pessoaContratado ")
+			.append("WHERE pessoaContratante.nome LIKE :usuarioLogadoParameter ");
+		TypedQuery<PessoaEntity> typeQuery = entityManager.createQuery(query.toString(), PessoaEntity.class);
+			typeQuery.setParameter("usuarioLogadoParameter", "%".concat(nomePessoa).concat("%"));
+			for(PessoaEntity pessoaEntity : typeQuery.getResultList()) {
+				System.out.println(pessoaEntity.toString());
+			}
+			if(typeQuery.getResultList().size() > 0) {
+				return true;
+			}
+		return false;
+	}
 
 }

@@ -16,7 +16,7 @@ public class CartaoBancarioImplementacaoRepository {
 	@PersistenceContext
 	private EntityManager entityManager;
 	
-	// TODO -- Refatorar Query unificando-a para credito e debito 
+	// FIXME -- Refatorar Query unificando-a para credito e debito 
 	public List<CartaoBancarioDTO> recuperarCartaoCreditoBancarioVinculadoContaBancaria() {
 		StringBuilder query = new StringBuilder("SELECT NEW br.com.plataformalancamento.dto.CartaoBancarioDTO(cartaoBancarioEntity.codigo, ")
 			.append("cartaoBancarioEntity.contaBancariaEntity.codigo, cartaoBancarioEntity.numero, funcaoCartaoBancarioEntity.descricao, ")
@@ -29,7 +29,7 @@ public class CartaoBancarioImplementacaoRepository {
 		return typeQuery.getResultList();
 	}
 	
-	// TODO -- Refatorar Query unificando-a para credito e debito
+	// FIXME -- Refatorar Query unificando-a para credito e debito
 	public List<CartaoBancarioDTO> recuperarCartaoDebitoBancarioVinculadoContaBancaria() {
 		StringBuilder query = new StringBuilder("SELECT NEW br.com.plataformalancamento.dto.CartaoBancarioDTO(cartaoBancarioEntity.codigo, ")
 			.append("cartaoBancarioEntity.contaBancariaEntity.codigo, cartaoBancarioEntity.numero, funcaoCartaoBancarioEntity.descricao, ")

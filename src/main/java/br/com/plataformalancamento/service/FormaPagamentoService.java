@@ -25,4 +25,9 @@ public class FormaPagamentoService implements Serializable {
 		return this.formaPagamentoRepository.save(formaPagamentoEntity);
 	}
 	
+	// FIXME -- Configurar Formas de Pagamentos personalizadas para um determinado usuario de acordo com o tipo de conta bancaria vinculada ao contrato
+	public List<FormaPagamentoEntity> recuperarFormaPagamentoAtivo() {
+		return this.formaPagamentoRepository.recuperarFormaPagamentoAtivo();
+	}
+	
 }

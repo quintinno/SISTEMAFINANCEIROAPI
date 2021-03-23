@@ -187,19 +187,19 @@ public class DatabaseService {
 
     		this.categoriaReceitaRepository.saveAll(Arrays.asList(categoriaReceitaEntity1, categoriaReceitaEntity2, categoriaReceitaEntity3, categoriaReceitaEntity4, categoriaReceitaEntity5));
     		
-    	FormaPagamentoEntity formaPagamentoEntity1 = new FormaPagamentoEntity("Dinheiro", "DN");
-    	FormaPagamentoEntity formaPagamentoEntity2 = new FormaPagamentoEntity("Tranferência Bancária", "TB");
-    	FormaPagamentoEntity formaPagamentoEntity3 = new FormaPagamentoEntity("Tranferência Bancária (PIX)", "TBPIX");
-    	FormaPagamentoEntity formaPagamentoEntity4 = new FormaPagamentoEntity("Depósito Bancário", "DB");
-    	FormaPagamentoEntity formaPagamentoEntity5 = new FormaPagamentoEntity("Boleto Bancário", "BB");
-    	FormaPagamentoEntity formaPagamentoEntity6 = new FormaPagamentoEntity("Cartão de Crédito", "CC");
-    	FormaPagamentoEntity formaPagamentoEntity7 = new FormaPagamentoEntity("Cheque", "CH");
-    	FormaPagamentoEntity formaPagamentoEntity8 = new FormaPagamentoEntity("Cartão de Débito", "CD");
-    	FormaPagamentoEntity formaPagamentoEntity9 = new FormaPagamentoEntity("Crédito Loja", "CL");
-    	FormaPagamentoEntity formaPagamentoEntity10 = new FormaPagamentoEntity("Vale Alimentação", "VA");
-    	FormaPagamentoEntity formaPagamentoEntity11 = new FormaPagamentoEntity("Vale Refeição", "VR");
-    	FormaPagamentoEntity formaPagamentoEntity12 = new FormaPagamentoEntity("Vale Presente", "VP");
-    	FormaPagamentoEntity formaPagamentoEntity13 = new FormaPagamentoEntity("Vale Combustível", "VC");
+    	FormaPagamentoEntity formaPagamentoEntity1 = new FormaPagamentoEntity("Dinheiro", "DN", true);
+    	FormaPagamentoEntity formaPagamentoEntity2 = new FormaPagamentoEntity("Tranferência Bancária", "TB", false);
+    	FormaPagamentoEntity formaPagamentoEntity3 = new FormaPagamentoEntity("Tranferência Bancária (PIX)", "TBPIX", false);
+    	FormaPagamentoEntity formaPagamentoEntity4 = new FormaPagamentoEntity("Depósito Bancário", "DB", false);
+    	FormaPagamentoEntity formaPagamentoEntity5 = new FormaPagamentoEntity("Boleto Bancário", "BB", false);
+    	FormaPagamentoEntity formaPagamentoEntity6 = new FormaPagamentoEntity("Cartão de Crédito", "CC", true);
+    	FormaPagamentoEntity formaPagamentoEntity7 = new FormaPagamentoEntity("Cheque", "CH", false);
+    	FormaPagamentoEntity formaPagamentoEntity8 = new FormaPagamentoEntity("Cartão de Débito", "CD", true);
+    	FormaPagamentoEntity formaPagamentoEntity9 = new FormaPagamentoEntity("Crédito Loja", "CL", false);
+    	FormaPagamentoEntity formaPagamentoEntity10 = new FormaPagamentoEntity("Vale Alimentação", "VA", false);
+    	FormaPagamentoEntity formaPagamentoEntity11 = new FormaPagamentoEntity("Vale Refeição", "VR", false);
+    	FormaPagamentoEntity formaPagamentoEntity12 = new FormaPagamentoEntity("Vale Presente", "VP", false);
+    	FormaPagamentoEntity formaPagamentoEntity13 = new FormaPagamentoEntity("Vale Combustível", "VC", false);
     		
     		this.formaPagamentoRepository.saveAll(Arrays.asList(formaPagamentoEntity1, formaPagamentoEntity2, formaPagamentoEntity3, formaPagamentoEntity4, formaPagamentoEntity5, formaPagamentoEntity6, formaPagamentoEntity7, formaPagamentoEntity8, formaPagamentoEntity9, formaPagamentoEntity10, formaPagamentoEntity11, formaPagamentoEntity12, formaPagamentoEntity13));
     	
@@ -280,7 +280,7 @@ public class DatabaseService {
     		
     		this.contaBancariaRepository.saveAll(Arrays.asList(contaBancariaEntity1, contaBancariaEntity2, contaBancariaEntity3));
 
-		// TODO -- Criar fluxo de Receita Fixa (com Parcelamento)
+		// Fluxo de Receita Fixa (com Parcelamento)
 		ReceitaEntity receitaEntity1 = new ReceitaEntity();
 			receitaEntity1.setCategoriaReceitaEntity(categoriaReceitaEntity4);
 			receitaEntity1.setContaBancariaDeposito(contaBancariaEntity1);
@@ -320,7 +320,7 @@ public class DatabaseService {
 
 			receitaRepository.save(receitaEntity1);
 			
-		// TODO -- Criar fluxo de Despesa Variavel (com Produtos e Serviços e Forma de Pagamento Multiplo)
+		// Fluxo de Despesa Variavel (com Produtos e Serviços e Forma de Pagamento Multiplo)
 		CategoriaDespesaEntity categoriaDespesaEntity1 = new CategoriaDespesaEntity();
 			categoriaDespesaEntity1.setDescricao("Despesa Fixa");
 			categoriaDespesaEntity1.setSigla("DFI");
@@ -386,9 +386,7 @@ public class DatabaseService {
 			
 			this.produtoServicoOcorrenciaRepository.saveAll(Arrays.asList(produtoServicoOcorrenciaEntity1, produtoServicoOcorrenciaEntity2, produtoServicoOcorrenciaEntity3));
 			
-		// TODO -- Criar fluxo de Despesa Fixa (com Produtos e Serviços e Forma de Pagamento Multiplo)
-			
-		// TODO -- Inserir documentos no banco de dados
+		// Inserir documentos no banco de dados
 		ArquivoEntity arquivoEntity = new ArquivoEntity();
 		File file = new File("/home/desenvolvimento/Desenvolvimento/SISTEMAFINANCEIROAPI/src/main/resources/files/BRAVA_INTERNET_FATURA_2021_03_16_001.pdf");
 			try {
@@ -406,7 +404,7 @@ public class DatabaseService {
 				e.printStackTrace();
 			}
 			
-		// TODO -- Fluxo de Formas de pagamentos cinculados ao contrato
+		// Fluxo de Formas de pagamentos cinculados ao contrato
 		CategoriaCartaoBancarioEntity categoriaCartaoBancarioEntity1 = new CategoriaCartaoBancarioEntity("Cartão de Crédito");
 		CategoriaCartaoBancarioEntity categoriaCartaoBancarioEntity2 = new CategoriaCartaoBancarioEntity("Cartão de Débito");
 		

@@ -1,7 +1,5 @@
 package br.com.plataformalancamento.entity;
 
-import org.hibernate.validator.constraints.Length;
-
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -13,6 +11,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "TB_FORMA_PAGAMENTO")
@@ -38,12 +38,20 @@ public class FormaPagamentoEntity implements Serializable {
 	@Column(name = "SIGLA", length = 6, unique = true, nullable = false)
 	private String sigla;
 	
+	@Column(name = "IS_ATIVO", nullable = false)
+	private Boolean isAtivo;
+	
 	public FormaPagamentoEntity() { }
 
 	public FormaPagamentoEntity(String descricao, String sigla) {
-		super();
 		this.descricao = descricao;
 		this.sigla = sigla;
+	}
+
+	public FormaPagamentoEntity(String descricao, String sigla, Boolean isAtivo) {
+		this.descricao = descricao;
+		this.sigla = sigla;
+		this.isAtivo = isAtivo;
 	}
 
 	public Long getCodigo() {
@@ -68,6 +76,14 @@ public class FormaPagamentoEntity implements Serializable {
 
 	public void setSigla(String sigla) {
 		this.sigla = sigla;
+	}
+
+	public Boolean getIsAtivo() {
+		return isAtivo;
+	}
+
+	public void setIsAtivo(Boolean isAtivo) {
+		this.isAtivo = isAtivo;
 	}
 
 	@Override
