@@ -111,4 +111,9 @@ public class FormaPagamentoEntity implements Serializable {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "FormaPagamentoEntity [codigo=" + codigo + ", descricao=" + descricao + ", sigla=" + sigla + ", isAtivo=" + isAtivo + "]";
+	}
+
 }

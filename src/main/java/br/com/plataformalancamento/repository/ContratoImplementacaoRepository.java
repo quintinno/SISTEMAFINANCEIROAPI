@@ -29,5 +29,16 @@ public class ContratoImplementacaoRepository implements Serializable {
 			typeQuery.setParameter("usuarioLogadoParameter", "%".concat("Quintin").concat("%"));
 		return typeQuery.getResultList();
 	}
+	
+	public List<ContratoEntity> recuperarContratoVinculoPessoaFinanceiraVinculoContaBancaria(Long codigoPessoaContratante) {
+		StringBuilder query = new StringBuilder("SELECT contratoEntity ")
+			.append("FROM ContratoEntity contratoEntity ")
+			.append("JOIN contratoEntity.pessoaContratante pessoaContratante ")
+			.append("JOIN contratoEntity.pessoaContratado pessoaContratado ")
+			.append("WHERE pessoaContratante.codigo = :codigoUsuarioLogadoParameter ");
+		TypedQuery<ContratoEntity> typeQuery = entityManager.createQuery(query.toString(), ContratoEntity.class);
+			typeQuery.setParameter("codigoUsuarioLogadoParameter", codigoPessoaContratante);
+		return typeQuery.getResultList();
+	}
 
 }

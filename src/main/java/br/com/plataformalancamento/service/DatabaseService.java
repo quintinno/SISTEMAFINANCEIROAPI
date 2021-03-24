@@ -388,7 +388,17 @@ public class DatabaseService {
 			
 		// Inserir documentos no banco de dados
 		ArquivoEntity arquivoEntity = new ArquivoEntity();
-		File file = new File("/home/desenvolvimento/Desenvolvimento/SISTEMAFINANCEIROAPI/src/main/resources/files/BRAVA_INTERNET_FATURA_2021_03_16_001.pdf");
+		
+		String sistemaOperacional = System.getProperty("os.name").toUpperCase();
+		
+		File file = new File("");
+		
+		if(sistemaOperacional.toLowerCase().contains("windows")) {
+			file = new File("C:\\Desenvolvimento\\SISTEMAFINANCEIROAPI\\src\\main\\resources\\files\\BRAVA_INTERNET_FATURA_2021_03_16_001.pdf");
+		} else {
+			file = new File("/home/desenvolvimento/Desenvolvimento/SISTEMAFINANCEIROAPI/src/main/resources/files/BRAVA_INTERNET_FATURA_2021_03_16_001.pdf");
+		}
+		
 			try {
 				byte[] bytes = Files.readAllBytes(file.toPath());
 				arquivoEntity.setConteudo(bytes);

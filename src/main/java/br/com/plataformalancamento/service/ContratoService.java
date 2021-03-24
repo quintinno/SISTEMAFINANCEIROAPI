@@ -41,5 +41,9 @@ public class ContratoService implements Serializable {
 	public List<ContratoEntity> recuperarContratoVinculoPessoaFinanceiraVinculoContaBancaria() {
 		return this.contratoImplementacaoRepository.recuperarContratoVinculoPessoaFinanceiraVinculoContaBancaria();
 	}
+	
+	public List<ContratoEntity> recuperarContratoVinculoPessoaFinanceiraVinculoContaBancaria(Long codigoPessoaContratante) {
+		return this.contratoImplementacaoRepository.recuperarContratoVinculoPessoaFinanceiraVinculoContaBancaria(codigoPessoaContratante);
+	}
 
 }

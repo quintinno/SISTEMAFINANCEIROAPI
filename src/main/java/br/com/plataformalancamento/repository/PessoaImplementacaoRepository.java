@@ -38,9 +38,6 @@ public class PessoaImplementacaoRepository implements Serializable {
 			.append("WHERE pessoaContratante.nome LIKE :usuarioLogadoParameter ");
 		TypedQuery<PessoaEntity> typeQuery = entityManager.createQuery(query.toString(), PessoaEntity.class);
 			typeQuery.setParameter("usuarioLogadoParameter", "%".concat(nomePessoa).concat("%"));
-			for(PessoaEntity pessoaEntity : typeQuery.getResultList()) {
-				System.out.println(pessoaEntity.toString());
-			}
 			if(typeQuery.getResultList().size() > 0) {
 				return true;
 			}
