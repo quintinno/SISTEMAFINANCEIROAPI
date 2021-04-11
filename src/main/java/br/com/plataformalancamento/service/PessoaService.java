@@ -116,4 +116,9 @@ public class PessoaService implements Serializable {
 		return this.pessoaImplementacaoRepository.isPessoaFinanceiraVinculoContaBancaria(nomePessoa);
 	}
 	
+	@Transactional
+	public PessoaEntity alterar(PessoaEntity pessoaEntity) {
+		return this.pessoaRepository.save(pessoaEntity);
+	}
+	
 }
