@@ -387,6 +387,7 @@ public class DatabaseService {
 			this.produtoServicoOcorrenciaRepository.saveAll(Arrays.asList(produtoServicoOcorrenciaEntity1, produtoServicoOcorrenciaEntity2, produtoServicoOcorrenciaEntity3));
 			
 		// Inserir documentos no banco de dados
+		/*
 		ArquivoEntity arquivoEntity = new ArquivoEntity();
 		
 		String sistemaOperacional = System.getProperty("os.name").toUpperCase();
@@ -413,6 +414,7 @@ public class DatabaseService {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		*/
 			
 		// Fluxo de Formas de pagamentos cinculados ao contrato
 		CategoriaCartaoBancarioEntity categoriaCartaoBancarioEntity1 = new CategoriaCartaoBancarioEntity("Cartão de Crédito");
