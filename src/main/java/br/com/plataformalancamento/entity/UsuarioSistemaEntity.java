@@ -12,6 +12,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "TB_USUARIO_SISTEMA")
 public class UsuarioSistemaEntity implements Serializable {
@@ -24,10 +26,8 @@ public class UsuarioSistemaEntity implements Serializable {
 	@Column(name = "CODIGO")
 	private Long codigo;
 	
-	@Column(name = "IDENTIFICADOR", length = 45, unique = true, nullable = false)
-	private String identificador;
-	
-	@Column(name = "SENHA", length = 45, nullable = false)
+	@JsonIgnore
+	@Column(name = "SENHA", nullable = false)
 	private String senha;
 	
 	@Column(name = "IS_ATIVO", length = 45, nullable = false)
@@ -49,14 +49,6 @@ public class UsuarioSistemaEntity implements Serializable {
 
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
-	}
-
-	public String getIdentificador() {
-		return identificador;
-	}
-
-	public void setIdentificador(String identificador) {
-		this.identificador = identificador;
 	}
 
 	public String getSenha() {

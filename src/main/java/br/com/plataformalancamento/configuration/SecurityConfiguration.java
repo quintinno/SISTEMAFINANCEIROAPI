@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -25,7 +26,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private static final String[] PUBLIC_ENDPOINT_LEITURA_ESCRITA = {
 			"/pessoa/**",
 			"/tipo-pessoa",
-			"/contrato/**"
+			"/contrato/**",
+			"/usuario-sistema/**"
 	};
 	
 	private static final String[] PUBLIC_ENDPOINT_LEITURA = {
@@ -52,6 +54,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		final UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
 			urlBasedCorsConfigurationSource.registerCorsConfiguration("/*/", new CorsConfiguration().applyPermitDefaultValues());
 		return urlBasedCorsConfigurationSource;
+	}
+	
+	@Bean 
+	public BCryptPasswordEncoder criptografarDados() {
+		return new BCryptPasswordEncoder();
 	}
 	
 }

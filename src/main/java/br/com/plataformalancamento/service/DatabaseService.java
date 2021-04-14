@@ -1,16 +1,13 @@
 package br.com.plataformalancamento.service;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.com.plataformalancamento.entity.ArquivoEntity;
 import br.com.plataformalancamento.entity.BandeiraCartaoBancarioEntity;
 import br.com.plataformalancamento.entity.CartaoBancarioEntity;
 import br.com.plataformalancamento.entity.CategoriaCartaoBancarioEntity;
@@ -116,6 +113,9 @@ public class DatabaseService {
     
     @Autowired
     private TipoUsuarioSistemaRepository tipoUsuarioSistemaRepository;
+    
+    @Autowired
+	private BCryptPasswordEncoder bBCryptPasswordEncoder;
 
     public void instanciarBaseDados() {
     	
@@ -456,17 +456,15 @@ public class DatabaseService {
 		TipoUsuarioSistemaEntity tipoUsuarioSistemaEntity2 = new TipoUsuarioSistemaEntity("Consultor Financeiro");
 		TipoUsuarioSistemaEntity tipoUsuarioSistemaEntity3 = new TipoUsuarioSistemaEntity("Verificador Finanaceiro"); // Usado para pessoas que tomaram emprestimos
 		UsuarioSistemaEntity usuarioSistemaEntity1 = new UsuarioSistemaEntity();
-			usuarioSistemaEntity1.setIdentificador("00000000000");
 			usuarioSistemaEntity1.setIsAtivo(true);
 			usuarioSistemaEntity1.setPessoaEntity(pessoaEntity1);
-			usuarioSistemaEntity1.setSenha("123456");
+			usuarioSistemaEntity1.setSenha(bBCryptPasswordEncoder.encode("123456"));
 			usuarioSistemaEntity1.setTipoUsuarioSistemaEntity(tipoUsuarioSistemaEntity1);
 			
 		UsuarioSistemaEntity usuarioSistemaEntity2 = new UsuarioSistemaEntity();
-			usuarioSistemaEntity2.setIdentificador("11111111111");
 			usuarioSistemaEntity2.setIsAtivo(true);
 			usuarioSistemaEntity2.setPessoaEntity(pessoaEntity6);
-			usuarioSistemaEntity2.setSenha("654321");
+			usuarioSistemaEntity2.setSenha(bBCryptPasswordEncoder.encode("654321"));
 			usuarioSistemaEntity2.setTipoUsuarioSistemaEntity(tipoUsuarioSistemaEntity1);
 			
 			this.tipoUsuarioSistemaRepository.saveAll(Arrays.asList(tipoUsuarioSistemaEntity1, tipoUsuarioSistemaEntity2, tipoUsuarioSistemaEntity3));
