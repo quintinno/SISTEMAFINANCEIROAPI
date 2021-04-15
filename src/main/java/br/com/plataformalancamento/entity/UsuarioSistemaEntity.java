@@ -1,9 +1,15 @@
 package br.com.plataformalancamento.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +19,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import br.com.plataformalancamento.enumeration.TipoPerfilUsuarioSistemaEnumeration;
 
 @Entity
 @Table(name = "TB_USUARIO_SISTEMA")
@@ -34,12 +42,12 @@ public class UsuarioSistemaEntity implements Serializable {
 	private Boolean isAtivo;
 	
 	@OneToOne
-	@JoinColumn(name = "ID_TIPO_USUARIO_SISTEMA", referencedColumnName = "codigo", nullable = false)
-	private TipoUsuarioSistemaEntity tipoUsuarioSistemaEntity;
-	
-	@OneToOne
 	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "codigo", nullable = false)
 	private PessoaEntity pessoaEntity;
+	
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "TB_PERFIL_USUARIO_SISTEMA")
+	private Set<Integer> perfilUsuarioSistema = new HashSet<>();
 
 	public UsuarioSistemaEntity() { }
 
@@ -75,12 +83,16 @@ public class UsuarioSistemaEntity implements Serializable {
 		this.pessoaEntity = pessoaEntity;
 	}
 
-	public TipoUsuarioSistemaEntity getTipoUsuarioSistemaEntity() {
-		return tipoUsuarioSistemaEntity;
+	public Set<TipoPerfilUsuarioSistemaEnumeration> getPerfilUsuarioSistema() {
+		return this.perfilUsuarioSistema.stream().map( response -> TipoPerfilUsuarioSistemaEnumeration.converterParaEnumeration(response)).collect(Collectors.toSet());
+	}
+	
+	public void adicionarTipoPerfilUsuarioSistema(TipoPerfilUsuarioSistemaEnumeration tipoPerfilUsuarioSistemaEnumeration) {
+		this.perfilUsuarioSistema.add(tipoPerfilUsuarioSistemaEnumeration.getCodigo());
 	}
 
-	public void setTipoUsuarioSistemaEntity(TipoUsuarioSistemaEntity tipoUsuarioSistemaEntity) {
-		this.tipoUsuarioSistemaEntity = tipoUsuarioSistemaEntity;
+	public void setPerfilUsuarioSistema(Set<Integer> perfilUsuarioSistema) {
+		this.perfilUsuarioSistema = perfilUsuarioSistema;
 	}
 
 	@Override

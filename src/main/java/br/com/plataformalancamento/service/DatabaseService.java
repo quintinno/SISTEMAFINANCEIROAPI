@@ -30,6 +30,7 @@ import br.com.plataformalancamento.entity.TipoPessoaEntity;
 import br.com.plataformalancamento.entity.TipoUsuarioSistemaEntity;
 import br.com.plataformalancamento.entity.UsuarioSistemaEntity;
 import br.com.plataformalancamento.enumeration.TipoCanalPagamentoEnumeration;
+import br.com.plataformalancamento.enumeration.TipoPerfilUsuarioSistemaEnumeration;
 import br.com.plataformalancamento.enumeration.TipoPeriodoFinanceiroEnumeration;
 import br.com.plataformalancamento.enumeration.TipoReceitaEnumeration;
 import br.com.plataformalancamento.enumeration.TipoSituacaoPagamentoEnumeration;
@@ -455,17 +456,20 @@ public class DatabaseService {
 		TipoUsuarioSistemaEntity tipoUsuarioSistemaEntity1 = new TipoUsuarioSistemaEntity("Administrador Financeiro");
 		TipoUsuarioSistemaEntity tipoUsuarioSistemaEntity2 = new TipoUsuarioSistemaEntity("Consultor Financeiro");
 		TipoUsuarioSistemaEntity tipoUsuarioSistemaEntity3 = new TipoUsuarioSistemaEntity("Verificador Finanaceiro"); // Usado para pessoas que tomaram emprestimos
+		
 		UsuarioSistemaEntity usuarioSistemaEntity1 = new UsuarioSistemaEntity();
 			usuarioSistemaEntity1.setIsAtivo(true);
 			usuarioSistemaEntity1.setPessoaEntity(pessoaEntity1);
 			usuarioSistemaEntity1.setSenha(bBCryptPasswordEncoder.encode("123456"));
-			usuarioSistemaEntity1.setTipoUsuarioSistemaEntity(tipoUsuarioSistemaEntity1);
+			usuarioSistemaEntity1.adicionarTipoPerfilUsuarioSistema(TipoPerfilUsuarioSistemaEnumeration.ADMINISTRADOR_FINANCEIRO);
+			usuarioSistemaEntity1.adicionarTipoPerfilUsuarioSistema(TipoPerfilUsuarioSistemaEnumeration.CONSULTOR_FINANCEIRO);
+			usuarioSistemaEntity1.adicionarTipoPerfilUsuarioSistema(TipoPerfilUsuarioSistemaEnumeration.DEVEDOR_EMPRESTIMO);
 			
 		UsuarioSistemaEntity usuarioSistemaEntity2 = new UsuarioSistemaEntity();
 			usuarioSistemaEntity2.setIsAtivo(true);
 			usuarioSistemaEntity2.setPessoaEntity(pessoaEntity6);
 			usuarioSistemaEntity2.setSenha(bBCryptPasswordEncoder.encode("654321"));
-			usuarioSistemaEntity2.setTipoUsuarioSistemaEntity(tipoUsuarioSistemaEntity1);
+			usuarioSistemaEntity2.adicionarTipoPerfilUsuarioSistema(TipoPerfilUsuarioSistemaEnumeration.ADMINISTRADOR_FINANCEIRO);
 			
 			this.tipoUsuarioSistemaRepository.saveAll(Arrays.asList(tipoUsuarioSistemaEntity1, tipoUsuarioSistemaEntity2, tipoUsuarioSistemaEntity3));
 			this.usuarioSistemaRepository.saveAll(Arrays.asList(usuarioSistemaEntity1, usuarioSistemaEntity2));
