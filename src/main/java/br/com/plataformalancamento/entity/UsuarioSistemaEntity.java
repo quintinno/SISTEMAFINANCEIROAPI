@@ -94,7 +94,7 @@ public class UsuarioSistemaEntity implements Serializable {
 	public void setPerfilUsuarioSistema(Set<Integer> perfilUsuarioSistema) {
 		this.perfilUsuarioSistema = perfilUsuarioSistema;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

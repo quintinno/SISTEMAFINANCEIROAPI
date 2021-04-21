@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public enum TipoPerfilUsuarioSistemaEnumeration {
 	
 	@JsonProperty("Administrador Financeiro")
-	ADMINISTRADOR_FINANCEIRO(1, "Administrador Financeiro", "ADMFIN", "ROLE_ADMFIN"),
+	ADMINISTRADOR_FINANCEIRO(1, "Administrador Financeiro", "ADMINISTRADOR_FINANCEIRO", "ROLE_ADMFIN"),
 	
 	@JsonProperty("Consultor Financeiro")
-	CONSULTOR_FINANCEIRO(2, "Consultor Financeiro", "CONFIN", "ROLE_CONFIN"),
+	CONSULTOR_FINANCEIRO(2, "Consultor Financeiro", "CONSULTOR_FINANCEIRO", "ROLE_CONFIN"),
 	
 	@JsonProperty("Devedor Empréstimo")
-	DEVEDOR_EMPRESTIMO(3, "Devedor Empréstimo", "DVDEMP", "ROLE_DVDEMP");
+	DEVEDOR_EMPRESTIMO(3, "Devedor Empréstimo", "DEVEDOR_EMPRESTIMO", "ROLE_DVDEMP");
 	
 	private Integer codigo;
 	

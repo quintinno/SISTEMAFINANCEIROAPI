@@ -32,8 +32,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	private static final String[] PUBLIC_ENDPOINT_LEITURA = {
 			"/pessoa/**",
-			"/tipo-pessoa",
-			"/contrato/**"
+			"/tipo-pessoa/**",
+			"/contrato/**",
+			"/categoria-despesa/**",
+			"/forma-pagamento/**",
+			"/tipo-canal-pagamento/**",
+			"/cartao-bancario/**",
+			"/produto-servico/**"
 	};
 	
 	@Override

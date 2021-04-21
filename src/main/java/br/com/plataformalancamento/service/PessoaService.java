@@ -2,6 +2,7 @@ package br.com.plataformalancamento.service;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +16,8 @@ import br.com.plataformalancamento.entity.EmailEntity;
 import br.com.plataformalancamento.entity.EnderecoEntity;
 import br.com.plataformalancamento.entity.PessoaEntity;
 import br.com.plataformalancamento.entity.TipoPessoaEntity;
+import br.com.plataformalancamento.entity.UsuarioSistemaEntity;
+import br.com.plataformalancamento.enumeration.TipoPerfilUsuarioSistemaEnumeration;
 import br.com.plataformalancamento.repository.EmailRepository;
 import br.com.plataformalancamento.repository.EnderecoRepository;
 import br.com.plataformalancamento.repository.PessoaImplementacaoRepository;
@@ -40,6 +43,9 @@ public class PessoaService implements Serializable {
 	
 	@Autowired
 	private PessoaImplementacaoRepository pessoaImplementacaoRepository;
+	
+	@Autowired
+	private UsuarioSistemaService usuarioSistemaService;
 	
 	public List<PessoaEntity> recuperar() {
 		return this.pessoaRepository.findAll();
@@ -102,11 +108,17 @@ public class PessoaService implements Serializable {
 	
 	@Transactional
 	public List<PessoaEntity> recuperarPessoaFinanceiraSistema() {
-		List<PessoaEntity> pessoaEntityList = this.pessoaImplementacaoRepository.recuperarPessoaFinanceiraSistema();
 		List<PessoaEntity> pessoaEntityVerificadaList = new ArrayList<PessoaEntity>();
-		for( PessoaEntity pessoaEntityResultado : pessoaEntityList ) {
-			if(isPessoaVinculoContaBancaria(pessoaEntityResultado.getNome())) {
-				pessoaEntityVerificadaList.add(pessoaEntityResultado);
+		for(UsuarioSistemaEntity usuarioSistemaEntityResuldado : this.usuarioSistemaService.recuperar()) {
+			Iterator<TipoPerfilUsuarioSistemaEnumeration> tipoPerfilUsuarioSistemaEnumerationIterator = usuarioSistemaEntityResuldado.getPerfilUsuarioSistema().iterator();
+			while(tipoPerfilUsuarioSistemaEnumerationIterator.hasNext()) {
+				TipoPerfilUsuarioSistemaEnumeration tipoPerfilUsuarioSistemaEnumeration = tipoPerfilUsuarioSistemaEnumerationIterator.next();
+				if(tipoPerfilUsuarioSistemaEnumeration.getSigla().equals(TipoPerfilUsuarioSistemaEnumeration.ADMINISTRADOR_FINANCEIRO.getSigla())) {
+					if(isPessoaVinculoContaBancaria(usuarioSistemaEntityResuldado.getPessoaEntity().getNome())) {
+						PessoaEntity pessoaEntity = usuarioSistemaEntityResuldado.getPessoaEntity();
+						pessoaEntityVerificadaList.add(pessoaEntity);
+					}
+				}
 			}
 		}
 		return pessoaEntityVerificadaList;

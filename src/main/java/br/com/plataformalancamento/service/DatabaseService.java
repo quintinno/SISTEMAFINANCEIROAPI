@@ -16,6 +16,7 @@ import br.com.plataformalancamento.entity.CategoriaReceitaEntity;
 import br.com.plataformalancamento.entity.ContaBancariaEntity;
 import br.com.plataformalancamento.entity.ContratoEntity;
 import br.com.plataformalancamento.entity.DespesaEntity;
+import br.com.plataformalancamento.entity.EmailEntity;
 import br.com.plataformalancamento.entity.FormaPagamentoDespesaEntity;
 import br.com.plataformalancamento.entity.FormaPagamentoEntity;
 import br.com.plataformalancamento.entity.FuncaoCartaoBancarioEntity;
@@ -43,6 +44,7 @@ import br.com.plataformalancamento.repository.CategoriaReceitaRepository;
 import br.com.plataformalancamento.repository.ContaBancariaRepository;
 import br.com.plataformalancamento.repository.ContratoRepository;
 import br.com.plataformalancamento.repository.DespesaRepository;
+import br.com.plataformalancamento.repository.EmailRepository;
 import br.com.plataformalancamento.repository.FormaPagamentoRepository;
 import br.com.plataformalancamento.repository.FuncaoCartaoBancarioRepository;
 import br.com.plataformalancamento.repository.PessoaRepository;
@@ -117,6 +119,9 @@ public class DatabaseService {
     
     @Autowired
 	private BCryptPasswordEncoder bBCryptPasswordEncoder;
+    
+    @Autowired
+    private EmailRepository emailRepository;
 
     public void instanciarBaseDados() {
     	
@@ -179,7 +184,19 @@ public class DatabaseService {
     		pessoaEntity9.setIsAtivo(true);
     		
     		this.pessoaRepository.saveAll(Arrays.asList(pessoaEntity1, pessoaEntity2, pessoaEntity3, pessoaEntity4, pessoaEntity5, pessoaEntity6, pessoaEntity7, pessoaEntity8, pessoaEntity9));
-    		
+    	
+    	EmailEntity emailEntity1 = new EmailEntity();
+			emailEntity1.setDescricao("josequintinn@gmail.com");
+			emailEntity1.setIsPrincipal(true);
+			emailEntity1.setPessoaEntity(pessoaEntity1);
+			
+		EmailEntity emailEntity2 = new EmailEntity();
+			emailEntity2.setDescricao("josequintinn@hotmail.com.br");
+			emailEntity2.setIsPrincipal(false);
+			emailEntity2.setPessoaEntity(pessoaEntity1);
+			
+			this.emailRepository.saveAll(Arrays.asList(emailEntity1, emailEntity2));
+    	
     	CategoriaReceitaEntity categoriaReceitaEntity1 = new CategoriaReceitaEntity("Devolução de Empréstimo (Concessão)");
     	CategoriaReceitaEntity categoriaReceitaEntity2 = new CategoriaReceitaEntity("Solicitação de Empréstimo (Obtenção)");
     	CategoriaReceitaEntity categoriaReceitaEntity3 = new CategoriaReceitaEntity("Pagamento de Salário Mensalista");

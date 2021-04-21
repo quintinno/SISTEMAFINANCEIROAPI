@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 import br.com.plataformalancamento.entity.PessoaEntity;
+import br.com.plataformalancamento.entity.UsuarioSistemaEntity;
 
 @Repository
 public class PessoaImplementacaoRepository implements Serializable {
@@ -23,10 +24,10 @@ public class PessoaImplementacaoRepository implements Serializable {
 		StringBuilder query = new StringBuilder("SELECT pessoaEntity ")
 			.append("FROM UsuarioSistemaEntity usuarioSistemaEntity ")
 			.append("JOIN usuarioSistemaEntity.pessoaEntity pessoaEntity ")
-			.append("JOIN usuarioSistemaEntity.tipoUsuarioSistemaEntity tipoUsuarioSistemaEntity ")
-			.append("WHERE tipoUsuarioSistemaEntity.descricao = :papelUsuarioSistemaParameter ");
+			.append("JOIN usuarioSistemaEntity.perfilUsuarioSistema perfilUsuarioSistemaEntity ")
+			.append("WHERE perfilUsuarioSistemaEntity.perfil_usuario_sistema = :tipoPerfilUsuarioSistemaParameter ");
 		TypedQuery<PessoaEntity> typedQuery = entityManager.createQuery(query.toString(), PessoaEntity.class);
-			typedQuery.setParameter("papelUsuarioSistemaParameter", "Administrador Financeiro");
+			typedQuery.setParameter("tipoPerfilUsuarioSistemaParameter", 1);
 		return typedQuery.getResultList();
 	}
 	
