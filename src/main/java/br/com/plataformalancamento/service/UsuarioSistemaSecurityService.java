@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import br.com.plataformalancamento.dto.UsuarioSistemaDTO;
+import br.com.plataformalancamento.entity.UsuarioSistemaEntity;
 import br.com.plataformalancamento.repository.UsuarioSistemaImplementacaoRepository;
 import br.com.plataformalancamento.security.UsuarioSistemaSecurity;
 
@@ -18,9 +19,9 @@ public class UsuarioSistemaSecurityService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UsuarioSistemaDTO usuarioSistemaDTO = this.usuarioSistemaImplementacaoRepository.recuperarUsuarioSistema();
-//		return new UsuarioSistemaSecurity(usuarioSistemaDTO.getCodigoPessoa(), usuarioSistemaDTO.getUsuario(), usuarioSistemaDTO.getSenha(), usuarioSistemaDTO.getPerfilUsuarioSistema());
-		return new UsuarioSistemaSecurity();
+		UsuarioSistemaEntity usuarioSistemaEntity = this.usuarioSistemaImplementacaoRepository.recuperarUsuarioSistema(username);
+		UsuarioSistemaDTO usuarioSistemaDTO = new UsuarioSistemaDTO(usuarioSistemaEntity.getPessoaEntity().getCodigo(), usuarioSistemaEntity.getNomeUsuario(), usuarioSistemaEntity.getSenha());
+		return new UsuarioSistemaSecurity(usuarioSistemaDTO.getCodigoPessoa(), usuarioSistemaDTO.getUsuario(), usuarioSistemaDTO.getSenha(), usuarioSistemaEntity.getPerfilUsuarioSistema());
 	}
 
 }

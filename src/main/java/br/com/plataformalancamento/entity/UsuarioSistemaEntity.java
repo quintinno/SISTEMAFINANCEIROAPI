@@ -35,6 +35,10 @@ public class UsuarioSistemaEntity implements Serializable {
 	private Long codigo;
 	
 	@JsonIgnore
+	@Column(name = "NOME_USUARIO", unique = true, nullable = false)
+	private String nomeUsuario;
+	
+	@JsonIgnore
 	@Column(name = "SENHA", nullable = false)
 	private String senha;
 	
@@ -57,6 +61,14 @@ public class UsuarioSistemaEntity implements Serializable {
 
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
+	}
+
+	public String getNomeUsuario() {
+		return nomeUsuario;
+	}
+
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
 	}
 
 	public String getSenha() {

@@ -122,7 +122,7 @@ public class DatabaseService {
     
     @Autowired
     private EmailRepository emailRepository;
-
+    
     public void instanciarBaseDados() {
     	
     	TipoPessoaEntity tipoPessoaEntity1 = new TipoPessoaEntity("Pessoa Física", "PF");
@@ -477,6 +477,7 @@ public class DatabaseService {
 		UsuarioSistemaEntity usuarioSistemaEntity1 = new UsuarioSistemaEntity();
 			usuarioSistemaEntity1.setIsAtivo(true);
 			usuarioSistemaEntity1.setPessoaEntity(pessoaEntity1);
+			usuarioSistemaEntity1.setNomeUsuario("00000000000");
 			usuarioSistemaEntity1.setSenha(bBCryptPasswordEncoder.encode("123456"));
 			usuarioSistemaEntity1.adicionarTipoPerfilUsuarioSistema(TipoPerfilUsuarioSistemaEnumeration.ADMINISTRADOR_FINANCEIRO);
 			usuarioSistemaEntity1.adicionarTipoPerfilUsuarioSistema(TipoPerfilUsuarioSistemaEnumeration.CONSULTOR_FINANCEIRO);
@@ -485,6 +486,7 @@ public class DatabaseService {
 		UsuarioSistemaEntity usuarioSistemaEntity2 = new UsuarioSistemaEntity();
 			usuarioSistemaEntity2.setIsAtivo(true);
 			usuarioSistemaEntity2.setPessoaEntity(pessoaEntity6);
+			usuarioSistemaEntity2.setNomeUsuario("11111111111");
 			usuarioSistemaEntity2.setSenha(bBCryptPasswordEncoder.encode("654321"));
 			usuarioSistemaEntity2.adicionarTipoPerfilUsuarioSistema(TipoPerfilUsuarioSistemaEnumeration.ADMINISTRADOR_FINANCEIRO);
 			

@@ -109,13 +109,13 @@ public class PessoaService implements Serializable {
 	@Transactional
 	public List<PessoaEntity> recuperarPessoaFinanceiraSistema() {
 		List<PessoaEntity> pessoaEntityVerificadaList = new ArrayList<PessoaEntity>();
-		for(UsuarioSistemaEntity usuarioSistemaEntityResuldado : this.usuarioSistemaService.recuperar()) {
-			Iterator<TipoPerfilUsuarioSistemaEnumeration> tipoPerfilUsuarioSistemaEnumerationIterator = usuarioSistemaEntityResuldado.getPerfilUsuarioSistema().iterator();
+		for(UsuarioSistemaEntity usuarioSistemaEntityResultado : this.usuarioSistemaService.recuperar()) {
+			Iterator<TipoPerfilUsuarioSistemaEnumeration> tipoPerfilUsuarioSistemaEnumerationIterator = usuarioSistemaEntityResultado.getPerfilUsuarioSistema().iterator();
 			while(tipoPerfilUsuarioSistemaEnumerationIterator.hasNext()) {
 				TipoPerfilUsuarioSistemaEnumeration tipoPerfilUsuarioSistemaEnumeration = tipoPerfilUsuarioSistemaEnumerationIterator.next();
 				if(tipoPerfilUsuarioSistemaEnumeration.getSigla().equals(TipoPerfilUsuarioSistemaEnumeration.ADMINISTRADOR_FINANCEIRO.getSigla())) {
-					if(isPessoaVinculoContaBancaria(usuarioSistemaEntityResuldado.getPessoaEntity().getNome())) {
-						PessoaEntity pessoaEntity = usuarioSistemaEntityResuldado.getPessoaEntity();
+					if(isPessoaVinculoContaBancaria(usuarioSistemaEntityResultado.getPessoaEntity().getNome())) {
+						PessoaEntity pessoaEntity = usuarioSistemaEntityResultado.getPessoaEntity();
 						pessoaEntityVerificadaList.add(pessoaEntity);
 					}
 				}

@@ -17,6 +17,11 @@ public class UsuarioSistemaDTO implements Serializable {
 	private Set<Integer> perfilUsuarioSistema = new HashSet<>();
 	
 	public UsuarioSistemaDTO() { }
+	
+	public UsuarioSistemaDTO(String usuario, String senha) {
+		this.usuario = usuario;
+		this.senha = senha;
+	}
 
 	public UsuarioSistemaDTO(Long codigoPessoa, String usuario, String senha) {
 		this.codigoPessoa = codigoPessoa;

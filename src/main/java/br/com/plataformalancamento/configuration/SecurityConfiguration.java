@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -16,12 +17,22 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import br.com.plataformalancamento.filter.JWTAuthenticationFilter;
+import br.com.plataformalancamento.service.UsuarioSistemaSecurityService;
+import br.com.plataformalancamento.utility.JWTUtility;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private Environment environment;
+	
+	@Autowired
+	private UsuarioSistemaSecurityService usuarioSistemaSecurityService;
+	
+	@Autowired
+	private JWTUtility jwtUtility;
 	
 	private static final String[] PUBLIC_ENDPOINT_LEITURA_ESCRITA = {
 			"/pessoa/**",
@@ -39,7 +50,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			"/tipo-canal-pagamento/**",
 			"/cartao-bancario/**",
 			"/produto-servico/**",
-			"/despesa/**"
+			"/despesa/**",
+			"/email/**"
 	};
 	
 	@Override
@@ -52,13 +64,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.antMatchers(HttpMethod.GET, PUBLIC_ENDPOINT_LEITURA).permitAll()
 		.antMatchers(PUBLIC_ENDPOINT_LEITURA_ESCRITA).permitAll()
 		.anyRequest().authenticated();
+		httpSecurity.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtility));
 		httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+	}
+	
+	@Override
+	protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+		authenticationManagerBuilder.userDetailsService(usuarioSistemaSecurityService).passwordEncoder(this.criptografarDados());
 	}
 	
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		final UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
-			urlBasedCorsConfigurationSource.registerCorsConfiguration("/*/", new CorsConfiguration().applyPermitDefaultValues());
+			urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
 		return urlBasedCorsConfigurationSource;
 	}
 	
