@@ -1,8 +1,5 @@
 package br.com.plataformalancamento.service;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -10,7 +7,6 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.plataformalancamento.entity.ArquivoEntity;
 import br.com.plataformalancamento.entity.BandeiraCartaoBancarioEntity;
 import br.com.plataformalancamento.entity.CartaoBancarioEntity;
 import br.com.plataformalancamento.entity.CategoriaCartaoBancarioEntity;
@@ -36,7 +32,6 @@ import br.com.plataformalancamento.enumeration.TipoCanalPagamentoEnumeration;
 import br.com.plataformalancamento.enumeration.TipoPeriodoFinanceiroEnumeration;
 import br.com.plataformalancamento.enumeration.TipoReceitaEnumeration;
 import br.com.plataformalancamento.enumeration.TipoSituacaoPagamentoEnumeration;
-import br.com.plataformalancamento.repository.ArquivoRepository;
 import br.com.plataformalancamento.repository.BandeiraCartaoBancarioRepository;
 import br.com.plataformalancamento.repository.CartaoBancarioRepository;
 import br.com.plataformalancamento.repository.CategoriaCartaoBancarioRepository;
@@ -96,8 +91,8 @@ public class DatabaseService {
     @Autowired
     private ProdutoServicoOcorrenciaRepository produtoServicoOcorrenciaRepository;
     
-    @Autowired
-    private ArquivoRepository arquivoRepository;
+//    @Autowired
+//    private ArquivoRepository arquivoRepository;
     
     @Autowired
     private CategoriaCartaoBancarioRepository categoriaCartaoBancarioRepository;
@@ -387,32 +382,32 @@ public class DatabaseService {
 			this.produtoServicoOcorrenciaRepository.saveAll(Arrays.asList(produtoServicoOcorrenciaEntity1, produtoServicoOcorrenciaEntity2, produtoServicoOcorrenciaEntity3));
 			
 		// Inserir documentos no banco de dados
-		ArquivoEntity arquivoEntity = new ArquivoEntity();
-		
-		String sistemaOperacional = System.getProperty("os.name").toUpperCase();
-		
-		File file = new File("");
-		
-		if(sistemaOperacional.toLowerCase().contains("windows")) {
-			file = new File("C:\\Desenvolvimento\\SISTEMAFINANCEIROAPI\\src\\main\\resources\\files\\BRAVA_INTERNET_FATURA_2021_03_16_001.pdf");
-		} else {
-			file = new File("/home/desenvolvimento/Desenvolvimento/SISTEMAFINANCEIROAPI/src/main/resources/files/BRAVA_INTERNET_FATURA_2021_03_16_001.pdf");
-		}
-		
-			try {
-				byte[] bytes = Files.readAllBytes(file.toPath());
-				arquivoEntity.setConteudo(bytes);
-				arquivoEntity.setNome(file.getName());
-				arquivoEntity.setDataCadastro(new Date());
-				arquivoEntity.setTamanho((long) bytes.length);
-				String nomeArquivoCompleto = arquivoEntity.getNome();
-				if( nomeArquivoCompleto.contains(".") ) {
-					arquivoEntity.setTipo(nomeArquivoCompleto.substring(nomeArquivoCompleto.lastIndexOf(".") + 1));
-				}
-				this.arquivoRepository.save(arquivoEntity);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+//		ArquivoEntity arquivoEntity = new ArquivoEntity();
+//		
+//		String sistemaOperacional = System.getProperty("os.name").toUpperCase();
+//		
+//		File file = new File("");
+//		
+//		if(sistemaOperacional.toLowerCase().contains("windows")) {
+//			file = new File("C:\\Desenvolvimento\\SISTEMAFINANCEIROAPI\\src\\main\\resources\\files\\BRAVA_INTERNET_FATURA_2021_03_16_001.pdf");
+//		} else {
+//			file = new File("/home/desenvolvimento/Desenvolvimento/SISTEMAFINANCEIROAPI/src/main/resources/files/BRAVA_INTERNET_FATURA_2021_03_16_001.pdf");
+//		}
+//		
+//			try {
+//				byte[] bytes = Files.readAllBytes(file.toPath());
+//				arquivoEntity.setConteudo(bytes);
+//				arquivoEntity.setNome(file.getName());
+//				arquivoEntity.setDataCadastro(new Date());
+//				arquivoEntity.setTamanho((long) bytes.length);
+//				String nomeArquivoCompleto = arquivoEntity.getNome();
+//				if( nomeArquivoCompleto.contains(".") ) {
+//					arquivoEntity.setTipo(nomeArquivoCompleto.substring(nomeArquivoCompleto.lastIndexOf(".") + 1));
+//				}
+//				this.arquivoRepository.save(arquivoEntity);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
 			
 		// Fluxo de Formas de pagamentos cinculados ao contrato
 		CategoriaCartaoBancarioEntity categoriaCartaoBancarioEntity1 = new CategoriaCartaoBancarioEntity("Cartão de Crédito");
