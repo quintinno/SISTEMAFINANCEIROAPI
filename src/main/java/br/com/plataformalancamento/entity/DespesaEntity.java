@@ -54,7 +54,7 @@ public class DespesaEntity implements Serializable {
 	@OneToMany(mappedBy = "despesaEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<FormaPagamentoDespesaEntity> formaPagamentoDespesaEntityList = new ArrayList<>();
 
-	@JsonProperty("canalPagamento")
+	@JsonProperty("tipoCanalPagamento")
 	@Enumerated(EnumType.STRING)
 	@Column(name = "TIPO_CANAL_PAGAMENTO")
 	private TipoCanalPagamentoEnumeration tipoCanalPagamentoEnumeration;

@@ -21,6 +21,9 @@ public class DespesaService implements Serializable {
 
     @Autowired
     private DespesaRepository despesaRepository;
+    
+    @Autowired
+    private ProdutoServicoService produtoServicoService;
 
     public DespesaService() { }
 
@@ -55,6 +58,14 @@ public class DespesaService implements Serializable {
     
     private DespesaEntity prepararProdutoServicoDespesa(DespesaEntity despesaEntity) {
     	for(ProdutoServicoEntity produtoServicoEntity : despesaEntity.getProdutoServicoEntityList()) {
+    		if(this.produtoServicoService.isProdutoServicoDescricaoCadastrado(produtoServicoEntity.getDescricao())) {
+    			ProdutoServicoEntity produtoServicoEntityRecuperado = this.produtoServicoService.findOne(produtoServicoEntity.getDescricao());
+    			produtoServicoEntity.setDespesaEntity(despesaEntity);
+    			if(produtoServicoEntity.getDescricao().equals(produtoServicoEntityRecuperado.getDescricao())) {
+    				despesaEntity.getProdutoServicoEntityList().remove(produtoServicoEntity);
+    				despesaEntity.getProdutoServicoEntityList().add(produtoServicoEntityRecuperado);
+    			}
+    		}
     		produtoServicoEntity.setDespesaEntity(despesaEntity);
     	}
     	return despesaEntity;
