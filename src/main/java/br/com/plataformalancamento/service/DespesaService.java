@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import br.com.plataformalancamento.entity.DespesaEntity;
 import br.com.plataformalancamento.entity.FormaPagamentoDespesaEntity;
 import br.com.plataformalancamento.entity.ProdutoServicoEntity;
-import br.com.plataformalancamento.enumeration.TipoCanalPagamentoEnumeration;
 import br.com.plataformalancamento.repository.DespesaRepository;
 
 @Service
@@ -35,14 +34,11 @@ public class DespesaService implements Serializable {
 	public DespesaEntity cadastrar(DespesaEntity despesaEntity) {
     	if(despesaEntity.getCategoriaDespesaEntity().getSigla().equals("DVA")) {
     		despesaEntity = this.prepararDespesaVariavel(despesaEntity);
-	    	return this.despesaRepository.save(despesaEntity);
-    	} else {
-    		return this.despesaRepository.save(despesaEntity);
     	}
+    	return this.despesaRepository.save(despesaEntity);
 	}
     
     private DespesaEntity prepararDespesaVariavel(DespesaEntity despesaEntity) {
-    	despesaEntity.setTipoCanalPagamentoEnumeration(TipoCanalPagamentoEnumeration.TRANSACAO_FISICA);
     	this.prepararFormaPagamentoDespesa(despesaEntity);
     	this.prepararProdutoServicoDespesa(despesaEntity);
 		return despesaEntity;

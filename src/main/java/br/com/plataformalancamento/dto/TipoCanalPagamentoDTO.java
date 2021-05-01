@@ -1,24 +1,25 @@
-package br.com.plataformalancamento.enumeration;
+package br.com.plataformalancamento.dto;
 
-public enum TipoCanalPagamentoEnumeration {
-	
-	TRANSACAO_FISICA(1, "Transação Física", "TRF"),
-	TRANSACAO_ONLINE(2, "Transação Online", "TRO");
+import java.io.Serializable;
+
+public class TipoCanalPagamentoDTO implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	
 	private Integer codigo;
 	
 	private String descricao;
 	
 	private String sigla;
-
-	private TipoCanalPagamentoEnumeration(Integer codigo, String descricao, String sigla) {
+	
+	private String valor;
+	
+	public TipoCanalPagamentoDTO() { }
+	
+	public TipoCanalPagamentoDTO(Integer codigo, String descricao, String sigla) {
 		this.codigo = codigo;
 		this.descricao = descricao;
 		this.sigla = sigla;
-	}
-	
-	public static TipoCanalPagamentoEnumeration recuperarTipoCanalPagamentoEnumeration(String valor) {
-		return TipoCanalPagamentoEnumeration.valueOf(valor);
 	}
 
 	public Integer getCodigo() {
@@ -43,6 +44,14 @@ public enum TipoCanalPagamentoEnumeration {
 
 	public void setSigla(String sigla) {
 		this.sigla = sigla;
+	}
+
+	public String getValor() {
+		return valor;
+	}
+
+	public void setValor(String valor) {
+		this.valor = valor;
 	}
 	
 }
