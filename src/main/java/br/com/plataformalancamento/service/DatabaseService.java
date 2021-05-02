@@ -172,7 +172,25 @@ public class DatabaseService {
     		pessoaEntity9.setIsInstituicaoFinanceira(true);
     		pessoaEntity9.setIsAtivo(true);
     		
-    		this.pessoaRepository.saveAll(Arrays.asList(pessoaEntity1, pessoaEntity2, pessoaEntity3, pessoaEntity4, pessoaEntity5, pessoaEntity6, pessoaEntity7, pessoaEntity8, pessoaEntity9));
+    	PessoaEntity pessoaEntity10 = new PessoaEntity();
+			pessoaEntity10.setNome("Mirante Tecnologia");
+			pessoaEntity10.setTipoPessoaEntity(tipoPessoaEntity2);
+			pessoaEntity10.setIsInstituicaoFinanceira(false);
+			pessoaEntity10.setIsAtivo(true);
+			
+		PessoaEntity pessoaEntity11 = new PessoaEntity();
+			pessoaEntity11.setNome("Banco do Brasil");
+			pessoaEntity11.setTipoPessoaEntity(tipoPessoaEntity2);
+			pessoaEntity11.setIsInstituicaoFinanceira(true);
+			pessoaEntity11.setIsAtivo(true);
+			
+		PessoaEntity pessoaEntity12 = new PessoaEntity();
+			pessoaEntity12.setNome("Alelo Multibenefícios");
+			pessoaEntity12.setTipoPessoaEntity(tipoPessoaEntity2);
+			pessoaEntity12.setIsInstituicaoFinanceira(false);
+			pessoaEntity12.setIsAtivo(true);
+    		
+    		this.pessoaRepository.saveAll(Arrays.asList(pessoaEntity1, pessoaEntity2, pessoaEntity3, pessoaEntity4, pessoaEntity5, pessoaEntity6, pessoaEntity7, pessoaEntity8, pessoaEntity9, pessoaEntity10, pessoaEntity11, pessoaEntity12));
     		
     	CategoriaReceitaEntity categoriaReceitaEntity1 = new CategoriaReceitaEntity("Devolução de Empréstimo (Concessão)");
     	CategoriaReceitaEntity categoriaReceitaEntity2 = new CategoriaReceitaEntity("Solicitação de Empréstimo (Obtenção)");
@@ -204,8 +222,9 @@ public class DatabaseService {
     	TipoContaBancariaEntity tipoContaBancariaEntity4 = new TipoContaBancariaEntity("Poupança");
     	TipoContaBancariaEntity tipoContaBancariaEntity5 = new TipoContaBancariaEntity("Conta Investimento");
 		TipoContaBancariaEntity tipoContaBancariaEntity6 = new TipoContaBancariaEntity("Conta Carteira (Conta Especial)");
+		TipoContaBancariaEntity tipoContaBancariaEntity7 = new TipoContaBancariaEntity("Conta Benefício Alimentação (Conta Especial)");
     	
-    		this.tipoContaBancariaRepository.saveAll(Arrays.asList(tipoContaBancariaEntity1, tipoContaBancariaEntity2, tipoContaBancariaEntity3, tipoContaBancariaEntity4, tipoContaBancariaEntity5, tipoContaBancariaEntity6));
+    		this.tipoContaBancariaRepository.saveAll(Arrays.asList(tipoContaBancariaEntity1, tipoContaBancariaEntity2, tipoContaBancariaEntity3, tipoContaBancariaEntity4, tipoContaBancariaEntity5, tipoContaBancariaEntity6, tipoContaBancariaEntity7));
     	
     	TipoContratoEntity tipoContratoEntity1 = new TipoContratoEntity("Contrato de Conta Bancária");
     	TipoContratoEntity tipoContratoEntity2 = new TipoContratoEntity("Contrato de Trabalho CLT");
@@ -243,8 +262,16 @@ public class DatabaseService {
 	    	contratoEntity3.setPessoaContratante(pessoaEntity1);
 	    	contratoEntity3.setTipoContratoEntity(tipoContratoEntity10);
 	    	contratoEntity3.setIsATivo(true);
+	    	
+	    ContratoEntity contratoEntity4 = new ContratoEntity();
+	    	contratoEntity4.setDataInicioVigencia(DateUtility.gerarDataFormatoDate(2021, 4, 19));
+	    	contratoEntity4.setDataFimVigencia(null);
+	    	contratoEntity4.setPessoaContratado(pessoaEntity10);
+	    	contratoEntity4.setPessoaContratante(pessoaEntity1);
+	    	contratoEntity4.setTipoContratoEntity(tipoContratoEntity2);
+	    	contratoEntity4.setIsATivo(true);
     		
-    		this.contratoRepository.saveAll(Arrays.asList(contratoEntity1, contratoEntity2, contratoEntity3));
+    		this.contratoRepository.saveAll(Arrays.asList(contratoEntity1, contratoEntity2, contratoEntity3, contratoEntity4));
     		
     	ContaBancariaEntity contaBancariaEntity1 = new ContaBancariaEntity();
     		contaBancariaEntity1.setContratoEntity(contratoEntity1);
@@ -254,6 +281,9 @@ public class DatabaseService {
     		contaBancariaEntity1.setNumeroConta("01083366-1");
     		contaBancariaEntity1.setTipoContaBancariaEntity(tipoContaBancariaEntity1);
     		contaBancariaEntity1.setValorSaldoAtual(0D);
+    		contaBancariaEntity1.setPessoaInstituicaoFinanceira(contratoEntity1.getPessoaContratado());
+    		contaBancariaEntity1.setIsBeneficio(false);
+    		contaBancariaEntity1.setIsAtivo(true);
     		
     	ContaBancariaEntity contaBancariaEntity2 = new ContaBancariaEntity();
 	    	contaBancariaEntity2.setContratoEntity(contratoEntity2);
@@ -263,6 +293,9 @@ public class DatabaseService {
 	    	contaBancariaEntity2.setNumeroConta("00000000-1");
 	    	contaBancariaEntity2.setTipoContaBancariaEntity(tipoContaBancariaEntity1);
 	    	contaBancariaEntity2.setValorSaldoAtual(0D);
+	    	contaBancariaEntity2.setPessoaInstituicaoFinanceira(contratoEntity2.getPessoaContratado());
+	    	contaBancariaEntity2.setIsBeneficio(false);
+    		contaBancariaEntity2.setIsAtivo(true);
 	    	
 	    ContaBancariaEntity contaBancariaEntity3 = new ContaBancariaEntity();
 	    	contaBancariaEntity3.setContratoEntity(contratoEntity3);
@@ -272,8 +305,35 @@ public class DatabaseService {
 	    	contaBancariaEntity3.setNumeroConta("XXXXXXXX-X");
 	    	contaBancariaEntity3.setTipoContaBancariaEntity(tipoContaBancariaEntity6);
 	    	contaBancariaEntity3.setValorSaldoAtual(0D);
+	    	contaBancariaEntity3.setPessoaInstituicaoFinanceira(contratoEntity3.getPessoaContratado());
+	    	contaBancariaEntity3.setIsBeneficio(false);
+    		contaBancariaEntity3.setIsAtivo(true);
+	    	
+	    ContaBancariaEntity contaBancariaEntity4 = new ContaBancariaEntity();
+	    	contaBancariaEntity4.setContratoEntity(contratoEntity4);
+	    	contaBancariaEntity4.setDataAbertura(DateUtility.gerarDataFormatoDate(2021, 4, 28));
+	    	contaBancariaEntity4.setDataFechamento(null);
+	    	contaBancariaEntity4.setNumeroAgencia("0826-5");
+	    	contaBancariaEntity4.setNumeroConta("71.746-0");
+	    	contaBancariaEntity4.setTipoContaBancariaEntity(tipoContaBancariaEntity3);
+	    	contaBancariaEntity4.setValorSaldoAtual(0D);
+	    	contaBancariaEntity4.setPessoaInstituicaoFinanceira(pessoaEntity11);
+	    	contaBancariaEntity4.setIsBeneficio(false);
+    		contaBancariaEntity4.setIsAtivo(true);
     		
-    		this.contaBancariaRepository.saveAll(Arrays.asList(contaBancariaEntity1, contaBancariaEntity2, contaBancariaEntity3));
+    	ContaBancariaEntity contaBancariaEntity5 = new ContaBancariaEntity();
+	    	contaBancariaEntity5.setContratoEntity(contratoEntity4);
+	    	contaBancariaEntity5.setDataAbertura(contratoEntity4.getDataInicioVigencia());
+	    	contaBancariaEntity5.setDataFechamento(null);
+	    	contaBancariaEntity5.setNumeroAgencia("0000");
+	    	contaBancariaEntity5.setNumeroConta("000000");
+	    	contaBancariaEntity5.setTipoContaBancariaEntity(tipoContaBancariaEntity7);
+	    	contaBancariaEntity5.setValorSaldoAtual(1156.10);
+	    	contaBancariaEntity5.setPessoaInstituicaoFinanceira(pessoaEntity12);
+	    	contaBancariaEntity5.setIsBeneficio(true);
+    		contaBancariaEntity5.setIsAtivo(true);
+    		
+    		this.contaBancariaRepository.saveAll(Arrays.asList(contaBancariaEntity1, contaBancariaEntity2, contaBancariaEntity3, contaBancariaEntity4, contaBancariaEntity5));
 
 		// Fluxo de Receita Fixa (com Parcelamento)
 		ReceitaEntity receitaEntity1 = new ReceitaEntity();
@@ -417,8 +477,9 @@ public class DatabaseService {
 			
 		BandeiraCartaoBancarioEntity bandeiraCartaoBancarioEntity1 = new BandeiraCartaoBancarioEntity("Master Card");
 		BandeiraCartaoBancarioEntity bandeiraCartaoBancarioEntity2 = new BandeiraCartaoBancarioEntity("Visa Card");
+		BandeiraCartaoBancarioEntity bandeiraCartaoBancarioEntity3 = new BandeiraCartaoBancarioEntity("Elo Card");
 		
-			this.bandeiraCartaoBancarioRepository.saveAll(Arrays.asList(bandeiraCartaoBancarioEntity1, bandeiraCartaoBancarioEntity2));
+			this.bandeiraCartaoBancarioRepository.saveAll(Arrays.asList(bandeiraCartaoBancarioEntity1, bandeiraCartaoBancarioEntity2, bandeiraCartaoBancarioEntity3));
 			
 		CartaoBancarioEntity cartaoBancarioEntity1 = new CartaoBancarioEntity();
 			cartaoBancarioEntity1.setBandeiraCartaoBancarioEntity(bandeiraCartaoBancarioEntity1);
@@ -429,7 +490,16 @@ public class DatabaseService {
 			cartaoBancarioEntity1.setNomeImpresso("JOSE Q S JUNIOR");
 			cartaoBancarioEntity1.setNumero("5447-9094-8101-3037");
 			
-			this.cartaoBancarioRepository.saveAll(Arrays.asList(cartaoBancarioEntity1));
+		CartaoBancarioEntity cartaoBancarioEntity2 = new CartaoBancarioEntity();
+			cartaoBancarioEntity2.setBandeiraCartaoBancarioEntity(bandeiraCartaoBancarioEntity3);
+			cartaoBancarioEntity2.setCategoriaCartaoBancarioEntity(categoriaCartaoBancarioEntity2);
+			cartaoBancarioEntity2.setContaBancariaEntity(contaBancariaEntity5);
+			cartaoBancarioEntity2.setDataValidade("04/26");
+			cartaoBancarioEntity2.setDescricao("ALIMENTAÇÃO");
+			cartaoBancarioEntity2.setNomeImpresso("JOSE Q SILVA JR");
+			cartaoBancarioEntity2.setNumero("5067-6188-3218-1018");
+			
+			this.cartaoBancarioRepository.saveAll(Arrays.asList(cartaoBancarioEntity1, cartaoBancarioEntity2));
 			
 		FuncaoCartaoBancarioEntity funcaoCartaoBancarioEntity1 = new FuncaoCartaoBancarioEntity();
 			funcaoCartaoBancarioEntity1.setCartaoBancarioEntity(cartaoBancarioEntity1);

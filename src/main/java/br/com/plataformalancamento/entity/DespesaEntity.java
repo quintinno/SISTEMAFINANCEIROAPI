@@ -23,6 +23,7 @@ import javax.persistence.TemporalType;
 
 import br.com.plataformalancamento.enumeration.TipoCanalPagamentoEnumeration;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -50,6 +51,7 @@ public class DespesaEntity implements Serializable {
 	@OneToMany(mappedBy = "despesaEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<ProdutoServicoEntity> produtoServicoEntityList = new ArrayList<>();
 	
+	@JsonIgnore
 	@JsonProperty("formaPagamentoDespesaList")
 	@OneToMany(mappedBy = "despesaEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<FormaPagamentoDespesaEntity> formaPagamentoDespesaEntityList = new ArrayList<>();

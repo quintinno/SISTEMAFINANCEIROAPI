@@ -60,6 +60,16 @@ public class ContaBancariaEntity implements Serializable {
 	@JoinColumn(name = "ID_CONTRATO", referencedColumnName = "CODIGO", nullable = false)
 	private ContratoEntity contratoEntity;
 	
+	@OneToOne
+	@JoinColumn(name = "ID_PESSOA_INSTITUICAO_FINANCEIRA", referencedColumnName = "CODIGO", nullable = false)
+	private PessoaEntity pessoaInstituicaoFinanceira;
+	
+	@Column(name = "IS_BENEFICIO", nullable = false)
+	private Boolean isBeneficio;
+	
+	@Column(name = "IS_ATIVO", nullable = false)
+	private Boolean isAtivo;
+	
 	public ContaBancariaEntity() { }
 	
 	public Long getCodigo() {
@@ -124,6 +134,30 @@ public class ContaBancariaEntity implements Serializable {
 
 	public void setContratoEntity(ContratoEntity contratoEntity) {
 		this.contratoEntity = contratoEntity;
+	}
+
+	public PessoaEntity getPessoaInstituicaoFinanceira() {
+		return pessoaInstituicaoFinanceira;
+	}
+
+	public void setPessoaInstituicaoFinanceira(PessoaEntity pessoaInstituicaoFinanceira) {
+		this.pessoaInstituicaoFinanceira = pessoaInstituicaoFinanceira;
+	}
+
+	public Boolean getIsBeneficio() {
+		return isBeneficio;
+	}
+
+	public void setIsBeneficio(Boolean isBeneficio) {
+		this.isBeneficio = isBeneficio;
+	}
+
+	public Boolean getIsAtivo() {
+		return isAtivo;
+	}
+
+	public void setIsAtivo(Boolean isAtivo) {
+		this.isAtivo = isAtivo;
 	}
 
 	@Override

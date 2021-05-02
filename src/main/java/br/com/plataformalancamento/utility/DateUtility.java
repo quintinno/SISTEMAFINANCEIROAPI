@@ -56,7 +56,7 @@ public class DateUtility {
 	}
 	
 	public static Date gerarDataFormatoDate(Integer anoReferencia, Integer mesReferencia, Integer diaMesReferencia) {
-		return new GregorianCalendar(anoReferencia, mesReferencia, diaMesReferencia).getTime();
+		return new GregorianCalendar(anoReferencia, mesReferencia-1, diaMesReferencia).getTime();
 	}
 	
 }
