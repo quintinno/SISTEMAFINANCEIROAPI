@@ -45,5 +45,10 @@ public class CartaoBancarioController implements Serializable {
 	public ResponseEntity<List<CartaoBancarioDTO>> recuperarCartaoDebitoBancarioVinculadoContaBancaria() {
 		return ResponseEntity.ok().body(cartaoBancarioService.recuperarCartaoDebitoBancarioVinculadoContaBancaria());
 	}
+	
+	@GetMapping("/recuperar-cartao-alimentacao")
+	public ResponseEntity<List<CartaoBancarioDTO>> recuperarCartaoAlimentacaoVinculadoContaBancaria() {
+		return ResponseEntity.ok().body(cartaoBancarioService.recuperarCartaoAlimentacaoVinculadoContaBancaria());
+	}
 
 }

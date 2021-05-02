@@ -185,7 +185,7 @@ public class DatabaseService {
 			pessoaEntity11.setIsAtivo(true);
 			
 		PessoaEntity pessoaEntity12 = new PessoaEntity();
-			pessoaEntity12.setNome("Alelo Multibenefícios");
+			pessoaEntity12.setNome("Alelo");
 			pessoaEntity12.setTipoPessoaEntity(tipoPessoaEntity2);
 			pessoaEntity12.setIsInstituicaoFinanceira(false);
 			pessoaEntity12.setIsAtivo(true);
@@ -209,7 +209,7 @@ public class DatabaseService {
     	FormaPagamentoEntity formaPagamentoEntity7 = new FormaPagamentoEntity("Cheque", "CH", false);
     	FormaPagamentoEntity formaPagamentoEntity8 = new FormaPagamentoEntity("Cartão de Débito", "CD", true);
     	FormaPagamentoEntity formaPagamentoEntity9 = new FormaPagamentoEntity("Crédito Loja", "CL", false);
-    	FormaPagamentoEntity formaPagamentoEntity10 = new FormaPagamentoEntity("Vale Alimentação", "VA", false);
+    	FormaPagamentoEntity formaPagamentoEntity10 = new FormaPagamentoEntity("Vale Alimentação", "VA", true);
     	FormaPagamentoEntity formaPagamentoEntity11 = new FormaPagamentoEntity("Vale Refeição", "VR", false);
     	FormaPagamentoEntity formaPagamentoEntity12 = new FormaPagamentoEntity("Vale Presente", "VP", false);
     	FormaPagamentoEntity formaPagamentoEntity13 = new FormaPagamentoEntity("Vale Combustível", "VC", false);
@@ -511,8 +511,14 @@ public class DatabaseService {
 			funcaoCartaoBancarioEntity2.setDescricao("Débito");
 			funcaoCartaoBancarioEntity2.setIsAtivo(true);
 			
+		FuncaoCartaoBancarioEntity funcaoCartaoBancarioEntity3 = new FuncaoCartaoBancarioEntity();
+			funcaoCartaoBancarioEntity3.setCartaoBancarioEntity(cartaoBancarioEntity2);
+			funcaoCartaoBancarioEntity3.setDescricao("Débito");
+			funcaoCartaoBancarioEntity3.setIsAtivo(true);
+			
 			this.funcaoCartaoBancarioRepository.saveAndFlush(funcaoCartaoBancarioEntity1);
 			this.funcaoCartaoBancarioRepository.saveAndFlush(funcaoCartaoBancarioEntity2);
+			this.funcaoCartaoBancarioRepository.saveAndFlush(funcaoCartaoBancarioEntity3);
 			
 		// Fluxo de Perfil de Usuarios do sistema
 		TipoUsuarioSistemaEntity tipoUsuarioSistemaEntity1 = new TipoUsuarioSistemaEntity("Administrador Financeiro");

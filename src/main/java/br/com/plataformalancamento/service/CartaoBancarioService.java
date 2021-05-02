@@ -44,4 +44,9 @@ public class CartaoBancarioService implements Serializable {
 		return this.cartaoBancarioImplementacaoRepository.recuperarCartaoDebitoBancarioVinculadoContaBancaria();
 	}
 	
+	@Transactional
+	public List<CartaoBancarioDTO> recuperarCartaoAlimentacaoVinculadoContaBancaria() {
+		return this.cartaoBancarioImplementacaoRepository.recuperarCartaoAlimentacaoVinculadoContaBancaria();
+	}
+	
 }
