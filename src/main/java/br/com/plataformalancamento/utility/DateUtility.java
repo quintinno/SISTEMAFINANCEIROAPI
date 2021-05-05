@@ -59,4 +59,11 @@ public class DateUtility {
 		return new GregorianCalendar(anoReferencia, mesReferencia-1, diaMesReferencia).getTime();
 	}
 	
+	public static Date gerarDataVencimentoPorNumeroMesses(Date dataInicioVigenciaContrato, Integer numeroMesesVigenciaContrato) {
+		Calendar dataVencimento = Calendar.getInstance();
+			dataVencimento.setTime(dataInicioVigenciaContrato);
+			dataVencimento.add(Calendar.MONTH, numeroMesesVigenciaContrato);
+		return dataVencimento.getTime();
+	}
+	
 }

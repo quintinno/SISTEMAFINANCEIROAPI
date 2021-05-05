@@ -1,7 +1,6 @@
 package br.com.plataformalancamento.service;
 
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +17,9 @@ import br.com.plataformalancamento.entity.DespesaEntity;
 import br.com.plataformalancamento.entity.FormaPagamentoDespesaEntity;
 import br.com.plataformalancamento.entity.FormaPagamentoEntity;
 import br.com.plataformalancamento.entity.FuncaoCartaoBancarioEntity;
-import br.com.plataformalancamento.entity.ParcelamentoEntity;
 import br.com.plataformalancamento.entity.PessoaEntity;
 import br.com.plataformalancamento.entity.ProdutoServicoEntity;
 import br.com.plataformalancamento.entity.ProdutoServicoOcorrenciaEntity;
-import br.com.plataformalancamento.entity.ReceitaEntity;
 import br.com.plataformalancamento.entity.TipoContaBancariaEntity;
 import br.com.plataformalancamento.entity.TipoContratoEntity;
 import br.com.plataformalancamento.entity.TipoPessoaEntity;
@@ -30,8 +27,6 @@ import br.com.plataformalancamento.entity.TipoUsuarioSistemaEntity;
 import br.com.plataformalancamento.entity.UsuarioSistemaEntity;
 import br.com.plataformalancamento.enumeration.TipoCanalPagamentoEnumeration;
 import br.com.plataformalancamento.enumeration.TipoPeriodoFinanceiroEnumeration;
-import br.com.plataformalancamento.enumeration.TipoReceitaEnumeration;
-import br.com.plataformalancamento.enumeration.TipoSituacaoPagamentoEnumeration;
 import br.com.plataformalancamento.repository.BandeiraCartaoBancarioRepository;
 import br.com.plataformalancamento.repository.CartaoBancarioRepository;
 import br.com.plataformalancamento.repository.CategoriaCartaoBancarioRepository;
@@ -44,7 +39,6 @@ import br.com.plataformalancamento.repository.FormaPagamentoRepository;
 import br.com.plataformalancamento.repository.FuncaoCartaoBancarioRepository;
 import br.com.plataformalancamento.repository.PessoaRepository;
 import br.com.plataformalancamento.repository.ProdutoServicoOcorrenciaRepository;
-import br.com.plataformalancamento.repository.ReceitaRepository;
 import br.com.plataformalancamento.repository.TipoContaBancariaRepository;
 import br.com.plataformalancamento.repository.TipoContratoRepository;
 import br.com.plataformalancamento.repository.TipoPessoaRepository;
@@ -79,8 +73,8 @@ public class DatabaseService {
     @Autowired
     private ContaBancariaRepository contaBancariaRepository;
     
-    @Autowired
-    private ReceitaRepository receitaRepository;
+//    @Autowired
+//    private ReceitaRepository receitaRepository;
     
     @Autowired
     private CategoriaDespesaRepository categoriaDespesaRepository;
@@ -111,6 +105,9 @@ public class DatabaseService {
     
     @Autowired
     private TipoUsuarioSistemaRepository tipoUsuarioSistemaRepository;
+    
+    @Autowired
+    private ParcelamentoService parcelamentoService;
 
     public void instanciarBaseDados() {
     	
@@ -270,9 +267,24 @@ public class DatabaseService {
 	    	contratoEntity4.setPessoaContratante(pessoaEntity1);
 	    	contratoEntity4.setTipoContratoEntity(tipoContratoEntity2);
 	    	contratoEntity4.setIsATivo(true);
+	    	
+	    ContratoEntity contratoEntity5 = new ContratoEntity();
+	    	contratoEntity5.setDataInicioVigencia(DateUtility.gerarDataFormatoDate(2021, 2, 16));
+	    	contratoEntity5.setDataFimVigencia(null);
+	    	contratoEntity5.setPessoaContratado(pessoaEntity2);
+	    	contratoEntity5.setPessoaContratante(pessoaEntity1);
+	    	contratoEntity5.setTipoContratoEntity(tipoContratoEntity4);
+	    	contratoEntity5.setDiaVencimentoFatura(16);
+	    	contratoEntity5.setValorMensalPagamento(118D);
+	    	contratoEntity5.setTipoPeriodoFinanceiroEnumeration(TipoPeriodoFinanceiroEnumeration.ANUAL);
+	    	contratoEntity5.setNumeroMesesVigenciaContrato(12);
+	    	contratoEntity5.setIsATivo(true);
     		
-    		this.contratoRepository.saveAll(Arrays.asList(contratoEntity1, contratoEntity2, contratoEntity3, contratoEntity4));
+    		this.contratoRepository.saveAll(Arrays.asList(contratoEntity1, contratoEntity2, contratoEntity3, contratoEntity4, contratoEntity5));
     		
+    		this.parcelamentoService.gerarParcelamentoContrato(contratoEntity5);
+    		
+    	// Fluxo de Conta Bancaria
     	ContaBancariaEntity contaBancariaEntity1 = new ContaBancariaEntity();
     		contaBancariaEntity1.setContratoEntity(contratoEntity1);
     		contaBancariaEntity1.setDataAbertura(null);
@@ -336,6 +348,7 @@ public class DatabaseService {
     		this.contaBancariaRepository.saveAll(Arrays.asList(contaBancariaEntity1, contaBancariaEntity2, contaBancariaEntity3, contaBancariaEntity4, contaBancariaEntity5));
 
 		// Fluxo de Receita Fixa (com Parcelamento)
+    	/*
 		ReceitaEntity receitaEntity1 = new ReceitaEntity();
 			receitaEntity1.setCategoriaReceitaEntity(categoriaReceitaEntity4);
 			receitaEntity1.setContaBancariaDeposito(contaBancariaEntity1);
@@ -374,7 +387,8 @@ public class DatabaseService {
 			receitaEntity1.adicionarParcelamentoReceita(parcelamentoEntity2);
 
 			receitaRepository.save(receitaEntity1);
-			
+		*/
+    		
 		// Fluxo de Despesa Variavel (com Produtos e Serviços e Forma de Pagamento Multiplo)
 		CategoriaDespesaEntity categoriaDespesaEntity1 = new CategoriaDespesaEntity();
 			categoriaDespesaEntity1.setDescricao("Despesa Fixa");
@@ -422,7 +436,7 @@ public class DatabaseService {
 			
 		DespesaEntity despesaEntity1 = new DespesaEntity();
 			despesaEntity1.setCategoriaDespesaEntity(categoriaDespesaEntity2);
-			despesaEntity1.setPessoaEstabelecimento(pessoaEntity5);
+			despesaEntity1.setPessoaFavorecido(pessoaEntity5);
 			despesaEntity1.setDataPagamento(new Date());
 			despesaEntity1.setDataVencimento(new Date());
 			despesaEntity1.setDataCadastro(new Date());

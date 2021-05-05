@@ -1,6 +1,17 @@
 package br.com.plataformalancamento.service;
 
-import br.com.plataformalancamento.entity.ParcelamentoEntity;
+import java.io.Serializable;
+import java.text.ParseException;
+import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.stereotype.Service;
+
 import br.com.plataformalancamento.entity.ReceitaEntity;
 import br.com.plataformalancamento.enumeration.TipoPeriodoFinanceiroEnumeration;
 import br.com.plataformalancamento.enumeration.TipoReceitaEnumeration;
@@ -10,17 +21,6 @@ import br.com.plataformalancamento.exception.ObjectNotFoundException;
 import br.com.plataformalancamento.repository.ReceitaImplementacaoDao;
 import br.com.plataformalancamento.repository.ReceitaRepository;
 import br.com.plataformalancamento.utility.DateUtility;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
-import java.io.Serializable;
-import java.text.ParseException;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ReceitaService implements Serializable {
@@ -58,7 +58,7 @@ public class ReceitaService implements Serializable {
 			receitaEntity.setTipoPeriodoFinanceiroEnumeration(TipoPeriodoFinanceiroEnumeration.UNICO);
 		}
 		if(receitaEntity.getTipoReceitaEnumeration().equals(TipoReceitaEnumeration.RECEITA_FIXA)) {
-			this.gerarParcelamento(receitaEntity);
+//			this.gerarParcelamento(receitaEntity);
 		}
 		receitaEntity.setValorPagamento(0D);
 		return this.receitaRepository.save(receitaEntity);
@@ -122,22 +122,22 @@ public class ReceitaService implements Serializable {
 		return this.receitaImplementacaoDao.recuperarNumeroControleDiario(receitaEntity);
 	}
 	
-	private void gerarParcelamento(ReceitaEntity receitaEntity) {
-		for( int index = 0 ; index < receitaEntity.getQuantidadeParcela() ; index++ ) {
-			ParcelamentoEntity parcelamentoEntity = new ParcelamentoEntity();
-				parcelamentoEntity.setTipoSituacaoPagamentoEnumeration(TipoSituacaoPagamentoEnumeration.PENDENTE);
-				parcelamentoEntity.setNumeroParcela(index+1);
-				parcelamentoEntity.setValorPrevistoParcela(receitaEntity.getValorPagamento());
-				parcelamentoEntity.setValorTotalParcelamento(receitaEntity.getValorPagamento() * receitaEntity.getQuantidadeParcela());
-				parcelamentoEntity.setDataVencimentoParcela(gerarDataVencimentoParcelamento(index, receitaEntity.getDataPrevisaoRecebimento()));
-				parcelamentoEntity.setReceitaEntity(receitaEntity);
-				receitaEntity.adicionarParcelamentoReceita(parcelamentoEntity);
-		}
-	}
+//	private void gerarParcelamento(ReceitaEntity receitaEntity) {
+//		for( int index = 0 ; index < receitaEntity.getQuantidadeParcela() ; index++ ) {
+//			ParcelamentoEntity parcelamentoEntity = new ParcelamentoEntity();
+//				parcelamentoEntity.setTipoSituacaoPagamentoEnumeration(TipoSituacaoPagamentoEnumeration.PENDENTE);
+//				parcelamentoEntity.setNumeroParcela(index+1);
+//				parcelamentoEntity.setValorPrevistoParcela(receitaEntity.getValorPagamento());
+//				parcelamentoEntity.setValorTotalParcelamento(receitaEntity.getValorPagamento() * receitaEntity.getQuantidadeParcela());
+//				parcelamentoEntity.setDataVencimentoParcela(gerarDataVencimentoParcelamento(index, receitaEntity.getDataPrevisaoRecebimento()));
+//				parcelamentoEntity.setReceitaEntity(receitaEntity);
+//				receitaEntity.adicionarParcelamentoReceita(parcelamentoEntity);
+//		}
+//	}
 	
-	private Date gerarDataVencimentoParcelamento(int numeroMes, Date dataPrevisaoRecebimentoReceita) {
-		return DateUtility.gerarDataVencimentoPorNumeroDias(numeroMes, dataPrevisaoRecebimentoReceita);
-	}
+//	private Date gerarDataVencimentoParcelamento(int numeroMes, Date dataPrevisaoRecebimentoReceita) {
+//		return DateUtility.gerarDataVencimentoPorNumeroDias(numeroMes, dataPrevisaoRecebimentoReceita);
+//	}
 
 	public ReceitaEntity atualizarValorPago(Long codigoReceita, Double valorPagamento) {
 		ReceitaEntity receitaEntity = this.recuperar(codigoReceita);

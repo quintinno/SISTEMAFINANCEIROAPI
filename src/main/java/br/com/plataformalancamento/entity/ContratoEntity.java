@@ -44,8 +44,11 @@ public class ContratoEntity implements Serializable {
 	@Column(name = "DATA_FIM_VIGENCIA")
 	private Date dataFimVigencia;
 	
-	@Column(name = "IS_ATIVO", nullable = false)
-	private Boolean isATivo;
+	@Column(name = "DIA_VENCIMENTO_FATURA")
+	private Integer diaVencimentoFatura;
+	
+	@Column(name = "VALOR_MENSAL_PAGAMENTO", scale = 10, precision = 2)
+	private Double valorMensalPagamento;
 	
 	@JsonProperty("tipoContrato")
 	@OneToOne
@@ -65,8 +68,11 @@ public class ContratoEntity implements Serializable {
 	@Column(name = "TIPO_PERIODO_FINANCEIRO")
 	private TipoPeriodoFinanceiroEnumeration tipoPeriodoFinanceiroEnumeration;
 
-	@Column(name = "VIGENCIA_CONTRATO")
-	private Integer vigenciaContrato;
+	@Column(name = "NUMERO_MESES_VIGENCIA_CONTRATO")
+	private Integer numeroMesesVigenciaContrato;
+	
+	@Column(name = "IS_ATIVO", nullable = false)
+	private Boolean isATivo;
 	
 	public ContratoEntity() { }
 
@@ -142,12 +148,28 @@ public class ContratoEntity implements Serializable {
 		this.tipoPeriodoFinanceiroEnumeration = tipoPeriodoFinanceiroEnumeration;
 	}
 
-	public Integer getVigenciaContrato() {
-		return vigenciaContrato;
+	public Integer getNumeroMesesVigenciaContrato() {
+		return numeroMesesVigenciaContrato;
 	}
 
-	public void setVigenciaContrato(Integer vigenciaContrato) {
-		this.vigenciaContrato = vigenciaContrato;
+	public void setNumeroMesesVigenciaContrato(Integer numeroMesesVigenciaContrato) {
+		this.numeroMesesVigenciaContrato = numeroMesesVigenciaContrato;
+	}
+
+	public Integer getDiaVencimentoFatura() {
+		return diaVencimentoFatura;
+	}
+
+	public void setDiaVencimentoFatura(Integer diaVencimentoFatura) {
+		this.diaVencimentoFatura = diaVencimentoFatura;
+	}
+
+	public Double getValorMensalPagamento() {
+		return valorMensalPagamento;
+	}
+
+	public void setValorMensalPagamento(Double valorMensalPagamento) {
+		this.valorMensalPagamento = valorMensalPagamento;
 	}
 
 	@Override

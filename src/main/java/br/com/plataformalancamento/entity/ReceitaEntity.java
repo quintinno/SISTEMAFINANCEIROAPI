@@ -1,19 +1,32 @@
 package br.com.plataformalancamento.entity;
 
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import br.com.plataformalancamento.enumeration.TipoPeriodoFinanceiroEnumeration;
 import br.com.plataformalancamento.enumeration.TipoReceitaEnumeration;
 import br.com.plataformalancamento.enumeration.TipoSituacaoPagamentoEnumeration;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.validator.constraints.Length;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "TB_RECEITA")
@@ -58,9 +71,9 @@ public class ReceitaEntity implements Serializable {
 	@JoinColumn(name = "ID_RESPONSAVEL_PAGAMENTO", referencedColumnName = "codigo", nullable = false)
 	private PessoaEntity responsavelPagamento;
 	
-	@JsonProperty("parcelamento")
-	@OneToMany(mappedBy = "receitaEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private List<ParcelamentoEntity> parcelamentoEntityList = new ArrayList<>();
+//	@JsonProperty("parcelamento")
+//	@OneToMany(mappedBy = "receitaEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+//	private List<ParcelamentoEntity> parcelamentoEntityList = new ArrayList<>();
 	
 	@JsonProperty("tipoFormaPagamento")
 	@OneToOne
@@ -88,15 +101,15 @@ public class ReceitaEntity implements Serializable {
 
 	public ReceitaEntity() { }
 	
-	public void adicionarParcelamentoReceita(ParcelamentoEntity parcelamentoEntity) {
-		parcelamentoEntity.setReceitaEntity(this);
-		this.parcelamentoEntityList.add(parcelamentoEntity);
-	}
+//	public void adicionarParcelamentoReceita(ParcelamentoEntity parcelamentoEntity) {
+//		parcelamentoEntity.setReceitaEntity(this);
+//		this.parcelamentoEntityList.add(parcelamentoEntity);
+//	}O
 	
-	@SuppressWarnings("unlikely-arg-type")
-	public void removerParcelamentoReceita(Integer index) {
-		this.parcelamentoEntityList.remove(index);
-	}
+//	@SuppressWarnings("unlikely-arg-type")
+//	public void removerParcelamentoReceita(Integer index) {
+//		this.parcelamentoEntityList.remove(index);
+//	}
 
 	public Long getCodigo() {
 		return codigo;
@@ -162,13 +175,13 @@ public class ReceitaEntity implements Serializable {
 		this.responsavelPagamento = responsavelPagamento;
 	}
 
-	public List<ParcelamentoEntity> getParcelamentoEntityList() {
-		return parcelamentoEntityList;
-	}
-
-	public void setParcelamentoEntityList(List<ParcelamentoEntity> parcelamentoEntityList) {
-		this.parcelamentoEntityList = parcelamentoEntityList;
-	}
+//	public List<ParcelamentoEntity> getParcelamentoEntityList() {
+//		return parcelamentoEntityList;
+//	}
+//
+//	public void setParcelamentoEntityList(List<ParcelamentoEntity> parcelamentoEntityList) {
+//		this.parcelamentoEntityList = parcelamentoEntityList;
+//	}
 
 	public FormaPagamentoEntity getTipoFormaPagamentoEntity() {
 		return tipoFormaPagamentoEntity;

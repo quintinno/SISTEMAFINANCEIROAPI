@@ -1,13 +1,26 @@
 package br.com.plataformalancamento.entity;
 
-import br.com.plataformalancamento.enumeration.TipoSituacaoPagamentoEnumeration;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import br.com.plataformalancamento.enumeration.TipoSituacaoPagamentoEnumeration;
 
 @Entity
 @Table(name = "TB_PARCELAMENTO")
@@ -48,10 +61,14 @@ public class ParcelamentoEntity implements Serializable {
 	@Column(name = "SITUACAO_PAGAMENTO")
 	private TipoSituacaoPagamentoEnumeration tipoSituacaoPagamentoEnumeration;
 	
-	@JsonIgnore
+//	@JsonIgnore
+//	@ManyToOne
+//	@JoinColumn(name = "ID_RECEITA", referencedColumnName = "codigo", nullable = false)
+//	private ReceitaEntity receitaEntity;
+	
 	@ManyToOne
-	@JoinColumn(name = "ID_RECEITA", referencedColumnName = "codigo", nullable = false)
-	private ReceitaEntity receitaEntity;
+	@JoinColumn(name = "ID_CONTRATO", referencedColumnName = "codigo")
+	private ContratoEntity contratoEntity;
 	
 	public ParcelamentoEntity() { }
 	
@@ -119,12 +136,20 @@ public class ParcelamentoEntity implements Serializable {
 		this.tipoSituacaoPagamentoEnumeration = tipoSituacaoPagamentoEnumeration;
 	}
 
-	public ReceitaEntity getReceitaEntity() {
-		return receitaEntity;
+//	public ReceitaEntity getReceitaEntity() {
+//		return receitaEntity;
+//	}
+//
+//	public void setReceitaEntity(ReceitaEntity receitaEntity) {
+//		this.receitaEntity = receitaEntity;
+//	}
+
+	public ContratoEntity getContratoEntity() {
+		return contratoEntity;
 	}
 
-	public void setReceitaEntity(ReceitaEntity receitaEntity) {
-		this.receitaEntity = receitaEntity;
+	public void setContratoEntity(ContratoEntity contratoEntity) {
+		this.contratoEntity = contratoEntity;
 	}
 
 	@Override
