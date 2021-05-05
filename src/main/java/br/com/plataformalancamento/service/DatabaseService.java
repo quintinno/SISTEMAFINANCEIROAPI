@@ -282,7 +282,7 @@ public class DatabaseService {
     		
     		this.contratoRepository.saveAll(Arrays.asList(contratoEntity1, contratoEntity2, contratoEntity3, contratoEntity4, contratoEntity5));
     		
-    		this.parcelamentoService.gerarParcelamentoContrato(contratoEntity5);
+//    		this.parcelamentoService.gerarParcelamentoContrato(contratoEntity5);
     		
     	// Fluxo de Conta Bancaria
     	ContaBancariaEntity contaBancariaEntity1 = new ContaBancariaEntity();

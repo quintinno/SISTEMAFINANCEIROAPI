@@ -61,9 +61,13 @@ public class DateUtility {
 	
 	public static Date gerarDataVencimentoPorNumeroMesses(Date dataInicioVigenciaContrato, Integer numeroMesesVigenciaContrato) {
 		Calendar dataVencimento = Calendar.getInstance();
-			dataVencimento.setTime(dataInicioVigenciaContrato);
+			dataVencimento.setTime(corrigirData(dataInicioVigenciaContrato));
 			dataVencimento.add(Calendar.MONTH, numeroMesesVigenciaContrato);
 		return dataVencimento.getTime();
+	}
+	
+	public static Date corrigirData(Date dataCorrecao) {
+		return acrescentarDiasData(1, dataCorrecao);
 	}
 	
 }

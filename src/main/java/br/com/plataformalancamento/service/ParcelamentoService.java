@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.plataformalancamento.entity.ContratoEntity;
+import br.com.plataformalancamento.entity.DespesaEntity;
 import br.com.plataformalancamento.entity.ParcelamentoEntity;
 import br.com.plataformalancamento.enumeration.TipoSituacaoPagamentoEnumeration;
 import br.com.plataformalancamento.exception.ConfiguradorErrorException;
@@ -74,7 +75,7 @@ public class ParcelamentoService implements Serializable {
 		}
 	}
 	
-	public void gerarParcelamentoContrato(ContratoEntity contratoEntity) {
+	public void gerarParcelamentoDespesaFixa(ContratoEntity contratoEntity, DespesaEntity despesaEntity) {
 		List<ParcelamentoEntity> parcelamentoEntityList = new ArrayList<>();
 		for(int index = 1; index <= contratoEntity.getNumeroMesesVigenciaContrato() ; index++) {
 			ParcelamentoEntity parcelamentoEntity = new ParcelamentoEntity();
@@ -82,7 +83,7 @@ public class ParcelamentoService implements Serializable {
 				parcelamentoEntity.setTipoSituacaoPagamentoEnumeration(TipoSituacaoPagamentoEnumeration.PENDENTE);
 				parcelamentoEntity.setValorPrevistoParcela(contratoEntity.getValorMensalPagamento());
 				parcelamentoEntity.setValorTotalParcelamento(contratoEntity.getValorMensalPagamento() * contratoEntity.getNumeroMesesVigenciaContrato());
-				parcelamentoEntity.setContratoEntity(contratoEntity);
+				parcelamentoEntity.setDespesaEntity(despesaEntity);
 				parcelamentoEntity.setDataVencimentoParcela(DateUtility.gerarDataVencimentoPorNumeroMesses(contratoEntity.getDataInicioVigencia(), index));
 				parcelamentoEntityList.add(parcelamentoEntity);
 		}

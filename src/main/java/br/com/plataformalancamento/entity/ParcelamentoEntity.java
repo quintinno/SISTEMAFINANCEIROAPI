@@ -67,8 +67,8 @@ public class ParcelamentoEntity implements Serializable {
 //	private ReceitaEntity receitaEntity;
 	
 	@ManyToOne
-	@JoinColumn(name = "ID_CONTRATO", referencedColumnName = "codigo")
-	private ContratoEntity contratoEntity;
+	@JoinColumn(name = "ID_DESPESA", referencedColumnName = "codigo")
+	private DespesaEntity despesaEntity;
 	
 	public ParcelamentoEntity() { }
 	
@@ -144,12 +144,12 @@ public class ParcelamentoEntity implements Serializable {
 //		this.receitaEntity = receitaEntity;
 //	}
 
-	public ContratoEntity getContratoEntity() {
-		return contratoEntity;
+	public DespesaEntity getDespesaEntity() {
+		return despesaEntity;
 	}
 
-	public void setContratoEntity(ContratoEntity contratoEntity) {
-		this.contratoEntity = contratoEntity;
+	public void setDespesaEntity(DespesaEntity despesaEntity) {
+		this.despesaEntity = despesaEntity;
 	}
 
 	@Override

@@ -77,13 +77,13 @@ public class DespesaEntity implements Serializable {
 	@Column(name = "DATA_VENCIMENTO")
 	private Date dataVencimento;
 
-	@Column(name = "VALOR_TOTAL_PAGAMENTO", scale = 10, precision = 2, nullable = false)
+	@Column(name = "VALOR_TOTAL_PAGAMENTO", scale = 10, precision = 2)
 	private Double valorTotal;
 
 	@Column(name = "VALOR_DESCONTO", scale = 10, precision = 2)
 	private Double valorDesconto;
 
-	@Column(name = "VALOR_FINAL_PAGAMENTO", scale = 10, precision = 2, nullable = false)
+	@Column(name = "VALOR_PAGAMENTO", scale = 10, precision = 2)
 	private Double valorPagamento;
 	
 	@Column(name = "VALOR_JUROS_ATRASO", scale = 10, precision = 2)

@@ -17,6 +17,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -33,6 +35,12 @@ public class ContratoEntity implements Serializable {
 	@SequenceGenerator(name = "SEQ_CONTRATO", sequenceName = "SEQ_CONTRATO", schema = "public", initialValue = 1, allocationSize = 1)
 	@Column(name = "CODIGO")
 	private Long codigo;
+	
+//	@NotEmpty(message = "O campo do Identificador não pode ser Vazio")
+//	@NotNull(message = "O campo do Identificador não pode ser Nullo")
+	@Length(min = 5, max = 45,message = "O campo do Identificador precisa ter entre {min} e {max} caracteres")
+	@Column(name = "IDENTIFICADOR", unique = true)
+	private String identificador;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
@@ -170,6 +178,14 @@ public class ContratoEntity implements Serializable {
 
 	public void setValorMensalPagamento(Double valorMensalPagamento) {
 		this.valorMensalPagamento = valorMensalPagamento;
+	}
+
+	public String getIdentificador() {
+		return identificador;
+	}
+
+	public void setIdentificador(String identificador) {
+		this.identificador = identificador;
 	}
 
 	@Override

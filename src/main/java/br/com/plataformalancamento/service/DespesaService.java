@@ -1,6 +1,7 @@
 package br.com.plataformalancamento.service;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -8,10 +9,13 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.plataformalancamento.entity.CategoriaDespesaEntity;
+import br.com.plataformalancamento.entity.ContratoEntity;
 import br.com.plataformalancamento.entity.DespesaEntity;
 import br.com.plataformalancamento.entity.FormaPagamentoDespesaEntity;
 import br.com.plataformalancamento.entity.ProdutoServicoEntity;
 import br.com.plataformalancamento.repository.DespesaRepository;
+import br.com.plataformalancamento.utility.DateUtility;
 
 @Service
 public class DespesaService implements Serializable {
@@ -23,6 +27,9 @@ public class DespesaService implements Serializable {
     
     @Autowired
     private ProdutoServicoService produtoServicoService;
+    
+    @Autowired
+    private CategoriaDespesaService categoriaDespesaService;
 
     public DespesaService() { }
 
@@ -65,6 +72,34 @@ public class DespesaService implements Serializable {
     		produtoServicoEntity.setDespesaEntity(despesaEntity);
     	}
     	return despesaEntity;
+    }
+    
+    public DespesaEntity gerarDespesaFixaContrato(ContratoEntity contratoEntity) {
+		DespesaEntity despesaEntity = new DespesaEntity();
+			despesaEntity.setCategoriaDespesaEntity(this.recuperarCategoriaDespesaFixa());
+			despesaEntity.setDataCadastro(new Date());
+			despesaEntity.setDataPagamento(null);
+			despesaEntity.setDataVencimento(DateUtility.gerarDataVencimentoPorNumeroMesses(contratoEntity.getDataInicioVigencia(), 1));
+			despesaEntity.setFormaPagamentoDespesaEntityList(null);
+			despesaEntity.setObservacao(null);
+			despesaEntity.setPessoaFavorecido(contratoEntity.getPessoaContratado());
+			despesaEntity.setProdutoServicoEntityList(null);
+			despesaEntity.setTipoCanalPagamentoEnumeration(null);
+			despesaEntity.setValorDesconto(null);
+			despesaEntity.setValorJurosAtraso(null);
+			despesaEntity.setValorMultaAtraso(null);
+			despesaEntity.setValorPagamento(contratoEntity.getValorMensalPagamento());
+			despesaEntity.setValorTotal(null);
+		return this.cadastrar(despesaEntity);
+	}
+    
+    private CategoriaDespesaEntity recuperarCategoriaDespesaFixa() {
+    	for(CategoriaDespesaEntity categoriaDespesaEntity : this.categoriaDespesaService.recuperar()) {
+    		if(categoriaDespesaEntity.getSigla().equals("DFI")) {
+    			return categoriaDespesaEntity;
+    		}
+    	}
+    	return null;
     }
 
 }
