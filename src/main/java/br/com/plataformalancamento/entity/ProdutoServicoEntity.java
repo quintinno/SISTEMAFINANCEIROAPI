@@ -30,7 +30,7 @@ public class ProdutoServicoEntity implements Serializable {
 	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name = "ID_DESPESA", referencedColumnName = "codigo", nullable = false)
+	@JoinColumn(name = "ID_DESPESA", referencedColumnName = "codigo", nullable = true)
 	private DespesaEntity despesaEntity;
 	
 	public ProdutoServicoEntity() { }

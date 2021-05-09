@@ -34,5 +34,9 @@ public class ProdutoServicoService implements Serializable {
     public Boolean isProdutoServicoDescricaoCadastrado(String descricao) {
     	return this.produtoServicoImplementacaoRepository.isProdutoServicoDescricaoCadastrado(descricao);
     }
+    
+    public ProdutoServicoEntity cadastrar(ProdutoServicoEntity produtoServicoEntity) {
+    	return this.produtoServicoRepository.save(produtoServicoEntity);
+    }
 
 }
