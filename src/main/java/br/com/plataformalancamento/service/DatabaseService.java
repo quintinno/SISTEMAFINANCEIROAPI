@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.plataformalancamento.entity.BandeiraCartaoBancarioEntity;
+import br.com.plataformalancamento.entity.BeneficioEntity;
+import br.com.plataformalancamento.entity.BeneficioValorEntity;
 import br.com.plataformalancamento.entity.CartaoBancarioEntity;
 import br.com.plataformalancamento.entity.CategoriaCartaoBancarioEntity;
 import br.com.plataformalancamento.entity.CategoriaDespesaEntity;
 import br.com.plataformalancamento.entity.CategoriaReceitaEntity;
+import br.com.plataformalancamento.entity.ComposicaoSalarioEntity;
 import br.com.plataformalancamento.entity.ContaBancariaEntity;
 import br.com.plataformalancamento.entity.ContratoEntity;
 import br.com.plataformalancamento.entity.DespesaEntity;
@@ -28,10 +31,13 @@ import br.com.plataformalancamento.entity.UsuarioSistemaEntity;
 import br.com.plataformalancamento.enumeration.TipoCanalPagamentoEnumeration;
 import br.com.plataformalancamento.enumeration.TipoPeriodoFinanceiroEnumeration;
 import br.com.plataformalancamento.repository.BandeiraCartaoBancarioRepository;
+import br.com.plataformalancamento.repository.BeneficioRepository;
+import br.com.plataformalancamento.repository.BeneficioValorRepository;
 import br.com.plataformalancamento.repository.CartaoBancarioRepository;
 import br.com.plataformalancamento.repository.CategoriaCartaoBancarioRepository;
 import br.com.plataformalancamento.repository.CategoriaDespesaRepository;
 import br.com.plataformalancamento.repository.CategoriaReceitaRepository;
+import br.com.plataformalancamento.repository.ComposicaoSalarialRepository;
 import br.com.plataformalancamento.repository.ContaBancariaRepository;
 import br.com.plataformalancamento.repository.ContratoRepository;
 import br.com.plataformalancamento.repository.DespesaRepository;
@@ -108,6 +114,15 @@ public class DatabaseService {
     
     @Autowired
     private ParcelamentoService parcelamentoService;
+    
+    @Autowired
+    private BeneficioValorRepository beneficioValorRepository;
+    
+    @Autowired
+    private BeneficioRepository beneficioRepository;
+    
+    @Autowired
+    private ComposicaoSalarialRepository composicaoSalarialRepository;
 
     public void instanciarBaseDados() {
     	
@@ -554,6 +569,30 @@ public class DatabaseService {
 			
 			this.tipoUsuarioSistemaRepository.saveAll(Arrays.asList(tipoUsuarioSistemaEntity1, tipoUsuarioSistemaEntity2, tipoUsuarioSistemaEntity3));
 			this.usuarioSistemaRepository.saveAll(Arrays.asList(usuarioSistemaEntity1, usuarioSistemaEntity2));
+		
+		// Fluxo de Composicao Salarial Mesalista
+		BeneficioEntity beneficioEntity1 = new BeneficioEntity("Instituto Nacional do Seguro Social", "INSS");
+		BeneficioEntity beneficioEntity2 = new BeneficioEntity("Imposto de Renda Retido na Fonte", "IRRF");
+		BeneficioEntity beneficioEntity3 = new BeneficioEntity("Benefício Indireto (Mirante)", "BINM");
+		BeneficioEntity beneficioEntity4 = new BeneficioEntity("Vale Alimentação", "VALI");
+		
+		BeneficioValorEntity beneficioValorEntity1 = new BeneficioValorEntity(beneficioEntity1, 593.29, false);
+		BeneficioValorEntity beneficioValorEntity2 = new BeneficioValorEntity(beneficioEntity2, 424.99, false);
+		BeneficioValorEntity beneficioValorEntity3 = new BeneficioValorEntity(beneficioEntity3, 1.00, false);
+		BeneficioValorEntity beneficioValorEntity4 = new BeneficioValorEntity(beneficioEntity4, 1.00, false);
+		
+		ComposicaoSalarioEntity composicaoSalarioEntity1 = new ComposicaoSalarioEntity();
+			composicaoSalarioEntity1.setDataReferencia("05/2021");
+			composicaoSalarioEntity1.setValorSalarioBruto(5300.00);
+			composicaoSalarioEntity1.setValorTotalDesconto(beneficioValorEntity1.getValor() + beneficioValorEntity2.getValor() + beneficioValorEntity3.getValor() + beneficioValorEntity4.getValor());
+			composicaoSalarioEntity1.setValorSalarioLiquido(composicaoSalarioEntity1.getValorSalarioBruto() - composicaoSalarioEntity1.getValorTotalDesconto());
+			composicaoSalarioEntity1.adicionarBeneficioValorDespesa(beneficioValorEntity1);
+			composicaoSalarioEntity1.adicionarBeneficioValorDespesa(beneficioValorEntity2);
+			composicaoSalarioEntity1.adicionarBeneficioValorDespesa(beneficioValorEntity3);
+			composicaoSalarioEntity1.adicionarBeneficioValorDespesa(beneficioValorEntity4);
+			
+			this.beneficioRepository.saveAll(Arrays.asList(beneficioEntity1, beneficioEntity2, beneficioEntity3, beneficioEntity4));
+			this.composicaoSalarialRepository.saveAll(Arrays.asList(composicaoSalarioEntity1));
 		
     }
 
