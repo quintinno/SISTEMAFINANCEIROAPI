@@ -586,10 +586,24 @@ public class DatabaseService {
 			composicaoSalarioEntity1.setValorSalarioBruto(5300.00);
 			composicaoSalarioEntity1.setValorTotalDesconto(beneficioValorEntity1.getValor() + beneficioValorEntity2.getValor() + beneficioValorEntity3.getValor() + beneficioValorEntity4.getValor());
 			composicaoSalarioEntity1.setValorSalarioLiquido(composicaoSalarioEntity1.getValorSalarioBruto() - composicaoSalarioEntity1.getValorTotalDesconto());
+			composicaoSalarioEntity1.setIsAtivo(true);
 			composicaoSalarioEntity1.adicionarBeneficioValorDespesa(beneficioValorEntity1);
 			composicaoSalarioEntity1.adicionarBeneficioValorDespesa(beneficioValorEntity2);
 			composicaoSalarioEntity1.adicionarBeneficioValorDespesa(beneficioValorEntity3);
 			composicaoSalarioEntity1.adicionarBeneficioValorDespesa(beneficioValorEntity4);
+			
+		/*
+		ComposicaoSalarioEntity composicaoSalarioEntity2 = new ComposicaoSalarioEntity();
+			composicaoSalarioEntity2.setDataReferencia("06/2021");
+			composicaoSalarioEntity2.setValorSalarioBruto(5300.00);
+			composicaoSalarioEntity2.setValorTotalDesconto(beneficioValorEntity1.getValor() + beneficioValorEntity2.getValor() + beneficioValorEntity3.getValor() + beneficioValorEntity4.getValor());
+			composicaoSalarioEntity2.setValorSalarioLiquido(composicaoSalarioEntity1.getValorSalarioBruto() - composicaoSalarioEntity1.getValorTotalDesconto());
+			composicaoSalarioEntity2.setIsAtivo(true);
+			composicaoSalarioEntity2.adicionarBeneficioValorDespesa(beneficioValorEntity1);
+			composicaoSalarioEntity2.adicionarBeneficioValorDespesa(beneficioValorEntity2);
+			composicaoSalarioEntity2.adicionarBeneficioValorDespesa(beneficioValorEntity3);
+			composicaoSalarioEntity2.adicionarBeneficioValorDespesa(beneficioValorEntity4);
+		*/
 			
 			this.beneficioRepository.saveAll(Arrays.asList(beneficioEntity1, beneficioEntity2, beneficioEntity3, beneficioEntity4));
 			this.composicaoSalarialRepository.saveAll(Arrays.asList(composicaoSalarioEntity1));

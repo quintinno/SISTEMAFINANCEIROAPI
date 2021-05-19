@@ -38,12 +38,15 @@ public class ComposicaoSalarioEntity implements Serializable {
 	@Column(name = "VALOR_SALARIO_LIQUIDO", nullable = false)
 	private Double valorSalarioLiquido;
 	
-	@Column(name = "DATA_REFERENCIA", nullable = false)
+	@Column(name = "DATA_REFERENCIA", unique = true, nullable = false)
 	private String dataReferencia;
 	
 	@JsonProperty("beneficioValorList")
 	@OneToMany(mappedBy = "composicaoSalarioEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<BeneficioValorEntity> beneficioValorEntityList  = new ArrayList<>();
+	
+	@Column(name = "IS_ATIVO", nullable = false)
+	private Boolean isAtivo;
 	
 	public ComposicaoSalarioEntity() { }
 	
@@ -90,6 +93,22 @@ public class ComposicaoSalarioEntity implements Serializable {
 
 	public void setDataReferencia(String dataReferencia) {
 		this.dataReferencia = dataReferencia;
+	}
+
+	public List<BeneficioValorEntity> getBeneficioValorEntityList() {
+		return beneficioValorEntityList;
+	}
+
+	public void setBeneficioValorEntityList(List<BeneficioValorEntity> beneficioValorEntityList) {
+		this.beneficioValorEntityList = beneficioValorEntityList;
+	}
+
+	public Boolean getIsAtivo() {
+		return isAtivo;
+	}
+
+	public void setIsAtivo(Boolean isAtivo) {
+		this.isAtivo = isAtivo;
 	}
 
 	@Override
