@@ -99,6 +99,11 @@ public class ReceitaEntity implements Serializable {
 	@JoinColumn(name = "ID_CATEGORIA_RECEITA", referencedColumnName = "codigo", nullable = false)
 	private CategoriaReceitaEntity categoriaReceitaEntity;
 
+	private ArquivoEntity arquivoEntity;
+	
+	@Column(name = "IS_PAGO")
+	private Boolean isPago;
+
 	public ReceitaEntity() { }
 	
 //	public void adicionarParcelamentoReceita(ParcelamentoEntity parcelamentoEntity) {
@@ -221,6 +226,22 @@ public class ReceitaEntity implements Serializable {
 
 	public void setCategoriaReceitaEntity(CategoriaReceitaEntity categoriaReceitaEntity) {
 		this.categoriaReceitaEntity = categoriaReceitaEntity;
+	}
+
+	public ArquivoEntity getArquivoEntity() {
+		return arquivoEntity;
+	}
+
+	public void setArquivoEntity(ArquivoEntity arquivoEntity) {
+		this.arquivoEntity = arquivoEntity;
+	}
+
+	public Boolean getIsPago() {
+		return isPago;
+	}
+
+	public void setIsPago(Boolean isPago) {
+		this.isPago = isPago;
 	}
 
 	@Override
