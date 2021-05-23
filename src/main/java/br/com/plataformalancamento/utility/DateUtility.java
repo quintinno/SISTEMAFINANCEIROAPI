@@ -11,6 +11,7 @@ public class DateUtility {
 	private static final String FORMAT_AAAA = "yyyy";
 	private static final String FORMAT_MM = "MM";
 	private static final String FORMAT_DD = "dd";
+	private static final String FORMAT_MMAAAA = "MMyyyy";
 	private static final String FORMAT_HORA = "H";
 	private static final String FORMAT_MINUTO = "mm";
 	private static final String FORMAT_SEGUNDO = "s";
@@ -68,6 +69,10 @@ public class DateUtility {
 	
 	public static Date corrigirData(Date dataCorrecao) {
 		return acrescentarDiasData(1, dataCorrecao);
+	}
+	
+	public static Date converterDataStringEmDate(String dataString) throws ParseException {
+		return DateUtility.configurarFormatoData(FORMAT_MMAAAA).parse(dataString);
 	}
 	
 }

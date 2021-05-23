@@ -17,6 +17,7 @@ import br.com.plataformalancamento.entity.ComposicaoSalarioEntity;
 import br.com.plataformalancamento.entity.ContaBancariaEntity;
 import br.com.plataformalancamento.entity.ContratoEntity;
 import br.com.plataformalancamento.entity.DespesaEntity;
+import br.com.plataformalancamento.entity.FaturaBancariaModel;
 import br.com.plataformalancamento.entity.FormaPagamentoDespesaEntity;
 import br.com.plataformalancamento.entity.FormaPagamentoEntity;
 import br.com.plataformalancamento.entity.FuncaoCartaoBancarioEntity;
@@ -30,6 +31,7 @@ import br.com.plataformalancamento.entity.TipoUsuarioSistemaEntity;
 import br.com.plataformalancamento.entity.UsuarioSistemaEntity;
 import br.com.plataformalancamento.enumeration.TipoCanalPagamentoEnumeration;
 import br.com.plataformalancamento.enumeration.TipoPeriodoFinanceiroEnumeration;
+import br.com.plataformalancamento.enumeration.TipoSituacaoPagamentoEnumeration;
 import br.com.plataformalancamento.repository.BandeiraCartaoBancarioRepository;
 import br.com.plataformalancamento.repository.BeneficioRepository;
 import br.com.plataformalancamento.repository.BeneficioValorRepository;
@@ -41,6 +43,7 @@ import br.com.plataformalancamento.repository.ComposicaoSalarialRepository;
 import br.com.plataformalancamento.repository.ContaBancariaRepository;
 import br.com.plataformalancamento.repository.ContratoRepository;
 import br.com.plataformalancamento.repository.DespesaRepository;
+import br.com.plataformalancamento.repository.FaturaBancariaRepository;
 import br.com.plataformalancamento.repository.FormaPagamentoRepository;
 import br.com.plataformalancamento.repository.FuncaoCartaoBancarioRepository;
 import br.com.plataformalancamento.repository.PessoaRepository;
@@ -123,6 +126,9 @@ public class DatabaseService {
     
     @Autowired
     private ComposicaoSalarialRepository composicaoSalarialRepository;
+    
+    @Autowired
+    private FaturaBancariaRepository faturaBancariaRepository;
 
     public void instanciarBaseDados() {
     	
@@ -607,6 +613,25 @@ public class DatabaseService {
 			
 			this.beneficioRepository.saveAll(Arrays.asList(beneficioEntity1, beneficioEntity2, beneficioEntity3, beneficioEntity4));
 			this.composicaoSalarialRepository.saveAll(Arrays.asList(composicaoSalarioEntity1));
+			
+		// Fluxo de Composicao de Fatura de Cartao Bancario
+		FaturaBancariaModel faturaBancariaModel1 = new FaturaBancariaModel();
+			faturaBancariaModel1.setCartaoBancarioEntity(cartaoBancarioEntity1);
+			faturaBancariaModel1.setDataPagamento(new Date());
+			faturaBancariaModel1.setDataReferencia("05/2021");
+			faturaBancariaModel1.setDataVencimento(new Date());
+			faturaBancariaModel1.setIdentificador("FATURA_05202110021201");
+			faturaBancariaModel1.setTipoSituacaoPagamentoEnumeration(TipoSituacaoPagamentoEnumeration.PENDENTE);
+			faturaBancariaModel1.setValorAtraso(0.00);
+			faturaBancariaModel1.setValorDesconto(0.00);
+			faturaBancariaModel1.setValorJuros(0.00);
+			faturaBancariaModel1.setValorTotal(2000.00);
+			faturaBancariaModel1.setValorTotalPagamento(2000.00);
+			faturaBancariaModel1.adicionarProdutoServico(produtoServicoEntity1, faturaBancariaModel1);
+			faturaBancariaModel1.adicionarProdutoServico(produtoServicoEntity2, faturaBancariaModel1);
+			faturaBancariaModel1.adicionarProdutoServico(produtoServicoEntity3, faturaBancariaModel1);
+			
+			this.faturaBancariaRepository.saveAll(Arrays.asList(faturaBancariaModel1));
 		
     }
 

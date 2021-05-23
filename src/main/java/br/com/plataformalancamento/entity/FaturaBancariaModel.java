@@ -1,16 +1,28 @@
 package br.com.plataformalancamento.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import br.com.plataformalancamento.enumeration.TipoSituacaoPagamentoEnumeration;
 
@@ -26,33 +38,57 @@ public class FaturaBancariaModel implements Serializable {
 	@Column(name = "CODIGO")
 	private Long codigo;
 	
-	private PessoaEntity estabelecimentoPessoa;
-	
+	@OneToOne
+	@JoinColumn(name = "ID_CARTAO_BANCARIO", referencedColumnName = "CODIGO", nullable = false)
 	private CartaoBancarioEntity cartaoBancarioEntity;
 	
-	private List<ProdutoServicoEntity> produtoServicoEntityList;
+	@JsonProperty("produtoServicoList")
+	@OneToMany(mappedBy = "faturaBancariaModel", fetch = FetchType.LAZY)
+	private List<ProdutoServicoEntity> produtoServicoEntityList = new ArrayList<>();
 	
+	@JsonProperty("tipoSituacaoPagamento")
+	@Enumerated(EnumType.STRING)
+	@Column(name = "ID_SITUACAO_PAGAMENTO")
 	private TipoSituacaoPagamentoEnumeration tipoSituacaoPagamentoEnumeration;
 	
+	@Column(name = "IDENTIFICADOR")
 	private String identificador;
 	
-	private Date mesReferencia;
+	@JsonFormat(pattern = "MM/yyyy")
+	@Column(name = "DATA_REFERENCIA")
+	private String dataReferencia;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.DATE)
+	@Column(name = "DATA_VENCIMENTO")
 	private Date dataVencimento;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.DATE)
+	@Column(name = "DATA_PAGAMENTO")
 	private Date dataPagamento;
 	
+	@Column(name = "VALOR_TOTAL")
 	private Double valorTotal;
 	
+	@Column(name = "VALOR_DESCONTO")
 	private Double valorDesconto;
 	
+	@Column(name = "VALOR_JUROS")
 	private Double valorJuros;
 	
+	@Column(name = "VALOR_ATRASO")
 	private Double valorAtraso;
 	
+	@Column(name = "VALOR_TOTAL_PAGAMENTO")
 	private Double valorTotalPagamento;
 	
 	public FaturaBancariaModel() { }
+	
+	public void adicionarProdutoServico(ProdutoServicoEntity produtoServicoEntity, FaturaBancariaModel faturaBancariaModel) {
+		produtoServicoEntity.setFaturaBancariaModel(faturaBancariaModel);
+		this.produtoServicoEntityList.add(produtoServicoEntity);
+	}
 
 	public Long getCodigo() {
 		return codigo;
@@ -60,14 +96,6 @@ public class FaturaBancariaModel implements Serializable {
 
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
-	}
-
-	public PessoaEntity getEstabelecimentoPessoa() {
-		return estabelecimentoPessoa;
-	}
-
-	public void setEstabelecimentoPessoa(PessoaEntity estabelecimentoPessoa) {
-		this.estabelecimentoPessoa = estabelecimentoPessoa;
 	}
 
 	public CartaoBancarioEntity getCartaoBancarioEntity() {
@@ -102,12 +130,12 @@ public class FaturaBancariaModel implements Serializable {
 		this.identificador = identificador;
 	}
 
-	public Date getMesReferencia() {
-		return mesReferencia;
+	public String getDataReferencia() {
+		return dataReferencia;
 	}
 
-	public void setMesReferencia(Date mesReferencia) {
-		this.mesReferencia = mesReferencia;
+	public void setDataReferencia(String dataReferencia) {
+		this.dataReferencia = dataReferencia;
 	}
 
 	public Date getDataVencimento() {

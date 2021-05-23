@@ -33,6 +33,11 @@ public class ProdutoServicoEntity implements Serializable {
 	@JoinColumn(name = "ID_DESPESA", referencedColumnName = "codigo", nullable = true)
 	private DespesaEntity despesaEntity;
 	
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "ID_FATURA_BANCARIA", referencedColumnName = "codigo", nullable = true)
+	private FaturaBancariaModel faturaBancariaModel;
+	
 	public ProdutoServicoEntity() { }
 
 	public Long getCodigo() {
@@ -57,6 +62,14 @@ public class ProdutoServicoEntity implements Serializable {
 
 	public void setDespesaEntity(DespesaEntity despesaEntity) {
 		this.despesaEntity = despesaEntity;
+	}
+
+	public FaturaBancariaModel getFaturaBancariaModel() {
+		return faturaBancariaModel;
+	}
+
+	public void setFaturaBancariaModel(FaturaBancariaModel faturaBancariaModel) {
+		this.faturaBancariaModel = faturaBancariaModel;
 	}
 
 	@Override
