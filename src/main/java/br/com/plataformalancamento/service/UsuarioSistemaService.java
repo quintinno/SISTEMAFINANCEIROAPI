@@ -8,7 +8,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.plataformalancamento.dto.UsuarioSistemaDTO;
 import br.com.plataformalancamento.entity.UsuarioSistemaEntity;
+import br.com.plataformalancamento.repository.UsuarioSistemaImplementacaoRepository;
 import br.com.plataformalancamento.repository.UsuarioSistemaRepository;
 
 @Service
@@ -18,6 +20,22 @@ public class UsuarioSistemaService implements Serializable {
 	
 	@Autowired
 	private UsuarioSistemaRepository usuarioSistemaRepository;
+	
+	@Autowired
+	private UsuarioSistemaImplementacaoRepository usuarioSistemaImplementacaoRepository;
+	
+	@Transactional
+	public UsuarioSistemaEntity autenticarDadosUsuarioSistema(String identificador, String senha) {
+		return this.usuarioSistemaImplementacaoRepository.autenticarDadosUsuarioSistema(identificador, senha);
+	}
+	
+	@Transactional
+	public Boolean isUsuarioCadastrado(UsuarioSistemaDTO usuarioSistemaDTO) {
+		if(this.usuarioSistemaImplementacaoRepository.isUsuarioCadastrado(usuarioSistemaDTO) != null) {
+			return true;
+		}
+		return false;
+	}
 	
 	@Transactional
 	public List<UsuarioSistemaEntity> recuperar() {

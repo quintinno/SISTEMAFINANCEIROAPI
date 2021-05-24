@@ -28,6 +28,10 @@ public class ConfiguradorErrorException {
         return "Não existem objetos cadastrados no Banco de Dados!";
     }
     
+    public static String recuperarMensagemErroObjetoNaoEncontradoAutenticacao() {
+        return "Nenhum usuário encontrado com os dados informados!";
+    }
+    
     public static String recuperarMensagemErroObjetoNaoEncontradoRequisicao(Long codigo) {
         return "O objeto com código \"" + codigo + "\" não está cadastrado no Banco de Dados!";
     }
