@@ -74,7 +74,7 @@ public class ContratoService implements Serializable {
 	
 	/**
 	 * Valor: 	CONTRATO0<DIA_INICIO_VIGENCIA>0<MES_INICIO_VIGENCIA>0<ANO_INICIO_VIGENCIA><ID_PESSOA_CONTRATADA><SEQUENCIAL_DIARIO>
-	 * Exemplo: CONTRATO0190042021XX001
+	 * Exemplo: CONTRATO0190042021XX01
 	 */
 	private String gerarIdentificadorContrato(Date dataInicioVigencia, Long codigoPessoaContratada) {
 		StringBuilder identificadorContrato = new StringBuilder("CONTRATO0");
