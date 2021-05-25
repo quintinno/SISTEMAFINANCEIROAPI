@@ -287,6 +287,7 @@ public class DatabaseService {
 	    	contratoEntity4.setPessoaContratado(pessoaEntity10);
 	    	contratoEntity4.setPessoaContratante(pessoaEntity1);
 	    	contratoEntity4.setTipoContratoEntity(tipoContratoEntity2);
+	    	contratoEntity4.setIdentificador("CONTRATO190420210112");
 	    	contratoEntity4.setIsATivo(true);
 	    	
 	    ContratoEntity contratoEntity5 = new ContratoEntity();
@@ -299,6 +300,7 @@ public class DatabaseService {
 	    	contratoEntity5.setValorMensalPagamento(118D);
 	    	contratoEntity5.setTipoPeriodoFinanceiroEnumeration(TipoPeriodoFinanceiroEnumeration.ANUAL);
 	    	contratoEntity5.setNumeroMesesVigenciaContrato(12);
+	    	contratoEntity5.setIdentificador("CONTRATO160220210104");
 	    	contratoEntity5.setIsATivo(true);
     		
     		this.contratoRepository.saveAll(Arrays.asList(contratoEntity1, contratoEntity2, contratoEntity3, contratoEntity4, contratoEntity5));

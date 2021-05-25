@@ -25,8 +25,8 @@ public class UsuarioSistemaService implements Serializable {
 	private UsuarioSistemaImplementacaoRepository usuarioSistemaImplementacaoRepository;
 	
 	@Transactional
-	public UsuarioSistemaEntity autenticarDadosUsuarioSistema(String identificador, String senha) {
-		return this.usuarioSistemaImplementacaoRepository.autenticarDadosUsuarioSistema(identificador, senha);
+	public UsuarioSistemaEntity autenticarDadosUsuarioSistema(UsuarioSistemaDTO usuarioSistemaDTO) {
+		return this.usuarioSistemaImplementacaoRepository.autenticarDadosUsuarioSistema(usuarioSistemaDTO.getIdentificador(), usuarioSistemaDTO.getSenha());
 	}
 	
 	@Transactional

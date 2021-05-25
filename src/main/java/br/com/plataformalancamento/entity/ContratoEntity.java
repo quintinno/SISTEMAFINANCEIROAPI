@@ -55,6 +55,9 @@ public class ContratoEntity implements Serializable {
 	@Column(name = "DIA_VENCIMENTO_FATURA")
 	private Integer diaVencimentoFatura;
 	
+	@Column(name = "DATA_PAGAMENTO")
+	private Integer dataPagamento;
+	
 	@Column(name = "VALOR_MENSAL_PAGAMENTO", scale = 10, precision = 2)
 	private Double valorMensalPagamento;
 	
@@ -186,6 +189,14 @@ public class ContratoEntity implements Serializable {
 
 	public void setIdentificador(String identificador) {
 		this.identificador = identificador;
+	}
+
+	public Integer getDataPagamento() {
+		return dataPagamento;
+	}
+
+	public void setDataPagamento(Integer dataPagamento) {
+		this.dataPagamento = dataPagamento;
 	}
 
 	@Override

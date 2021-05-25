@@ -3,6 +3,7 @@ package br.com.plataformalancamento.repository;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -26,22 +27,25 @@ public class UsuarioSistemaImplementacaoRepository {
 		TypedQuery<UsuarioSistemaEntity> typeQuery = entityManager.createQuery(query.toString(), UsuarioSistemaEntity.class);
 			typeQuery.setParameter("identificadorParamenter", identificador);
 			typeQuery.setParameter("senhaParamenter", senha);
-		return typeQuery.getSingleResult();
+		List<UsuarioSistemaEntity> usuarioSistemaEntityList = typeQuery.getResultList();
+			if(usuarioSistemaEntityList.isEmpty()) {
+				throw new br.com.plataformalancamento.exception.EmptyResultDataAccessException(ConfiguradorErrorException.recuperarMensagemErroObjetoNaoEncontradoAutenticacao());
+			}
+		return usuarioSistemaEntityList.get(0);
 	}
 	
-	public UsuarioSistemaDTO isUsuarioCadastrado(UsuarioSistemaDTO usuarioSistemaDTO) {
-		StringBuilder query = new StringBuilder("SELECT usuarioSistemaEntity ")
-			.append("FROM UsuarioSistemaEntity usuarioSistemaEntity ")
-			.append("WHERE usuarioSistemaEntity.identificador = :identificadorParamenter ")
-			.append("AND usuarioSistemaEntity.senha= :senhaParamenter ");
-		TypedQuery<UsuarioSistemaEntity> typeQuery = entityManager.createQuery(query.toString(), UsuarioSistemaEntity.class);
-			typeQuery.setParameter("identificadorParamenter", usuarioSistemaDTO.getIdentificador());
-			typeQuery.setParameter("senhaParamenter", usuarioSistemaDTO.getSenha());
-		List<UsuarioSistemaEntity> usuarioSistemaEntityList = typeQuery.getResultList();
-		if(usuarioSistemaEntityList.isEmpty()) {
-			throw new br.com.plataformalancamento.exception.EmptyResultDataAccessException(ConfiguradorErrorException.recuperarMensagemErroObjetoNaoEncontradoAutenticacao());
-		}
-		return new UsuarioSistemaDTO(usuarioSistemaEntityList.get(0).getIdentificador(), usuarioSistemaEntityList.get(0).getSenha());
+	public UsuarioSistemaEntity isUsuarioCadastrado(UsuarioSistemaDTO usuarioSistemaDTO) {
+		try {
+			StringBuilder query = new StringBuilder("SELECT usuarioSistemaEntity ")
+					.append("FROM UsuarioSistemaEntity usuarioSistemaEntity ")
+					.append("WHERE usuarioSistemaEntity.identificador = :identificadorParamenter ")
+					.append("AND usuarioSistemaEntity.senha= :senhaParamenter ");
+			TypedQuery<UsuarioSistemaEntity> typeQuery = entityManager.createQuery(query.toString(), UsuarioSistemaEntity.class);
+				typeQuery.setParameter("identificadorParamenter", usuarioSistemaDTO.getIdentificador());
+				typeQuery.setParameter("senhaParamenter", usuarioSistemaDTO.getSenha());
+			return typeQuery.getSingleResult();
+		} catch (NoResultException noResultException) { }
+		return null;
 	}
 	
 }
