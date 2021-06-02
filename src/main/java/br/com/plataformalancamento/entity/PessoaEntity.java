@@ -28,13 +28,16 @@ public class PessoaEntity implements Serializable {
 	
 	@Column(name = "NOME", unique = true)
 	private String nome;
+
+	@Column(name = "NOME_PESSOA_SISTEMA")
+	private String nomePessoaJuridicaSistema;
 	
 	@Column(name = "IS_ATIVO", nullable = false)
 	private Boolean isAtivo;
 	
 	@Column(name = "IS_INSTITUICAO_FINANCEIRA", nullable = false)
 	private Boolean isInstituicaoFinanceira;
-	
+
 	@JsonProperty("tipoPessoa")
 	@OneToOne
 	@JoinColumn(name = "ID_TIPO_PESSOA", referencedColumnName = "codigo", nullable = false)
@@ -93,6 +96,30 @@ public class PessoaEntity implements Serializable {
 
 	public void setIsInstituicaoFinanceira(Boolean isInstituicaoFinanceira) {
 		this.isInstituicaoFinanceira = isInstituicaoFinanceira;
+	}
+
+	public Boolean getAtivo() {
+		return isAtivo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		isAtivo = ativo;
+	}
+
+	public Boolean getInstituicaoFinanceira() {
+		return isInstituicaoFinanceira;
+	}
+
+	public void setInstituicaoFinanceira(Boolean instituicaoFinanceira) {
+		isInstituicaoFinanceira = instituicaoFinanceira;
+	}
+
+	public String getNomePessoaJuridicaSistema() {
+		return nomePessoaJuridicaSistema;
+	}
+
+	public void setNomePessoaJuridicaSistema(String nomePessoaJuridicaSistema) {
+		this.nomePessoaJuridicaSistema = nomePessoaJuridicaSistema;
 	}
 
 	@Override
