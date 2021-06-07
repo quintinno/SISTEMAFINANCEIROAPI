@@ -37,6 +37,9 @@ public class PessoaEntity implements Serializable {
 	
 	@Column(name = "IS_INSTITUICAO_FINANCEIRA", nullable = false)
 	private Boolean isInstituicaoFinanceira;
+	
+	@Column(name = "IS_PESSOA_FINANCEIRA", nullable = false)
+	private Boolean isPessoaFinanceira;
 
 	@JsonProperty("tipoPessoa")
 	@OneToOne
@@ -57,7 +60,7 @@ public class PessoaEntity implements Serializable {
 		this.isInstituicaoFinanceira = isInstituicaoFinanceira;
 		this.tipoPessoaEntity = tipoPessoaEntity;
 	}
-
+	
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -74,20 +77,20 @@ public class PessoaEntity implements Serializable {
 		this.nome = nome;
 	}
 
+	public String getNomePessoaJuridicaSistema() {
+		return nomePessoaJuridicaSistema;
+	}
+
+	public void setNomePessoaJuridicaSistema(String nomePessoaJuridicaSistema) {
+		this.nomePessoaJuridicaSistema = nomePessoaJuridicaSistema;
+	}
+
 	public Boolean getIsAtivo() {
 		return isAtivo;
 	}
 
 	public void setIsAtivo(Boolean isAtivo) {
 		this.isAtivo = isAtivo;
-	}
-
-	public TipoPessoaEntity getTipoPessoaEntity() {
-		return tipoPessoaEntity;
-	}
-
-	public void setTipoPessoaEntity(TipoPessoaEntity tipoPessoaEntity) {
-		this.tipoPessoaEntity = tipoPessoaEntity;
 	}
 
 	public Boolean getIsInstituicaoFinanceira() {
@@ -98,28 +101,20 @@ public class PessoaEntity implements Serializable {
 		this.isInstituicaoFinanceira = isInstituicaoFinanceira;
 	}
 
-	public Boolean getAtivo() {
-		return isAtivo;
+	public Boolean getIsPessoaFinanceira() {
+		return isPessoaFinanceira;
 	}
 
-	public void setAtivo(Boolean ativo) {
-		isAtivo = ativo;
+	public void setIsPessoaFinanceira(Boolean isPessoaFinanceira) {
+		this.isPessoaFinanceira = isPessoaFinanceira;
 	}
 
-	public Boolean getInstituicaoFinanceira() {
-		return isInstituicaoFinanceira;
+	public TipoPessoaEntity getTipoPessoaEntity() {
+		return tipoPessoaEntity;
 	}
 
-	public void setInstituicaoFinanceira(Boolean instituicaoFinanceira) {
-		isInstituicaoFinanceira = instituicaoFinanceira;
-	}
-
-	public String getNomePessoaJuridicaSistema() {
-		return nomePessoaJuridicaSistema;
-	}
-
-	public void setNomePessoaJuridicaSistema(String nomePessoaJuridicaSistema) {
-		this.nomePessoaJuridicaSistema = nomePessoaJuridicaSistema;
+	public void setTipoPessoaEntity(TipoPessoaEntity tipoPessoaEntity) {
+		this.tipoPessoaEntity = tipoPessoaEntity;
 	}
 
 	@Override
