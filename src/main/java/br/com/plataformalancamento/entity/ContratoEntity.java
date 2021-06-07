@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,8 +17,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import br.com.plataformalancamento.enumeration.TipoPeriodoFinanceiroEnumeration;
 
 @Entity
 @Table(name = "TB_CONTRATO")
@@ -30,6 +36,12 @@ public class ContratoEntity implements Serializable {
 	@Column(name = "CODIGO")
 	private Long codigo;
 	
+//	@NotEmpty(message = "O campo do Identificador não pode ser Vazio")
+//	@NotNull(message = "O campo do Identificador não pode ser Nullo")
+	@Length(min = 5, max = 45,message = "O campo do Identificador precisa ter entre {min} e {max} caracteres")
+	@Column(name = "IDENTIFICADOR", unique = true)
+	private String identificador;
+	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_INICIO_VIGENCIA")
@@ -40,8 +52,14 @@ public class ContratoEntity implements Serializable {
 	@Column(name = "DATA_FIM_VIGENCIA")
 	private Date dataFimVigencia;
 	
-	@Column(name = "IS_ATIVO", nullable = false)
-	private Boolean isATivo;
+	@Column(name = "DIA_VENCIMENTO_FATURA")
+	private Integer diaVencimentoFatura;
+	
+	@Column(name = "DATA_PAGAMENTO")
+	private Integer dataPagamento;
+	
+	@Column(name = "VALOR_MENSAL_PAGAMENTO", scale = 10, precision = 2)
+	private Double valorMensalPagamento;
 	
 	@JsonProperty("tipoContrato")
 	@OneToOne
@@ -55,6 +73,17 @@ public class ContratoEntity implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "ID_PESSOA_CONTRATADO", referencedColumnName = "codigo", nullable = false)
 	private PessoaEntity pessoaContratado;
+
+	@JsonProperty("tipoPeriodoFinanceiro")
+	@Enumerated(EnumType.STRING)
+	@Column(name = "TIPO_PERIODO_FINANCEIRO")
+	private TipoPeriodoFinanceiroEnumeration tipoPeriodoFinanceiroEnumeration;
+
+	@Column(name = "NUMERO_MESES_VIGENCIA_CONTRATO")
+	private Integer numeroMesesVigenciaContrato;
+	
+	@Column(name = "IS_ATIVO", nullable = false)
+	private Boolean isATivo;
 	
 	public ContratoEntity() { }
 
@@ -114,6 +143,62 @@ public class ContratoEntity implements Serializable {
 		this.pessoaContratado = pessoaContratado;
 	}
 
+	public Boolean getATivo() {
+		return isATivo;
+	}
+
+	public void setATivo(Boolean ATivo) {
+		isATivo = ATivo;
+	}
+
+	public TipoPeriodoFinanceiroEnumeration getTipoPeriodoFinanceiroEnumeration() {
+		return tipoPeriodoFinanceiroEnumeration;
+	}
+
+	public void setTipoPeriodoFinanceiroEnumeration(TipoPeriodoFinanceiroEnumeration tipoPeriodoFinanceiroEnumeration) {
+		this.tipoPeriodoFinanceiroEnumeration = tipoPeriodoFinanceiroEnumeration;
+	}
+
+	public Integer getNumeroMesesVigenciaContrato() {
+		return numeroMesesVigenciaContrato;
+	}
+
+	public void setNumeroMesesVigenciaContrato(Integer numeroMesesVigenciaContrato) {
+		this.numeroMesesVigenciaContrato = numeroMesesVigenciaContrato;
+	}
+
+	public Integer getDiaVencimentoFatura() {
+		return diaVencimentoFatura;
+	}
+
+	public void setDiaVencimentoFatura(Integer diaVencimentoFatura) {
+		this.diaVencimentoFatura = diaVencimentoFatura;
+	}
+
+	public Double getValorMensalPagamento() {
+		return valorMensalPagamento;
+	}
+
+	public void setValorMensalPagamento(Double valorMensalPagamento) {
+		this.valorMensalPagamento = valorMensalPagamento;
+	}
+
+	public String getIdentificador() {
+		return identificador;
+	}
+
+	public void setIdentificador(String identificador) {
+		this.identificador = identificador;
+	}
+
+	public Integer getDataPagamento() {
+		return dataPagamento;
+	}
+
+	public void setDataPagamento(Integer dataPagamento) {
+		this.dataPagamento = dataPagamento;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -137,6 +222,11 @@ public class ContratoEntity implements Serializable {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "ContratoEntity [codigo=" + codigo + ", tipoContratoEntity=" + tipoContratoEntity.getDescricao() + ", pessoaContratante=" + pessoaContratante.getNome() + ", pessoaContratado=" + pessoaContratado.getNome() + "]";
 	}
 
 }

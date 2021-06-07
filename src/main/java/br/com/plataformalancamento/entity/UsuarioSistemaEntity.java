@@ -2,7 +2,6 @@ package br.com.plataformalancamento.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +20,7 @@ public class UsuarioSistemaEntity implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "SEQ_USUARIO", sequenceName = "SEQ_USUARIO", schema = "public", initialValue = 1, allocationSize = 1)
+	@SequenceGenerator(name = "SEQ_USUARIO_SISTEMA", sequenceName = "SEQ_USUARIO_SISTEMA", schema = "public", initialValue = 1, allocationSize = 1)
 	@Column(name = "CODIGO")
 	private Long codigo;
 	
@@ -38,7 +37,7 @@ public class UsuarioSistemaEntity implements Serializable {
 	@JoinColumn(name = "ID_TIPO_USUARIO_SISTEMA", referencedColumnName = "codigo", nullable = false)
 	private TipoUsuarioSistemaEntity tipoUsuarioSistemaEntity;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "codigo", nullable = false)
 	private PessoaEntity pessoaEntity;
 

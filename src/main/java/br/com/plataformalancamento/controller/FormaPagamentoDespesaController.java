@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.Serializable;
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/forma-pagamento-despesa")
 public class FormaPagamentoDespesaController implements Serializable {

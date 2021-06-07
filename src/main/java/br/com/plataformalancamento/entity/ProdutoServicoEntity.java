@@ -25,19 +25,18 @@ public class ProdutoServicoEntity implements Serializable {
 	@Column(name = "CODIGO", nullable = false)
 	private Long codigo;
 
-	@Column(name = "DESCRICAO", unique = true, nullable = false)
+	@Column(name = "DESCRICAO", unique = true)
 	private String descricao;
-	
-	@Column(name = "VALOR_UNITARIO", nullable = false)
-	private Double valorUnitario;
-	
-	@Column(name = "QUANTIDADE", nullable = false)
-	private Integer quantidade;
 	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name = "ID_DESPESA", referencedColumnName = "codigo", nullable = false)
+	@JoinColumn(name = "ID_DESPESA", referencedColumnName = "codigo", nullable = true)
 	private DespesaEntity despesaEntity;
+	
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "ID_FATURA_BANCARIA", referencedColumnName = "codigo", nullable = true)
+	private FaturaBancariaModel faturaBancariaModel;
 	
 	public ProdutoServicoEntity() { }
 
@@ -57,28 +56,20 @@ public class ProdutoServicoEntity implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Double getValorUnitario() {
-		return valorUnitario;
-	}
-
-	public void setValorUnitario(Double valorUnitario) {
-		this.valorUnitario = valorUnitario;
-	}
-
-	public Integer getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
-	}
-
 	public DespesaEntity getDespesaEntity() {
 		return despesaEntity;
 	}
 
 	public void setDespesaEntity(DespesaEntity despesaEntity) {
 		this.despesaEntity = despesaEntity;
+	}
+
+	public FaturaBancariaModel getFaturaBancariaModel() {
+		return faturaBancariaModel;
+	}
+
+	public void setFaturaBancariaModel(FaturaBancariaModel faturaBancariaModel) {
+		this.faturaBancariaModel = faturaBancariaModel;
 	}
 
 	@Override

@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 import br.com.plataformalancamento.entity.ProdutoServicoEntity;
 
 @Repository
-public interface ProdutoServicoRepository extends JpaRepository<ProdutoServicoEntity, Long> { }
+public interface ProdutoServicoRepository extends JpaRepository<ProdutoServicoEntity, Long> {
+	public ProdutoServicoEntity findByDescricaoContains(String descricao);
+}

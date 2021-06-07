@@ -1,15 +1,20 @@
 package br.com.plataformalancamento.controller;
 
-import br.com.plataformalancamento.entity.DespesaEntity;
-import br.com.plataformalancamento.service.DespesaService;
+import java.io.Serializable;
+import java.net.URI;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.io.Serializable;
-import java.util.List;
+import br.com.plataformalancamento.entity.DespesaEntity;
+import br.com.plataformalancamento.service.DespesaService;
 
 
 @RestController
@@ -26,6 +31,13 @@ public class DespesaController implements Serializable {
     @GetMapping
     public ResponseEntity<List<DespesaEntity>> recuperar() {
         return ResponseEntity.ok().body(this.despesaService.recuperar());
+    }
+    
+    @PostMapping
+    public ResponseEntity<DespesaEntity> cadastrar(@RequestBody DespesaEntity despesaEntity) {
+    	DespesaEntity despesaEntityCadastro = this.despesaService.cadastrar(despesaEntity);
+    	URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(despesaEntityCadastro.getCodigo()).toUri();
+    	return ResponseEntity.created(uri).body(despesaEntityCadastro);
     }
 
 }

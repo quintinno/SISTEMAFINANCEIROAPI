@@ -16,6 +16,10 @@ public enum TipoCanalPagamentoEnumeration {
 		this.descricao = descricao;
 		this.sigla = sigla;
 	}
+	
+	public static TipoCanalPagamentoEnumeration recuperarTipoCanalPagamentoEnumeration(String valor) {
+		return TipoCanalPagamentoEnumeration.valueOf(valor);
+	}
 
 	public Integer getCodigo() {
 		return codigo;

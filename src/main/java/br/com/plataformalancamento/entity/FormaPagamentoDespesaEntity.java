@@ -13,6 +13,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "TB_FORMA_PAGAMENTO_DESPESA")
@@ -26,10 +27,12 @@ public class FormaPagamentoDespesaEntity implements Serializable {
 	@Column(name = "CODIGO", nullable = false)
 	private Long codigo;
 	
+	@JsonProperty("formaPagamento")
 	@OneToOne
 	@JoinColumn(name = "ID_FORMA_PAGAMENTO", referencedColumnName = "codigo", nullable = false)
 	private FormaPagamentoEntity formaPagamentoEntity;
 	
+	@JsonProperty("pessoaPagamento")
 	@OneToOne
 	@JoinColumn(name = "ID_PESSOA_PAGAMENTO", referencedColumnName = "codigo", nullable = false)
 	private PessoaEntity pessoaPagamento;
@@ -125,6 +128,6 @@ public class FormaPagamentoDespesaEntity implements Serializable {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
-	}
+	}	
 
 }

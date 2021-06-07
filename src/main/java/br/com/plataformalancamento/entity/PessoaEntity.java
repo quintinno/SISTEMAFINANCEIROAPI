@@ -120,4 +120,11 @@ public class PessoaEntity implements Serializable {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "PessoaEntity [codigo=" + codigo + ", nome=" + nome + ", isAtivo=" + isAtivo
+				+ ", isInstituicaoFinanceira=" + isInstituicaoFinanceira + ", tipoPessoaEntity=" + tipoPessoaEntity
+				+ "]";
+	}
+
 }

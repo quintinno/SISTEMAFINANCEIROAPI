@@ -82,7 +82,6 @@ public class ReceitaImplementacaoDao implements ReceitaInterfaceDao, Serializabl
         return totalizador;
     }
     
-    // TODO -- [N]
     public Integer recuperarNumeroControleDiario(ReceitaEntity receitaEntity) {
     	StringBuilder query = new StringBuilder("SELECT receitaEntity ")
     		.append("FROM ReceitaEntity receitaEntity ")

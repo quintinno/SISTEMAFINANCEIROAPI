@@ -47,8 +47,8 @@ public class ContaBancariaEntity implements Serializable {
 	@Column(name = "DATA_ENCERRAMENTO")
 	private Date dataFechamento;
 	
-	@Column(name = "VALOR_SALDO_INICIAL", nullable = false)
-	private Double valorSaldoInicial;
+	@Column(name = "VALOR_SALDO_ATUAL", nullable = false)
+	private Double valorSaldoAtual;
 
 	@JsonProperty("tipoContaBancaria")
 	@ManyToOne
@@ -59,6 +59,16 @@ public class ContaBancariaEntity implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "ID_CONTRATO", referencedColumnName = "CODIGO", nullable = false)
 	private ContratoEntity contratoEntity;
+	
+	@OneToOne
+	@JoinColumn(name = "ID_PESSOA_INSTITUICAO_FINANCEIRA", referencedColumnName = "CODIGO", nullable = false)
+	private PessoaEntity pessoaInstituicaoFinanceira;
+	
+	@Column(name = "IS_BENEFICIO", nullable = false)
+	private Boolean isBeneficio;
+	
+	@Column(name = "IS_ATIVO", nullable = false)
+	private Boolean isAtivo;
 	
 	public ContaBancariaEntity() { }
 	
@@ -102,12 +112,12 @@ public class ContaBancariaEntity implements Serializable {
 		this.dataFechamento = dataFechamento;
 	}
 
-	public Double getValorSaldoInicial() {
-		return valorSaldoInicial;
+	public Double getValorSaldoAtual() {
+		return valorSaldoAtual;
 	}
 
-	public void setValorSaldoInicial(Double valorSaldoInicial) {
-		this.valorSaldoInicial = valorSaldoInicial;
+	public void setValorSaldoAtual(Double valorSaldoAtual) {
+		this.valorSaldoAtual = valorSaldoAtual;
 	}
 
 	public TipoContaBancariaEntity getTipoContaBancariaEntity() {
@@ -124,6 +134,30 @@ public class ContaBancariaEntity implements Serializable {
 
 	public void setContratoEntity(ContratoEntity contratoEntity) {
 		this.contratoEntity = contratoEntity;
+	}
+
+	public PessoaEntity getPessoaInstituicaoFinanceira() {
+		return pessoaInstituicaoFinanceira;
+	}
+
+	public void setPessoaInstituicaoFinanceira(PessoaEntity pessoaInstituicaoFinanceira) {
+		this.pessoaInstituicaoFinanceira = pessoaInstituicaoFinanceira;
+	}
+
+	public Boolean getIsBeneficio() {
+		return isBeneficio;
+	}
+
+	public void setIsBeneficio(Boolean isBeneficio) {
+		this.isBeneficio = isBeneficio;
+	}
+
+	public Boolean getIsAtivo() {
+		return isAtivo;
+	}
+
+	public void setIsAtivo(Boolean isAtivo) {
+		this.isAtivo = isAtivo;
 	}
 
 	@Override
