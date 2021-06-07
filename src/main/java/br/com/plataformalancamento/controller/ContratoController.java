@@ -45,5 +45,10 @@ public class ContratoController implements Serializable {
 	public ResponseEntity<List<ContratoEntity>> recuperarContratoVinculoPessoaFinanceiraVinculoContaBancaria() {
 		return ResponseEntity.ok().body(this.contratoService.recuperarContratoVinculoPessoaFinanceiraVinculoContaBancaria());
 	}
+	
+	@GetMapping("/verificar-vinculo-pessoa-contratada/{codigo}")
+	public ResponseEntity<Boolean> isExistePessoaContratadaVinculadaContrato(@PathVariable Long codigo) {
+		return ResponseEntity.ok().body(this.contratoService.isExistePessoaContratadaVinculadaContrato(codigo));
+	}
 
 }

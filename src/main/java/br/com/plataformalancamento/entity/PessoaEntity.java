@@ -28,6 +28,9 @@ public class PessoaEntity implements Serializable {
 	
 	@Column(name = "NOME", unique = true)
 	private String nome;
+
+	@Column(name = "NOME_PESSOA_SISTEMA")
+	private String nomePessoaJuridicaSistema;
 	
 	@Column(name = "IS_ATIVO", nullable = false)
 	private Boolean isAtivo;
@@ -35,6 +38,9 @@ public class PessoaEntity implements Serializable {
 	@Column(name = "IS_INSTITUICAO_FINANCEIRA", nullable = false)
 	private Boolean isInstituicaoFinanceira;
 	
+	@Column(name = "IS_PESSOA_FINANCEIRA", nullable = false)
+	private Boolean isPessoaFinanceira;
+
 	@JsonProperty("tipoPessoa")
 	@OneToOne
 	@JoinColumn(name = "ID_TIPO_PESSOA", referencedColumnName = "codigo", nullable = false)
@@ -54,7 +60,7 @@ public class PessoaEntity implements Serializable {
 		this.isInstituicaoFinanceira = isInstituicaoFinanceira;
 		this.tipoPessoaEntity = tipoPessoaEntity;
 	}
-
+	
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -71,6 +77,14 @@ public class PessoaEntity implements Serializable {
 		this.nome = nome;
 	}
 
+	public String getNomePessoaJuridicaSistema() {
+		return nomePessoaJuridicaSistema;
+	}
+
+	public void setNomePessoaJuridicaSistema(String nomePessoaJuridicaSistema) {
+		this.nomePessoaJuridicaSistema = nomePessoaJuridicaSistema;
+	}
+
 	public Boolean getIsAtivo() {
 		return isAtivo;
 	}
@@ -79,20 +93,28 @@ public class PessoaEntity implements Serializable {
 		this.isAtivo = isAtivo;
 	}
 
-	public TipoPessoaEntity getTipoPessoaEntity() {
-		return tipoPessoaEntity;
-	}
-
-	public void setTipoPessoaEntity(TipoPessoaEntity tipoPessoaEntity) {
-		this.tipoPessoaEntity = tipoPessoaEntity;
-	}
-
 	public Boolean getIsInstituicaoFinanceira() {
 		return isInstituicaoFinanceira;
 	}
 
 	public void setIsInstituicaoFinanceira(Boolean isInstituicaoFinanceira) {
 		this.isInstituicaoFinanceira = isInstituicaoFinanceira;
+	}
+
+	public Boolean getIsPessoaFinanceira() {
+		return isPessoaFinanceira;
+	}
+
+	public void setIsPessoaFinanceira(Boolean isPessoaFinanceira) {
+		this.isPessoaFinanceira = isPessoaFinanceira;
+	}
+
+	public TipoPessoaEntity getTipoPessoaEntity() {
+		return tipoPessoaEntity;
+	}
+
+	public void setTipoPessoaEntity(TipoPessoaEntity tipoPessoaEntity) {
+		this.tipoPessoaEntity = tipoPessoaEntity;
 	}
 
 	@Override

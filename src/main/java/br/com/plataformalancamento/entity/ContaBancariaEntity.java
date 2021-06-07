@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -34,9 +33,6 @@ public class ContaBancariaEntity implements Serializable {
 	@Column(name = "NUMERO_AGENCIA", unique = true, nullable = false)
 	private String numeroAgencia;
 	
-	@Column(name = "NUMERO_CONTA", unique = true, nullable = false)
-	private String numeroConta;
-	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "DATA_ABERTURA")
@@ -49,11 +45,10 @@ public class ContaBancariaEntity implements Serializable {
 	
 	@Column(name = "VALOR_SALDO_ATUAL", nullable = false)
 	private Double valorSaldoAtual;
-
-	@JsonProperty("tipoContaBancaria")
-	@ManyToOne
-	@JoinColumn(name = "ID_TIPO_CONTA_BANCARIA", referencedColumnName = "CODIGO", nullable = false)
-	private TipoContaBancariaEntity tipoContaBancariaEntity;
+	
+	@OneToOne
+	@JoinColumn(name = "ID_CIDADE_AGENCIA_BANCARIA", referencedColumnName = "codigo")
+	private CidadeEntity cidadeEntity;
 	
 	@JsonProperty("contrato")
 	@OneToOne
@@ -88,14 +83,6 @@ public class ContaBancariaEntity implements Serializable {
 		this.numeroAgencia = numeroAgencia;
 	}
 
-	public String getNumeroConta() {
-		return numeroConta;
-	}
-
-	public void setNumeroConta(String numeroConta) {
-		this.numeroConta = numeroConta;
-	}
-
 	public Date getDataAbertura() {
 		return dataAbertura;
 	}
@@ -118,14 +105,6 @@ public class ContaBancariaEntity implements Serializable {
 
 	public void setValorSaldoAtual(Double valorSaldoAtual) {
 		this.valorSaldoAtual = valorSaldoAtual;
-	}
-
-	public TipoContaBancariaEntity getTipoContaBancariaEntity() {
-		return tipoContaBancariaEntity;
-	}
-
-	public void setTipoContaBancariaEntity(TipoContaBancariaEntity tipoContaBancariaEntity) {
-		this.tipoContaBancariaEntity = tipoContaBancariaEntity;
 	}
 
 	public ContratoEntity getContratoEntity() {
@@ -158,6 +137,14 @@ public class ContaBancariaEntity implements Serializable {
 
 	public void setIsAtivo(Boolean isAtivo) {
 		this.isAtivo = isAtivo;
+	}
+
+	public CidadeEntity getCidadeEntity() {
+		return cidadeEntity;
+	}
+
+	public void setCidadeEntity(CidadeEntity cidadeEntity) {
+		this.cidadeEntity = cidadeEntity;
 	}
 
 	@Override

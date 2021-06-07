@@ -19,7 +19,7 @@ public class DatabaseDesenvolvimentoConfiguration {
 
     @Bean
     public boolean instanciarBaseDados() {
-        if(estrategia.equals("create-drop") || estrategia.equals("update")) {
+        if(estrategia.equals("update")) {
             this.databaseService.instanciarBaseDados();
         }
         return false;

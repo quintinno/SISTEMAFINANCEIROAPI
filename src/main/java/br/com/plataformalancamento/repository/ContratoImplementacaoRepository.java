@@ -40,5 +40,16 @@ public class ContratoImplementacaoRepository implements Serializable {
 			typeQuery.setParameter("codigoUsuarioLogadoParameter", codigoPessoaContratante);
 		return typeQuery.getResultList();
 	}
+	
+	public Boolean isExistePessoaContratadaVinculadaContrato(Long codigoPessoaContratada) {
+		StringBuilder query = new StringBuilder("SELECT contratoEntity ")
+			.append("FROM ContratoEntity contratoEntity ")
+			.append("JOIN contratoEntity.pessoaContratado pessoaContratado ")
+			.append("WHERE pessoaContratado.codigo = :codigoPessoaContratadaParameter ");
+		TypedQuery<ContratoEntity> typeQuery = entityManager.createQuery(query.toString(), ContratoEntity.class);
+			typeQuery.setParameter("codigoPessoaContratadaParameter", codigoPessoaContratada);
+			List<ContratoEntity> contratoEntityList = typeQuery.getResultList();
+		return contratoEntityList.size() == 0 ? false : true;
+	}
 
 }

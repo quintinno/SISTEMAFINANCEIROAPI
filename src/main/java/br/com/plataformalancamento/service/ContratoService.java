@@ -94,5 +94,9 @@ public class ContratoService implements Serializable {
 	private void gerarParcelamentoDespesaFixaContrato(ContratoEntity contratoEntity, DespesaEntity despesaEntity) { 
 		this.parcelamentoService.gerarParcelamentoDespesaFixa(contratoEntity, despesaEntity);
 	}
+	
+	public Boolean isExistePessoaContratadaVinculadaContrato(Long codigoPessoaContrada) {
+		return this.contratoImplementacaoRepository.isExistePessoaContratadaVinculadaContrato(codigoPessoaContrada);
+	}
 
 }

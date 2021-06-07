@@ -13,6 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name = "TB_DOCUMENTO")
 public class DocumentoEntity implements Serializable {
@@ -25,8 +29,8 @@ private static final long serialVersionUID = 1L;
 	@Column(name = "CODIGO")
 	private Long codigo;
 	
-	@Column(name = "DESCRICAO", length = 80, nullable = false)
-	private String descricao;
+	@Column(name = "COMPLEMENTO", length = 80)
+	private String complemento;
 	
 	@Column(name = "NUMERO", length = 80, nullable = false)
 	private String numero;
@@ -34,6 +38,7 @@ private static final long serialVersionUID = 1L;
 	@Column(name = "ORGAO_EMISSOR", length = 80)
 	private String orgaoEmissor;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Column(name = "DATA_EMISSAO")
 	private Date dataEmissao;
 	
@@ -47,6 +52,12 @@ private static final long serialVersionUID = 1L;
 	@JoinColumn(name = "ID_PESSOA", referencedColumnName = "codigo", nullable = false)
 	private PessoaEntity pessoaEntity;
 
+	@JsonProperty("categoriaDocumentoModel")
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "ID_CATEGORIA_DOCUMENTO", referencedColumnName = "codigo", nullable = false)
+	private CategoriaDocumentoModel categoriaDocumentoModel;
+
 	public DocumentoEntity() { }
 
 	public Long getCodigo() {
@@ -57,12 +68,12 @@ private static final long serialVersionUID = 1L;
 		this.codigo = codigo;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getComplemento() {
+		return complemento;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
 	}
 
 	public String getNumero() {
@@ -111,6 +122,14 @@ private static final long serialVersionUID = 1L;
 
 	public void setPessoaEntity(PessoaEntity pessoaEntity) {
 		this.pessoaEntity = pessoaEntity;
+	}
+
+	public CategoriaDocumentoModel getCategoriaDocumentoModel() {
+		return categoriaDocumentoModel;
+	}
+
+	public void setCategoriaDocumentoModel(CategoriaDocumentoModel categoriaDocumentoModel) {
+		this.categoriaDocumentoModel = categoriaDocumentoModel;
 	}
 
 	@Override

@@ -13,15 +13,19 @@ import br.com.plataformalancamento.entity.CartaoBancarioEntity;
 import br.com.plataformalancamento.entity.CategoriaCartaoBancarioEntity;
 import br.com.plataformalancamento.entity.CategoriaDespesaEntity;
 import br.com.plataformalancamento.entity.CategoriaReceitaEntity;
+import br.com.plataformalancamento.entity.CidadeEntity;
 import br.com.plataformalancamento.entity.ComposicaoSalarioEntity;
 import br.com.plataformalancamento.entity.ContaBancariaEntity;
 import br.com.plataformalancamento.entity.ContratoEntity;
 import br.com.plataformalancamento.entity.DespesaEntity;
+import br.com.plataformalancamento.entity.EstadoEntity;
 import br.com.plataformalancamento.entity.FaturaBancariaModel;
 import br.com.plataformalancamento.entity.FormaPagamentoDespesaEntity;
 import br.com.plataformalancamento.entity.FormaPagamentoEntity;
 import br.com.plataformalancamento.entity.FuncaoCartaoBancarioEntity;
+import br.com.plataformalancamento.entity.PaisEntity;
 import br.com.plataformalancamento.entity.PessoaEntity;
+import br.com.plataformalancamento.entity.ProdutoBancarioEntity;
 import br.com.plataformalancamento.entity.ProdutoServicoEntity;
 import br.com.plataformalancamento.entity.ProdutoServicoOcorrenciaEntity;
 import br.com.plataformalancamento.entity.TipoContaBancariaEntity;
@@ -34,19 +38,22 @@ import br.com.plataformalancamento.enumeration.TipoPeriodoFinanceiroEnumeration;
 import br.com.plataformalancamento.enumeration.TipoSituacaoPagamentoEnumeration;
 import br.com.plataformalancamento.repository.BandeiraCartaoBancarioRepository;
 import br.com.plataformalancamento.repository.BeneficioRepository;
-import br.com.plataformalancamento.repository.BeneficioValorRepository;
 import br.com.plataformalancamento.repository.CartaoBancarioRepository;
 import br.com.plataformalancamento.repository.CategoriaCartaoBancarioRepository;
 import br.com.plataformalancamento.repository.CategoriaDespesaRepository;
 import br.com.plataformalancamento.repository.CategoriaReceitaRepository;
+import br.com.plataformalancamento.repository.CidadeRepository;
 import br.com.plataformalancamento.repository.ComposicaoSalarialRepository;
 import br.com.plataformalancamento.repository.ContaBancariaRepository;
 import br.com.plataformalancamento.repository.ContratoRepository;
 import br.com.plataformalancamento.repository.DespesaRepository;
+import br.com.plataformalancamento.repository.EstadoRepository;
 import br.com.plataformalancamento.repository.FaturaBancariaRepository;
 import br.com.plataformalancamento.repository.FormaPagamentoRepository;
 import br.com.plataformalancamento.repository.FuncaoCartaoBancarioRepository;
+import br.com.plataformalancamento.repository.PaisRepository;
 import br.com.plataformalancamento.repository.PessoaRepository;
+import br.com.plataformalancamento.repository.ProdutoBancarioRepository;
 import br.com.plataformalancamento.repository.ProdutoServicoOcorrenciaRepository;
 import br.com.plataformalancamento.repository.TipoContaBancariaRepository;
 import br.com.plataformalancamento.repository.TipoContratoRepository;
@@ -115,11 +122,11 @@ public class DatabaseService {
     @Autowired
     private TipoUsuarioSistemaRepository tipoUsuarioSistemaRepository;
     
-    @Autowired
-    private ParcelamentoService parcelamentoService;
-    
-    @Autowired
-    private BeneficioValorRepository beneficioValorRepository;
+//    @Autowired
+//    private ParcelamentoService parcelamentoService;
+//    
+//    @Autowired
+//    private BeneficioValorRepository beneficioValorRepository;
     
     @Autowired
     private BeneficioRepository beneficioRepository;
@@ -129,6 +136,18 @@ public class DatabaseService {
     
     @Autowired
     private FaturaBancariaRepository faturaBancariaRepository;
+    
+    @Autowired
+    private ProdutoBancarioRepository produtoBancarioRepository;
+    		
+    @Autowired
+    private CidadeRepository cidadeRepository;
+    
+    @Autowired
+    private EstadoRepository estadoRepository;
+    
+    @Autowired
+    private PaisRepository paisRepository;
 
     public void instanciarBaseDados() {
     	
@@ -235,12 +254,12 @@ public class DatabaseService {
     		this.formaPagamentoRepository.saveAll(Arrays.asList(formaPagamentoEntity1, formaPagamentoEntity2, formaPagamentoEntity3, formaPagamentoEntity4, formaPagamentoEntity5, formaPagamentoEntity6, formaPagamentoEntity7, formaPagamentoEntity8, formaPagamentoEntity9, formaPagamentoEntity10, formaPagamentoEntity11, formaPagamentoEntity12, formaPagamentoEntity13));
     	
     	TipoContaBancariaEntity tipoContaBancariaEntity1 = new TipoContaBancariaEntity("Conta Corrente");
-    	TipoContaBancariaEntity tipoContaBancariaEntity2 = new TipoContaBancariaEntity("Conta Corrente (Conta Digital)");
-    	TipoContaBancariaEntity tipoContaBancariaEntity3 = new TipoContaBancariaEntity("Conta Corrente (Conta Salario)");
-    	TipoContaBancariaEntity tipoContaBancariaEntity4 = new TipoContaBancariaEntity("Poupança");
+    	TipoContaBancariaEntity tipoContaBancariaEntity2 = new TipoContaBancariaEntity("Conta Corrente Digital");
+    	TipoContaBancariaEntity tipoContaBancariaEntity3 = new TipoContaBancariaEntity("Conta Salário");
+    	TipoContaBancariaEntity tipoContaBancariaEntity4 = new TipoContaBancariaEntity("Conta Poupança");
     	TipoContaBancariaEntity tipoContaBancariaEntity5 = new TipoContaBancariaEntity("Conta Investimento");
-		TipoContaBancariaEntity tipoContaBancariaEntity6 = new TipoContaBancariaEntity("Conta Carteira (Conta Especial)");
-		TipoContaBancariaEntity tipoContaBancariaEntity7 = new TipoContaBancariaEntity("Conta Benefício Alimentação (Conta Especial)");
+		TipoContaBancariaEntity tipoContaBancariaEntity6 = new TipoContaBancariaEntity("Conta Carteira Especial");
+		TipoContaBancariaEntity tipoContaBancariaEntity7 = new TipoContaBancariaEntity("Conta Benefício Alimentação");
     	
     		this.tipoContaBancariaRepository.saveAll(Arrays.asList(tipoContaBancariaEntity1, tipoContaBancariaEntity2, tipoContaBancariaEntity3, tipoContaBancariaEntity4, tipoContaBancariaEntity5, tipoContaBancariaEntity6, tipoContaBancariaEntity7));
     	
@@ -307,26 +326,47 @@ public class DatabaseService {
     		
 //    		this.parcelamentoService.gerarParcelamentoContrato(contratoEntity5);
     		
+    	// Fluxo de Cadastro de Pais, Estados Cidades
+    	PaisEntity paisEntity1 = new PaisEntity();
+    		paisEntity1.setNome("Brasil");
+    		
+    		this.paisRepository.save(paisEntity1);
+    		
+    	EstadoEntity estadoEntity1 = new EstadoEntity();
+    		estadoEntity1.setPaisEntity(paisEntity1);
+    		estadoEntity1.setNome("Distrito Federal");
+    		
+    		this.estadoRepository.save(estadoEntity1);
+    		
+    	CidadeEntity cidadeEntity1 = new CidadeEntity();
+    		cidadeEntity1.setEstadoEntity(estadoEntity1);
+    		cidadeEntity1.setNome("Gama");
+    		
+    	CidadeEntity cidadeEntity2 = new CidadeEntity();
+    		cidadeEntity2.setEstadoEntity(estadoEntity1);
+    		cidadeEntity2.setNome("Taguatinga");
+    		
+    		this.cidadeRepository.saveAll(Arrays.asList(cidadeEntity1, cidadeEntity2));
+    		
     	// Fluxo de Conta Bancaria
+    	// Caixa Ecômica Federal
     	ContaBancariaEntity contaBancariaEntity1 = new ContaBancariaEntity();
     		contaBancariaEntity1.setContratoEntity(contratoEntity1);
     		contaBancariaEntity1.setDataAbertura(null);
     		contaBancariaEntity1.setDataFechamento(null);
-    		contaBancariaEntity1.setNumeroAgencia("3441");
-    		contaBancariaEntity1.setNumeroConta("01083366-1");
-    		contaBancariaEntity1.setTipoContaBancariaEntity(tipoContaBancariaEntity1);
+    		contaBancariaEntity1.setNumeroAgencia("00655");
+    		contaBancariaEntity1.setCidadeEntity(cidadeEntity1);
     		contaBancariaEntity1.setValorSaldoAtual(0D);
     		contaBancariaEntity1.setPessoaInstituicaoFinanceira(contratoEntity1.getPessoaContratado());
     		contaBancariaEntity1.setIsBeneficio(false);
     		contaBancariaEntity1.setIsAtivo(true);
     		
+    	// Banco Nubank
     	ContaBancariaEntity contaBancariaEntity2 = new ContaBancariaEntity();
 	    	contaBancariaEntity2.setContratoEntity(contratoEntity2);
 	    	contaBancariaEntity2.setDataAbertura(null);
 	    	contaBancariaEntity2.setDataFechamento(null);
-	    	contaBancariaEntity2.setNumeroAgencia("1000");
-	    	contaBancariaEntity2.setNumeroConta("00000000-1");
-	    	contaBancariaEntity2.setTipoContaBancariaEntity(tipoContaBancariaEntity1);
+	    	contaBancariaEntity2.setNumeroAgencia("0001");
 	    	contaBancariaEntity2.setValorSaldoAtual(0D);
 	    	contaBancariaEntity2.setPessoaInstituicaoFinanceira(contratoEntity2.getPessoaContratado());
 	    	contaBancariaEntity2.setIsBeneficio(false);
@@ -337,8 +377,8 @@ public class DatabaseService {
 	    	contaBancariaEntity3.setDataAbertura(null);
 	    	contaBancariaEntity3.setDataFechamento(null);
 	    	contaBancariaEntity3.setNumeroAgencia("XXXX");
-	    	contaBancariaEntity3.setNumeroConta("XXXXXXXX-X");
-	    	contaBancariaEntity3.setTipoContaBancariaEntity(tipoContaBancariaEntity6);
+//	    	contaBancariaEntity3.setNumeroConta("XXXXXXXX-X");
+//	    	contaBancariaEntity3.setTipoContaBancariaEntity(tipoContaBancariaEntity6);
 	    	contaBancariaEntity3.setValorSaldoAtual(0D);
 	    	contaBancariaEntity3.setPessoaInstituicaoFinanceira(contratoEntity3.getPessoaContratado());
 	    	contaBancariaEntity3.setIsBeneficio(false);
@@ -349,8 +389,6 @@ public class DatabaseService {
 	    	contaBancariaEntity4.setDataAbertura(DateUtility.gerarDataFormatoDate(2021, 4, 28));
 	    	contaBancariaEntity4.setDataFechamento(null);
 	    	contaBancariaEntity4.setNumeroAgencia("0826-5");
-	    	contaBancariaEntity4.setNumeroConta("71.746-0");
-	    	contaBancariaEntity4.setTipoContaBancariaEntity(tipoContaBancariaEntity3);
 	    	contaBancariaEntity4.setValorSaldoAtual(0D);
 	    	contaBancariaEntity4.setPessoaInstituicaoFinanceira(pessoaEntity11);
 	    	contaBancariaEntity4.setIsBeneficio(false);
@@ -361,14 +399,62 @@ public class DatabaseService {
 	    	contaBancariaEntity5.setDataAbertura(contratoEntity4.getDataInicioVigencia());
 	    	contaBancariaEntity5.setDataFechamento(null);
 	    	contaBancariaEntity5.setNumeroAgencia("0000");
-	    	contaBancariaEntity5.setNumeroConta("000000");
-	    	contaBancariaEntity5.setTipoContaBancariaEntity(tipoContaBancariaEntity7);
 	    	contaBancariaEntity5.setValorSaldoAtual(1156.10);
 	    	contaBancariaEntity5.setPessoaInstituicaoFinanceira(pessoaEntity12);
 	    	contaBancariaEntity5.setIsBeneficio(true);
     		contaBancariaEntity5.setIsAtivo(true);
     		
     		this.contaBancariaRepository.saveAll(Arrays.asList(contaBancariaEntity1, contaBancariaEntity2, contaBancariaEntity3, contaBancariaEntity4, contaBancariaEntity5));
+    		
+    	ProdutoBancarioEntity produtoBancarioEntity1 = new ProdutoBancarioEntity();
+    		produtoBancarioEntity1.setContaBancariaEntity(contaBancariaEntity4);
+    		produtoBancarioEntity1.setTipoContaBancariaEntity(tipoContaBancariaEntity1);
+    		produtoBancarioEntity1.setDescricao("Principal");
+    		produtoBancarioEntity1.setNumeroConta("71.746-0");
+    		produtoBancarioEntity1.setIsAtivo(true);
+    	
+    	ProdutoBancarioEntity produtoBancarioEntity2 = new ProdutoBancarioEntity();
+    		produtoBancarioEntity2.setContaBancariaEntity(contaBancariaEntity4);
+    		produtoBancarioEntity2.setDescricao("Principal");
+    		produtoBancarioEntity2.setTipoContaBancariaEntity(tipoContaBancariaEntity3);
+    		produtoBancarioEntity2.setNumeroConta("71.746-0");
+    		produtoBancarioEntity2.setIsAtivo(true);
+    		
+    	ProdutoBancarioEntity produtoBancarioEntity3 = new ProdutoBancarioEntity();
+    		produtoBancarioEntity3.setContaBancariaEntity(contaBancariaEntity4);
+    		produtoBancarioEntity3.setDescricao("Poupex");
+    		produtoBancarioEntity3.setTipoContaBancariaEntity(tipoContaBancariaEntity4);
+    		produtoBancarioEntity3.setNumeroConta("960.071.746-5");
+    		produtoBancarioEntity3.setIsAtivo(true);
+    	
+    	ProdutoBancarioEntity produtoBancarioEntity4 = new ProdutoBancarioEntity();
+    		produtoBancarioEntity4.setContaBancariaEntity(contaBancariaEntity4);
+    		produtoBancarioEntity4.setDescricao("Ouro");
+    		produtoBancarioEntity4.setTipoContaBancariaEntity(tipoContaBancariaEntity4);
+    		produtoBancarioEntity4.setNumeroConta("510.071.746-3");
+    		produtoBancarioEntity4.setIsAtivo(true);
+    		
+    	ProdutoBancarioEntity produtoBancarioEntity5 = new ProdutoBancarioEntity();
+    		produtoBancarioEntity5.setContaBancariaEntity(contaBancariaEntity1);
+    		produtoBancarioEntity5.setDescricao("Principal");
+    		produtoBancarioEntity5.setTipoContaBancariaEntity(tipoContaBancariaEntity4);
+    		produtoBancarioEntity5.setNumeroConta("1288.000828668626-6");
+    		produtoBancarioEntity5.setIsAtivo(true);
+    		
+    	ProdutoBancarioEntity produtoBancarioEntity6 = new ProdutoBancarioEntity();
+    		produtoBancarioEntity6.setContaBancariaEntity(contaBancariaEntity2);
+    		produtoBancarioEntity6.setDescricao("Principal");
+    		produtoBancarioEntity6.setTipoContaBancariaEntity(tipoContaBancariaEntity2);
+    		produtoBancarioEntity6.setNumeroConta("6402246-8");
+    		produtoBancarioEntity6.setIsAtivo(true);
+    		
+    		this.produtoBancarioRepository.saveAll(Arrays.asList(
+    				produtoBancarioEntity1,
+    				produtoBancarioEntity2, 
+    				produtoBancarioEntity3, 
+    				produtoBancarioEntity4,
+    				produtoBancarioEntity5,
+    				produtoBancarioEntity6));
 
 		// Fluxo de Receita Fixa (com Parcelamento)
     	/*
