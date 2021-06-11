@@ -9,12 +9,14 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.com.plataformalancamento.entity.EmailEntity;
 import br.com.plataformalancamento.entity.EnderecoEntity;
 import br.com.plataformalancamento.entity.PessoaEntity;
 import br.com.plataformalancamento.entity.TipoPessoaEntity;
+import br.com.plataformalancamento.exception.ConfiguradorErrorException;
 import br.com.plataformalancamento.repository.EmailRepository;
 import br.com.plataformalancamento.repository.EnderecoRepository;
 import br.com.plataformalancamento.repository.PessoaImplementacaoRepository;
@@ -45,8 +47,12 @@ public class PessoaService implements Serializable {
 		return this.pessoaRepository.findAll();
 	}
 	
-	public PessoaEntity cadastrar(PessoaEntity PessoaEntity) {
-		return this.pessoaRepository.save(PessoaEntity);
+	public PessoaEntity cadastrar(PessoaEntity pessoaEntity) {
+		try {
+			return this.pessoaRepository.save(configurarPessoaCadastro(pessoaEntity));
+		} catch (DataIntegrityViolationException dataIntegrityViolationException) {
+			throw new br.com.plataformalancamento.exception.DataIntegrityViolationException(ConfiguradorErrorException.recuperarMensagemErroObjetoNaoPodeSerCadastrado());
+		}
 	}
 	
 	public PessoaEntity recuperar(Long codigo) {
@@ -119,6 +125,19 @@ public class PessoaService implements Serializable {
 	@Transactional
 	public PessoaEntity alterar(PessoaEntity pessoaEntity) {
 		return this.pessoaRepository.save(pessoaEntity);
+	}
+	
+	public String recuperarInformacaoPessoa() {
+		return new PessoaEntity().toJson();
+	}
+	
+	public PessoaEntity configurarPessoaCadastro(PessoaEntity pessoaEntity) {
+		pessoaEntity.setIsAtivo(true);
+		pessoaEntity.setIsPessoaFinanceira(true);
+		if(pessoaEntity.getTipoPessoaEntity() == null) {
+			pessoaEntity.setTipoPessoaEntity(null);
+		}
+		return pessoaEntity;
 	}
 	
 }

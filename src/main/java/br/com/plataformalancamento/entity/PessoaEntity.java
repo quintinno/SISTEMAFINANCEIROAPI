@@ -148,5 +148,18 @@ public class PessoaEntity implements Serializable {
 				+ ", isInstituicaoFinanceira=" + isInstituicaoFinanceira + ", tipoPessoaEntity=" + tipoPessoaEntity
 				+ "]";
 	}
+	
+	
+//	private TipoPessoaDTO tipoPessoaDTO;
+
+	public String toJson() {
+		String jsonString = "{\n" +
+	            "\t\"nome\": \"\",\n" +
+	            "\t\"tipoPessoa\": {\n\t\t\"codigo\": \"\"\n\t},\n" +
+	            "\t\"nomePessoaJuridica\": \"\",\n" +
+	            "\t\"isInstituicaoFinanceira\": \"\"\n" +
+	            "}";
+		return jsonString;
+	}
 
 }

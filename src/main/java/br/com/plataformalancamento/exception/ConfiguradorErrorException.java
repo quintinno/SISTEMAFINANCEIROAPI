@@ -17,6 +17,11 @@ public class ConfiguradorErrorException {
 
     @JsonProperty("Mensagem do Erro")
     private String mensagemErro;
+    
+    public ConfiguradorErrorException(HttpStatus httpStatus, String mensagemErro) {
+        this.identificadorErro = httpStatus.getReasonPhrase().concat(" (" + httpStatus.value() + ")");
+        this.mensagemErro = mensagemErro;
+    }
 
     public ConfiguradorErrorException(String horarioErro, HttpStatus httpStatus, String mensagemErro) {
         this.horarioErro = horarioErro;
@@ -38,6 +43,10 @@ public class ConfiguradorErrorException {
     
     public static String recuperarMensagemErroObjetoNaoPodeSerDeletadoRequisicao(Long codigo) {
         return "O objeto com código '" + codigo + "' não pode ser deletado, pois existem objetos associados a ele no Banco de Dados!";
+    }
+    
+    public static String recuperarMensagemErroObjetoNaoPodeSerCadastrado() {
+        return "Objeto já cadastrado no banco de dados!";
     }
 
     public String getHorarioErro() {

@@ -78,5 +78,10 @@ public class PessoaController implements Serializable {
 	public ResponseEntity<PessoaEntity> registrarPagamentoParcela(@RequestBody PessoaEntity pessoaEntity) {
 		return ResponseEntity.ok(this.pessoaService.alterar(pessoaEntity));
 	}
+	
+	@GetMapping("/informacao")
+	public ResponseEntity<String> recuperarInformacaoPessoa() {
+		return ResponseEntity.ok(this.pessoaService.recuperarInformacaoPessoa());
+	}
 
 }
