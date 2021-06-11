@@ -13,6 +13,7 @@ import br.com.plataformalancamento.entity.CartaoBancarioEntity;
 import br.com.plataformalancamento.entity.CategoriaCartaoBancarioEntity;
 import br.com.plataformalancamento.entity.CategoriaDespesaEntity;
 import br.com.plataformalancamento.entity.CategoriaReceitaEntity;
+import br.com.plataformalancamento.entity.ChavePixModel;
 import br.com.plataformalancamento.entity.CidadeEntity;
 import br.com.plataformalancamento.entity.ComposicaoSalarioEntity;
 import br.com.plataformalancamento.entity.ContaBancariaEntity;
@@ -34,6 +35,7 @@ import br.com.plataformalancamento.entity.TipoPessoaEntity;
 import br.com.plataformalancamento.entity.TipoUsuarioSistemaEntity;
 import br.com.plataformalancamento.entity.UsuarioSistemaEntity;
 import br.com.plataformalancamento.enumeration.TipoCanalPagamentoEnumeration;
+import br.com.plataformalancamento.enumeration.TipoChavePixEnumeration;
 import br.com.plataformalancamento.enumeration.TipoPeriodoFinanceiroEnumeration;
 import br.com.plataformalancamento.enumeration.TipoSituacaoPagamentoEnumeration;
 import br.com.plataformalancamento.repository.BandeiraCartaoBancarioRepository;
@@ -159,72 +161,84 @@ public class DatabaseService {
     		pessoaEntity1.setNome("José Quintinn");
     		pessoaEntity1.setTipoPessoaEntity(tipoPessoaEntity1);
     		pessoaEntity1.setIsInstituicaoFinanceira(false);
+    		pessoaEntity1.setIsPessoaFinanceira(true);
     		pessoaEntity1.setIsAtivo(true);
     		
     	PessoaEntity pessoaEntity2 = new PessoaEntity();
     		pessoaEntity2.setNome("Brava Fibra Internet");
     		pessoaEntity2.setTipoPessoaEntity(tipoPessoaEntity2);
     		pessoaEntity2.setIsInstituicaoFinanceira(true);
+    		pessoaEntity2.setIsPessoaFinanceira(true);
     		pessoaEntity2.setIsAtivo(true);
     		
     	PessoaEntity pessoaEntity3 = new PessoaEntity();
     		pessoaEntity3.setNome("Banco Caixa Econômica Federal");
     		pessoaEntity3.setTipoPessoaEntity(tipoPessoaEntity2);
     		pessoaEntity3.setIsInstituicaoFinanceira(true);
+    		pessoaEntity3.setIsPessoaFinanceira(true);
     		pessoaEntity3.setIsAtivo(true);
     		
     	PessoaEntity pessoaEntity4 = new PessoaEntity();
     		pessoaEntity4.setNome("Banco Santander");
     		pessoaEntity4.setTipoPessoaEntity(tipoPessoaEntity2);
     		pessoaEntity4.setIsInstituicaoFinanceira(true);
+    		pessoaEntity4.setIsPessoaFinanceira(true);
     		pessoaEntity4.setIsAtivo(true);
     		
     	PessoaEntity pessoaEntity5 = new PessoaEntity();
 	    	pessoaEntity5.setNome("Bomba Burguer Pizzas e Refeições");
 	    	pessoaEntity5.setTipoPessoaEntity(tipoPessoaEntity2);
 	    	pessoaEntity5.setIsInstituicaoFinanceira(false);
+	    	pessoaEntity5.setIsPessoaFinanceira(true);
 	    	pessoaEntity5.setIsAtivo(true);
 	    	
 	    PessoaEntity pessoaEntity6 = new PessoaEntity();
     		pessoaEntity6.setNome("Jamille Alves");
     		pessoaEntity6.setTipoPessoaEntity(tipoPessoaEntity1);
     		pessoaEntity6.setIsInstituicaoFinanceira(false);
+    		pessoaEntity6.setIsPessoaFinanceira(true);
     		pessoaEntity6.setIsAtivo(true);
 
 		PessoaEntity pessoaEntity7 = new PessoaEntity();
 			pessoaEntity7.setNome("Indra Company Brasil");
 			pessoaEntity7.setTipoPessoaEntity(tipoPessoaEntity2);
 			pessoaEntity7.setIsInstituicaoFinanceira(false);
+			pessoaEntity7.setIsPessoaFinanceira(true);
 			pessoaEntity7.setIsAtivo(false);
 
         PessoaEntity pessoaEntity8 = new PessoaEntity();
             pessoaEntity8.setNome("Sinagoga Keter Torah");
             pessoaEntity8.setTipoPessoaEntity(tipoPessoaEntity2);
             pessoaEntity8.setIsInstituicaoFinanceira(false);
+            pessoaEntity8.setIsPessoaFinanceira(true);
             pessoaEntity8.setIsAtivo(true);
             
         PessoaEntity pessoaEntity9 = new PessoaEntity();
     		pessoaEntity9.setNome("Banco Nubank");
     		pessoaEntity9.setTipoPessoaEntity(tipoPessoaEntity2);
     		pessoaEntity9.setIsInstituicaoFinanceira(true);
+    		pessoaEntity9.setIsPessoaFinanceira(true);
     		pessoaEntity9.setIsAtivo(true);
     		
     	PessoaEntity pessoaEntity10 = new PessoaEntity();
 			pessoaEntity10.setNome("Mirante Tecnologia");
 			pessoaEntity10.setTipoPessoaEntity(tipoPessoaEntity2);
 			pessoaEntity10.setIsInstituicaoFinanceira(false);
+			pessoaEntity10.setIsPessoaFinanceira(true);
 			pessoaEntity10.setIsAtivo(true);
 			
 		PessoaEntity pessoaEntity11 = new PessoaEntity();
 			pessoaEntity11.setNome("Banco do Brasil");
 			pessoaEntity11.setTipoPessoaEntity(tipoPessoaEntity2);
 			pessoaEntity11.setIsInstituicaoFinanceira(true);
+			pessoaEntity11.setIsPessoaFinanceira(true);
 			pessoaEntity11.setIsAtivo(true);
 			
 		PessoaEntity pessoaEntity12 = new PessoaEntity();
 			pessoaEntity12.setNome("Alelo");
 			pessoaEntity12.setTipoPessoaEntity(tipoPessoaEntity2);
 			pessoaEntity12.setIsInstituicaoFinanceira(false);
+			pessoaEntity12.setIsPessoaFinanceira(true);			
 			pessoaEntity12.setIsAtivo(true);
     		
     		this.pessoaRepository.saveAll(Arrays.asList(pessoaEntity1, pessoaEntity2, pessoaEntity3, pessoaEntity4, pessoaEntity5, pessoaEntity6, pessoaEntity7, pessoaEntity8, pessoaEntity9, pessoaEntity10, pessoaEntity11, pessoaEntity12));
@@ -276,6 +290,11 @@ public class DatabaseService {
     	
     		this.tipoContratoRepository.saveAll(Arrays.asList(tipoContratoEntity1, tipoContratoEntity2, tipoContratoEntity3, tipoContratoEntity4, tipoContratoEntity5, tipoContratoEntity6, tipoContratoEntity7, tipoContratoEntity8, tipoContratoEntity9, tipoContratoEntity10));
     	
+    	// Fluxo de Cadastro de Chaves PIX
+        ChavePixModel chavePixModel1 = new ChavePixModel(TipoChavePixEnumeration.TELEFONE_CELULAR, "099999999999");
+        ChavePixModel chavePixModel2 = new ChavePixModel(TipoChavePixEnumeration.TELEFONE_FIXO, "099333333");
+        ChavePixModel chavePixModel3 = new ChavePixModel(TipoChavePixEnumeration.EMAIL, "chavepixemail@email.com.br");
+        	
     	ContratoEntity contratoEntity1 = new ContratoEntity();
     		contratoEntity1.setDataInicioVigencia(null);
     		contratoEntity1.setDataFimVigencia(null);
@@ -291,6 +310,9 @@ public class DatabaseService {
 	    	contratoEntity2.setPessoaContratante(pessoaEntity1);
 	    	contratoEntity2.setTipoContratoEntity(tipoContratoEntity1);
 	    	contratoEntity2.setIsATivo(true);
+	    	contratoEntity2.adicionarChavePix(chavePixModel1);
+	    	contratoEntity2.adicionarChavePix(chavePixModel2);
+	    	contratoEntity2.adicionarChavePix(chavePixModel3);
 	    	
 	    ContratoEntity contratoEntity3 = new ContratoEntity();
 	    	contratoEntity3.setDataInicioVigencia(null);
@@ -720,7 +742,7 @@ public class DatabaseService {
 			faturaBancariaModel1.adicionarProdutoServico(produtoServicoEntity3, faturaBancariaModel1);
 			
 			this.faturaBancariaRepository.saveAll(Arrays.asList(faturaBancariaModel1));
-		
+			
     }
 
 }

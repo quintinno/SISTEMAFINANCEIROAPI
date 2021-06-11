@@ -1,16 +1,21 @@
 package br.com.plataformalancamento.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -82,10 +87,19 @@ public class ContratoEntity implements Serializable {
 	@Column(name = "NUMERO_MESES_VIGENCIA_CONTRATO")
 	private Integer numeroMesesVigenciaContrato;
 	
+	@JsonProperty("chavePixModelList")
+	@OneToMany(mappedBy = "contratoEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<ChavePixModel> chavePixModelList  = new ArrayList<>();
+	
 	@Column(name = "IS_ATIVO", nullable = false)
 	private Boolean isATivo;
 	
 	public ContratoEntity() { }
+	
+	public void adicionarChavePix(ChavePixModel chavePixModel) {
+		chavePixModel.setContratoEntity(this);
+		this.chavePixModelList.add(chavePixModel);
+	}
 
 	public Long getCodigo() {
 		return codigo;
@@ -197,6 +211,14 @@ public class ContratoEntity implements Serializable {
 
 	public void setDataPagamento(Integer dataPagamento) {
 		this.dataPagamento = dataPagamento;
+	}
+	
+	public List<ChavePixModel> getChavePixModelList() {
+		return chavePixModelList;
+	}
+
+	public void setChavePixModelList(List<ChavePixModel> chavePixModelList) {
+		this.chavePixModelList = chavePixModelList;
 	}
 
 	@Override
