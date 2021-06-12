@@ -16,7 +16,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.plataformalancamento.entity.DespesaEntity;
 import br.com.plataformalancamento.service.DespesaService;
 
-
 @RestController
 @RequestMapping("/despesa")
 public class DespesaController implements Serializable {
@@ -38,6 +37,16 @@ public class DespesaController implements Serializable {
     	DespesaEntity despesaEntityCadastro = this.despesaService.cadastrar(despesaEntity);
     	URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(despesaEntityCadastro.getCodigo()).toUri();
     	return ResponseEntity.created(uri).body(despesaEntityCadastro);
+    }
+    
+    @GetMapping("/informacao")
+    public ResponseEntity<String> recuperarInformacaoDespesa() {
+    	return ResponseEntity.ok(this.despesaService.recuperarInformacaoDespesa());
+    }
+    
+    @GetMapping("/fixa-mensal")
+    public ResponseEntity<List<DespesaEntity>> recuperarDespesaFixaMensal() {
+    	return ResponseEntity.ok(this.despesaService.recuperarDespesaFixaMensal());
     }
 
 }

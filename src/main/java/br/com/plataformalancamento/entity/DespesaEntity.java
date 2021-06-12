@@ -251,5 +251,27 @@ public class DespesaEntity implements Serializable {
 			return false;
 		return true;
 	}
+	
+	public String toJson() {
+		String jsonString = "{\n" +
+	            "\t\"pessoaFavorecido\": {\n\t\t\"codigo\": \"\"\n\t},\n" +
+				"\t\"categoriaDespesa\": {\n\t\t\"codigo\": \"\"\n\t},\n" +
+				"\t\"formaPagamentoDespesaEntityList\": {\n\t\t\"codigo\": \"\"\n\t},\n" +
+				"\t\"produtoServicoList\": {\n\t\t\"codigo\": \"\"\n\t},\n" +
+	            "\t\"nomePessoaJuridica\": \"\",\n" +
+	            "\t\"isInstituicaoFinanceira\": \"\",\n" +
+				"\t\"dataCadastro\": \"\",\n" +
+				"\t\"dataPagamento\": \"\",\n" +
+				"\t\"dataVencimento\": \"\",\n" +
+				"\t\"valorTotal\": \"\",\n" +
+				"\t\"valorDesconto\": \"\",\n" +
+				"\t\"valorPagamento\": \"\",\n" +
+				"\t\"valorJurosAtraso\": \"\",\n" +
+				"\t\"valorMultaAtraso\": \"\",\n" +
+				"\t\"tipoCanalPagamento\": \"\",\n" +
+				"\t\"observacao\": \"\"\n" +
+	            "}";
+		return jsonString;
+	}
 
 }

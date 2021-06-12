@@ -75,4 +75,42 @@ public class DateUtility {
 		return DateUtility.configurarFormatoData(FORMAT_MMAAAA).parse(dataString);
 	}
 	
+	public static Integer recuperarPrimeiroDiaMesCorrente() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.MONTH, DateUtility.extrairNumeroMesData(new Date()));
+		return calendar.getActualMinimum(Calendar.DAY_OF_MONTH);
+	}
+	
+	public static Integer recuperarUltimoDiaMesCorrente() {
+		Calendar calendar = Calendar.getInstance();
+			calendar.set(Calendar.MONTH, DateUtility.extrairNumeroMesData(new Date()));
+		return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+	}
+	
+	public static Integer extrairNumeroMesData(Date dataExtrairNumeroMes) {
+		GregorianCalendar dataGregorianCalendar = new GregorianCalendar();
+			dataGregorianCalendar.setTime(dataExtrairNumeroMes);
+		return dataGregorianCalendar.get(Calendar.MONTH);
+	}
+	
+	public static Date converterNumeroDiaMesEmDataDoMesAnoParametro(Integer numeroMesCorrente, Integer numeroDiaMesCorrente) {
+		return DateUtility.gerarDataFormatoDate(recuperarAnoCorrente(), (numeroMesCorrente + 1), (numeroDiaMesCorrente + 1));
+	}
+	
+	public static Integer recuperarAnoCorrente() {
+		Calendar gregoriaCalendar = GregorianCalendar.getInstance();
+		return gregoriaCalendar.get(Calendar.YEAR);
+	}
+	
+	public static Integer recuperarMesCorrente() {
+		Calendar gregoriaCalendar = GregorianCalendar.getInstance();
+			gregoriaCalendar.add(Calendar.DAY_OF_MONTH, 1);
+		return gregoriaCalendar.get(Calendar.MONTH);
+	}
+	
+	public static Integer recuperarDiaCorrente() {
+		Calendar gregoriaCalendar = GregorianCalendar.getInstance();
+		return gregoriaCalendar.get(Calendar.DAY_OF_MONTH);
+	}
+	
 }

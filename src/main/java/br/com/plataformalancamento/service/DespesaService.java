@@ -14,6 +14,7 @@ import br.com.plataformalancamento.entity.ContratoEntity;
 import br.com.plataformalancamento.entity.DespesaEntity;
 import br.com.plataformalancamento.entity.FormaPagamentoDespesaEntity;
 import br.com.plataformalancamento.entity.ProdutoServicoEntity;
+import br.com.plataformalancamento.repository.DespesaImplementacaoRepository;
 import br.com.plataformalancamento.repository.DespesaRepository;
 import br.com.plataformalancamento.utility.DateUtility;
 
@@ -30,6 +31,9 @@ public class DespesaService implements Serializable {
     
     @Autowired
     private CategoriaDespesaService categoriaDespesaService;
+    
+    @Autowired
+    private DespesaImplementacaoRepository despesaImplementacaoRepository;
 
     public DespesaService() { }
 
@@ -39,6 +43,9 @@ public class DespesaService implements Serializable {
 
     @Transactional
 	public DespesaEntity cadastrar(DespesaEntity despesaEntity) {
+    	if(despesaEntity.getCategoriaDespesaEntity() == null) {
+    		despesaEntity.setCategoriaDespesaEntity(this.recuperarCategoriaDespesaFixa());
+    	}
     	if(despesaEntity.getCategoriaDespesaEntity().getSigla().equals("DVA")) {
     		despesaEntity = this.prepararDespesaVariavel(despesaEntity);
     	}
@@ -100,6 +107,14 @@ public class DespesaService implements Serializable {
     		}
     	}
     	return null;
+    }
+    
+    public String recuperarInformacaoDespesa() {
+    	return new DespesaEntity().toJson();
+    }
+    
+    public List<DespesaEntity> recuperarDespesaFixaMensal() {
+    	return this.despesaImplementacaoRepository.recuperarParcelamentoDespesaFixaPendente();
     }
 
 }

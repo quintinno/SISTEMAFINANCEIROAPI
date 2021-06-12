@@ -149,9 +149,6 @@ public class PessoaEntity implements Serializable {
 				+ "]";
 	}
 	
-	
-//	private TipoPessoaDTO tipoPessoaDTO;
-
 	public String toJson() {
 		String jsonString = "{\n" +
 	            "\t\"nome\": \"\",\n" +
