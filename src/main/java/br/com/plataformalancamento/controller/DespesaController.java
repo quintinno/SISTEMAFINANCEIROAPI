@@ -1,20 +1,15 @@
 package br.com.plataformalancamento.controller;
 
+import br.com.plataformalancamento.entity.DespesaEntity;
+import br.com.plataformalancamento.service.DespesaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import java.io.Serializable;
 import java.net.URI;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import br.com.plataformalancamento.entity.DespesaEntity;
-import br.com.plataformalancamento.service.DespesaService;
 
 @RestController
 @RequestMapping("/despesa")
@@ -47,6 +42,16 @@ public class DespesaController implements Serializable {
     @GetMapping("/fixa-mensal")
     public ResponseEntity<List<DespesaEntity>> recuperarDespesaFixaMensal() {
     	return ResponseEntity.ok(this.despesaService.recuperarDespesaFixaMensal());
+    }
+
+    @GetMapping("/totalizador-despesas-pagas")
+    public ResponseEntity<Double> recuperarTotalDespesasPagasAnoFinanceiro() {
+        return ResponseEntity.ok().body(this.despesaService.recuperarValorTotalDespesasAnoFinanceiro(true));
+    }
+
+    @GetMapping("/totalizador-despesas-pendentes")
+    public ResponseEntity<Double> recuperarTotalDespesasPendentesAnoFinanceiro() {
+        return ResponseEntity.ok().body(this.despesaService.recuperarValorTotalDespesasAnoFinanceiro(false));
     }
 
 }

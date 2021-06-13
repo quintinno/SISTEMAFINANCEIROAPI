@@ -1,22 +1,17 @@
 package br.com.plataformalancamento.service;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-
-import javax.transaction.Transactional;
-
+import br.com.plataformalancamento.entity.*;
+import br.com.plataformalancamento.repository.DespesaImplementacaoRepository;
+import br.com.plataformalancamento.repository.DespesaRepository;
+import br.com.plataformalancamento.repository.ParcelamentoImplementacaoRepository;
+import br.com.plataformalancamento.utility.DateUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.plataformalancamento.entity.CategoriaDespesaEntity;
-import br.com.plataformalancamento.entity.ContratoEntity;
-import br.com.plataformalancamento.entity.DespesaEntity;
-import br.com.plataformalancamento.entity.FormaPagamentoDespesaEntity;
-import br.com.plataformalancamento.entity.ProdutoServicoEntity;
-import br.com.plataformalancamento.repository.DespesaImplementacaoRepository;
-import br.com.plataformalancamento.repository.DespesaRepository;
-import br.com.plataformalancamento.utility.DateUtility;
+import javax.transaction.Transactional;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class DespesaService implements Serializable {
@@ -34,6 +29,9 @@ public class DespesaService implements Serializable {
     
     @Autowired
     private DespesaImplementacaoRepository despesaImplementacaoRepository;
+
+	@Autowired
+	private ParcelamentoImplementacaoRepository parcelamentoImplementacaoRepository;
 
     public DespesaService() { }
 
@@ -116,5 +114,9 @@ public class DespesaService implements Serializable {
     public List<DespesaEntity> recuperarDespesaFixaMensal() {
     	return this.despesaImplementacaoRepository.recuperarParcelamentoDespesaFixaPendente();
     }
+
+	public Double recuperarValorTotalDespesasAnoFinanceiro(Boolean isPago) {
+		return this.parcelamentoImplementacaoRepository.recuperarTotalDespesasAnoFinanceiroSituacao(isPago);
+	}
 
 }

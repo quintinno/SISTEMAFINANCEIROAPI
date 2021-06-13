@@ -42,7 +42,7 @@ public class ContratoService implements Serializable {
 	
 	@Transactional
 	public ContratoEntity cadastrar(ContratoEntity contratoEntity) {
-		if(Arrays.asList("Contrato de Internet", "Organização Religiosa").contains(contratoEntity.getTipoContratoEntity().getDescricao())) {
+		if(Arrays.asList("Contrato de Serviços de Internet Fixa", "Contrato de Serviços de Internet Móvel", "Associação de Entidade Religiosa").contains(contratoEntity.getTipoContratoEntity().getDescricao())) {
 			this.gerarParcelamentoDespesaFixaContrato(contratoEntity, this.gerarDespesaFixaContrato(contratoEntity));
 		}
 		return this.contratoRepository.save(this.configurarContratoCadastrar(contratoEntity));

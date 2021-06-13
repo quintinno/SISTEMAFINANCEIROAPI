@@ -41,10 +41,7 @@ public class TipoPessoaService implements Serializable {
 	}
 	
 	public TipoPessoaDTO recuperarInformacaoTipoPessoa() {
-		Gson gson = new Gson();
-		String json = gson.toJson(new TipoPessoaEntity());
-		TipoPessoaDTO tipoPessoaDTO = gson.fromJson(json, TipoPessoaDTO.class);
-		return tipoPessoaDTO;
+		return new TipoPessoaDTO();
 	}
 	
 }
