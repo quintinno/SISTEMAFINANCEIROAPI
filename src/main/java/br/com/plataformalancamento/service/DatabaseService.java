@@ -310,9 +310,9 @@ public class DatabaseService {
 	    	contratoEntity2.setPessoaContratante(pessoaEntity1);
 	    	contratoEntity2.setTipoContratoEntity(tipoContratoEntity1);
 	    	contratoEntity2.setIsATivo(true);
-	    	contratoEntity2.adicionarChavePix(chavePixModel1);
-	    	contratoEntity2.adicionarChavePix(chavePixModel2);
-	    	contratoEntity2.adicionarChavePix(chavePixModel3);
+//	    	contratoEntity2.adicionarChavePix(chavePixModel1);
+//	    	contratoEntity2.adicionarChavePix(chavePixModel2);
+//	    	contratoEntity2.adicionarChavePix(chavePixModel3);
 	    	
 	    ContratoEntity contratoEntity3 = new ContratoEntity();
 	    	contratoEntity3.setDataInicioVigencia(null);
