@@ -1,19 +1,10 @@
 ﻿INSERT INTO TB_TIPO_PESSOA (CODIGO, SIGLA, DESCRICAO) VALUES(NEXTVAL ('public.hibernate_sequence'), 'PF', 'Pessoa Física');
 INSERT INTO TB_TIPO_PESSOA (CODIGO, SIGLA, DESCRICAO) VALUES(NEXTVAL ('public.hibernate_sequence'), 'PJ', 'Pessoa Jurídica');
 
-INSERT INTO TB_PESSOA (CODIGO, NOME, ID_TIPO_PESSOA, IS_ATIVO, IS_INSTITUICAO_FINANCEIRA, IS_PESSOA_FINANCEIRA) VALUES
-(NEXTVAL ('public.hibernate_sequence'), 'Jose Quintinn (Administrador Financeiro)',  (SELECT codigo FROM tb_tipo_pessoa WHERE sigla = 'PF'), TRUE, FALSE, TRUE),
-(NEXTVAL ('public.hibernate_sequence'), 'Jordann Lucas Rodrigues Andrade',  (SELECT codigo FROM tb_tipo_pessoa WHERE sigla = 'PF'), TRUE, FALSE, TRUE),
-(NEXTVAL ('public.hibernate_sequence'), 'Jonathan Luan Rodrigues Andrade',  (SELECT codigo FROM tb_tipo_pessoa WHERE sigla = 'PF'), TRUE, FALSE, TRUE),
-(NEXTVAL ('public.hibernate_sequence'), 'Vinicius Alcantara Menezes (Empréstimo EMP20160721001)',  (SELECT codigo FROM tb_tipo_pessoa WHERE sigla = 'PF'), TRUE, FALSE, TRUE);
+INSERT INTO TB_PESSOA (CODIGO, NOME, ID_TIPO_PESSOA, IS_ATIVO, IS_INSTITUICAO_FINANCEIRA, IS_PESSOA_FINANCEIRA) VALUES (NEXTVAL ('public.hibernate_sequence'), 'José Quintinn (Administrador Financeiro)',  (SELECT codigo FROM tb_tipo_pessoa WHERE sigla = 'PF'), TRUE, FALSE, TRUE);
 
-INSERT INTO TB_PESSOA (CODIGO, NOME, ID_TIPO_PESSOA, IS_ATIVO, IS_INSTITUICAO_FINANCEIRA, IS_PESSOA_FINANCEIRA) VALUES
-(NEXTVAL ('public.hibernate_sequence'), 'Tim Telecomunicações (Brasil)',  (SELECT codigo FROM tb_tipo_pessoa WHERE sigla = 'PJ'), TRUE, TRUE, TRUE),
-(NEXTVAL ('public.hibernate_sequence'), 'Banco Santander',  (SELECT codigo FROM tb_tipo_pessoa WHERE sigla = 'PJ'), TRUE, TRUE, TRUE),
-(NEXTVAL ('public.hibernate_sequence'), 'Banco Nubank',  (SELECT codigo FROM tb_tipo_pessoa WHERE sigla = 'PJ'), TRUE, TRUE, TRUE),
-(NEXTVAL ('public.hibernate_sequence'), 'Banco Inter',  (SELECT codigo FROM tb_tipo_pessoa WHERE sigla = 'PJ'), TRUE, TRUE, TRUE),
-(NEXTVAL ('public.hibernate_sequence'), 'Banco Caixa Economica Federal',  (SELECT codigo FROM tb_tipo_pessoa WHERE sigla = 'PJ'), TRUE, TRUE, TRUE),
-(NEXTVAL ('public.hibernate_sequence'), 'Brava Fibra Internet (Distrito Federal)',  (SELECT codigo FROM tb_tipo_pessoa WHERE sigla = 'PJ'), TRUE, TRUE, TRUE);
+INSERT INTO TB_PESSOA (CODIGO, NOME, ID_TIPO_PESSOA, IS_ATIVO, IS_INSTITUICAO_FINANCEIRA, IS_PESSOA_FINANCEIRA) VALUES (NEXTVAL ('public.hibernate_sequence'), 'Tim Telecomunicações (Brasil)',  (SELECT codigo FROM tb_tipo_pessoa WHERE sigla = 'PJ'), TRUE, TRUE, TRUE);
+INSERT INTO TB_PESSOA (CODIGO, NOME, ID_TIPO_PESSOA, IS_ATIVO, IS_INSTITUICAO_FINANCEIRA, IS_PESSOA_FINANCEIRA) VALUES (NEXTVAL ('public.hibernate_sequence'), 'Brava Internet (Distrito Federal)',  (SELECT codigo FROM tb_tipo_pessoa WHERE sigla = 'PJ'), TRUE, TRUE, TRUE);
 
 INSERT INTO TB_TIPO_CONTRATO (CODIGO, DESCRICAO) VALUES
 (NEXTVAL ('public.hibernate_sequence'), 'Contrato de Conta Bancária'),
@@ -26,6 +17,5 @@ INSERT INTO TB_TIPO_CONTRATO (CODIGO, DESCRICAO) VALUES
 (NEXTVAL ('public.hibernate_sequence'), 'Contrato de Benefício Governamental (Auxílio Doença)'),
 (NEXTVAL ('public.hibernate_sequence'), 'Contrato de Benefício Governamental (INSS Saúde)');
 
-INSERT INTO TB_CATEGORIA_DESPESA (CODIGO, DESCRICAO,  SIGLA) VALUES
-(NEXTVAL ('public.hibernate_sequence'), 'Despesa Fixa', 'DFI'),
-(NEXTVAL ('public.hibernate_sequence'), 'Despesa Variável', 'DVA');
+INSERT INTO TB_CATEGORIA_DESPESA (CODIGO, DESCRICAO,  SIGLA) VALUES (NEXTVAL ('public.hibernate_sequence'), 'Despesa Fixa', 'DFI');
+INSERT INTO TB_CATEGORIA_DESPESA (CODIGO, DESCRICAO,  SIGLA) VALUES (NEXTVAL ('public.hibernate_sequence'), 'Despesa Variável', 'DVA');
