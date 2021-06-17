@@ -48,6 +48,10 @@ public class ConfiguradorErrorException {
     public static String recuperarMensagemErroObjetoNaoPodeSerCadastrado() {
         return "Objeto já cadastrado no banco de dados!";
     }
+    
+    public static String recuperarMensagemErroObjetoAutenticacaoInviavel() {
+        return "Não foi possível autenticar o usuário informado!";
+    }
 
     public String getHorarioErro() {
         return horarioErro;
