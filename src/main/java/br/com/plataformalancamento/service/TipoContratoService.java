@@ -23,5 +23,10 @@ public class TipoContratoService implements Serializable {
 	public List<TipoContratoEntity> recuperar() {
 		return this.tipoContratoRepository.findAll();
 	}
+
+	@Transactional
+	public TipoContratoEntity cadastrar(TipoContratoEntity tipoContratoEntity) {
+		return this.tipoContratoRepository.save(tipoContratoEntity);
+	}
 	
 }

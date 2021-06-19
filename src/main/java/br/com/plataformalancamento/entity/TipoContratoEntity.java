@@ -24,6 +24,9 @@ public class TipoContratoEntity implements Serializable {
 	
 	@Column(name = "DESCRICAO", length = 65, unique = true, nullable = false)
 	private String descricao;
+
+	@Column(name = "SIGLA", length = 10, unique = true, nullable = false)
+	private String sigla;
 	
 	public TipoContratoEntity() { }
 
@@ -46,7 +49,15 @@ public class TipoContratoEntity implements Serializable {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
+
+	public String getSigla() {
+		return sigla;
+	}
+
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

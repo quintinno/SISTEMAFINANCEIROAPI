@@ -12,7 +12,7 @@ INSERT INTO TB_TIPO_CONTRATO (CODIGO, DESCRICAO) VALUES
 (NEXTVAL ('public.hibernate_sequence'), 'Contrato de Trabalho (CNPJ)'),
 (NEXTVAL ('public.hibernate_sequence'), 'Contrato de Serviços de Internet Fixa'),
 (NEXTVAL ('public.hibernate_sequence'), 'Contrato de Serviços de Internet Móvel'),
-(NEXTVAL ('public.hibernate_sequence'), 'Associação de Entidade Religiosa'),
+(NEXTVAL ('public.hibernate_sequence'), 'Contrato de Associação à Entidade (Religiosa)'),
 (NEXTVAL ('public.hibernate_sequence'), 'Contrato de Benefício Governamental (Seguro Desemprego)'),
 (NEXTVAL ('public.hibernate_sequence'), 'Contrato de Benefício Governamental (Auxílio Doença)'),
 (NEXTVAL ('public.hibernate_sequence'), 'Contrato de Benefício Governamental (INSS Saúde)');
