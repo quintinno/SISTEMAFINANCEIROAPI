@@ -84,7 +84,7 @@ public class ParcelamentoService implements Serializable {
 				parcelamentoEntity.setValorPrevistoParcela(contratoEntity.getValorMensalPagamento());
 				parcelamentoEntity.setValorTotalParcelamento(contratoEntity.getValorMensalPagamento() * contratoEntity.getNumeroMesesVigenciaContrato());
 				parcelamentoEntity.setDespesaEntity(despesaEntity);
-				parcelamentoEntity.setDataVencimentoParcela(DateUtility.gerarDataVencimentoPorNumeroMesses(contratoEntity.getDataInicioVigencia(), index));
+				parcelamentoEntity.setDataVencimentoParcela(DateUtility.gerarDataVencimentoPorNumeroDiaVencimento(contratoEntity.getDiaVencimentoFatura(), contratoEntity.getDataInicioVigencia(), index));
 				parcelamentoEntityList.add(parcelamentoEntity);
 		}
 		this.parcelamentoRepository.saveAll(parcelamentoEntityList);

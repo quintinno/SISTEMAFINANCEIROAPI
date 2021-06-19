@@ -4,9 +4,7 @@ import br.com.plataformalancamento.entity.CategoriaDespesaEntity;
 import br.com.plataformalancamento.service.CategoriaDespesaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
 import java.util.List;
@@ -23,6 +21,11 @@ public class CategoriaDespesaController implements Serializable {
     @GetMapping
     public ResponseEntity<List<CategoriaDespesaEntity>> recuperar() {
         return ResponseEntity.ok().body(this.categoriaDespesaService.recuperar());
+    }
+
+    @PostMapping
+    public ResponseEntity<CategoriaDespesaEntity> cadastrar(@RequestBody CategoriaDespesaEntity categoriaDespesaEntity) {
+        return ResponseEntity.ok(this.categoriaDespesaService.cadastrar(categoriaDespesaEntity));
     }
 
 }

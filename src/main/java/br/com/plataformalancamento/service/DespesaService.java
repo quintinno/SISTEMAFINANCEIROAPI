@@ -1,5 +1,6 @@
 package br.com.plataformalancamento.service;
 
+import br.com.plataformalancamento.dto.DespesaFixaDTO;
 import br.com.plataformalancamento.entity.*;
 import br.com.plataformalancamento.repository.DespesaImplementacaoRepository;
 import br.com.plataformalancamento.repository.DespesaRepository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -111,7 +113,7 @@ public class DespesaService implements Serializable {
     	return new DespesaEntity().toJson();
     }
     
-    public List<DespesaEntity> recuperarDespesaFixaMensal() {
+    public List<DespesaFixaDTO> recuperarDespesaFixaMensal() throws ParseException {
     	return this.despesaImplementacaoRepository.recuperarParcelamentoDespesaFixaPendente();
     }
 

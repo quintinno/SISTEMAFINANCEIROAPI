@@ -2,10 +2,7 @@ package br.com.plataformalancamento.service;
 
 import java.io.Serializable;
 import java.text.ParseException;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import javax.transaction.Transactional;
 
@@ -42,10 +39,20 @@ public class ContratoService implements Serializable {
 	
 	@Transactional
 	public ContratoEntity cadastrar(ContratoEntity contratoEntity) {
-		if(Arrays.asList("Contrato de Serviços de Internet Fixa", "Contrato de Serviços de Internet Móvel", "Contrato de Associação à Entidade (Religiosa)").contains(contratoEntity.getTipoContratoEntity().getDescricao())) {
+		if(!Arrays.asList(recuperarTipoContratoRestricao()).contains(contratoEntity.getTipoContratoEntity().getDescricao())) {
 			this.gerarParcelamentoDespesaFixaContrato(contratoEntity, this.gerarDespesaFixaContrato(contratoEntity));
 		}
 		return this.contratoRepository.save(this.configurarContratoCadastrar(contratoEntity));
+	}
+
+	private List<String> recuperarTipoContratoRestricao() {
+		List<String> tipoContratoList = new ArrayList<>();
+			tipoContratoList.add("Contrato de Conta Bancária");
+			tipoContratoList.add("Contrato de Trabalho CLT");
+			tipoContratoList.add("Contrato de Trabalho CNPJ");
+			tipoContratoList.add("Conta Carteira (Conta Especial)");
+			tipoContratoList.add("Contrato de Conta Especial");
+		return tipoContratoList;
 	}
 	
 	public ContratoEntity recuperar(Long codigo) {

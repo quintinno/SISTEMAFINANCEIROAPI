@@ -1,5 +1,6 @@
 package br.com.plataformalancamento.controller;
 
+import br.com.plataformalancamento.dto.DespesaFixaDTO;
 import br.com.plataformalancamento.entity.DespesaEntity;
 import br.com.plataformalancamento.service.DespesaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.Serializable;
 import java.net.URI;
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -40,7 +42,7 @@ public class DespesaController implements Serializable {
     }
     
     @GetMapping("/fixa-mensal")
-    public ResponseEntity<List<DespesaEntity>> recuperarDespesaFixaMensal() {
+    public ResponseEntity<List<DespesaFixaDTO>> recuperarDespesaFixaMensal() throws ParseException {
     	return ResponseEntity.ok(this.despesaService.recuperarDespesaFixaMensal());
     }
 

@@ -20,4 +20,8 @@ public class CategoriaDespesaService implements Serializable {
        return this.categoriaDespesaRepository.findAll();
     }
 
+    public CategoriaDespesaEntity cadastrar(CategoriaDespesaEntity categoriaDespesaEntity) {
+        return this.categoriaDespesaRepository.save(categoriaDespesaEntity);
+    }
+
 }
