@@ -14,7 +14,8 @@ public class AutenticacaoService implements Serializable {
 	// TODO -- Implementar consulta ao banco de dados
 	public Boolean registrarLoginUsuario(UsuarioSistemaDTO usuarioSistemaDTO) {
 		try {
-			if (usuarioSistemaDTO.getIdentificador().equals("11111111111") && usuarioSistemaDTO.getSenha().equals("123456789")) {
+			if (usuarioSistemaDTO.getIdentificador().equals("sistemafinanceiro@sistemafinanceiro.com.br") &&
+				usuarioSistemaDTO.getSenha().equals("sistemafinanceiro")) {
 				return true;
 			}
 		} catch (Exception e) {

@@ -2,6 +2,8 @@ package br.com.plataformalancamento.service;
 
 import br.com.plataformalancamento.dto.DespesaFixaDTO;
 import br.com.plataformalancamento.entity.*;
+import br.com.plataformalancamento.exception.ConfiguradorErrorException;
+import br.com.plataformalancamento.exception.ObjectNotFoundException;
 import br.com.plataformalancamento.repository.DespesaImplementacaoRepository;
 import br.com.plataformalancamento.repository.DespesaRepository;
 import br.com.plataformalancamento.repository.ParcelamentoImplementacaoRepository;
@@ -14,6 +16,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DespesaService implements Serializable {
@@ -119,6 +122,12 @@ public class DespesaService implements Serializable {
 
 	public Double recuperarValorTotalDespesasAnoFinanceiro(Boolean isPago) {
 		return this.parcelamentoImplementacaoRepository.recuperarTotalDespesasAnoFinanceiroSituacao(isPago);
+	}
+
+	@Transactional
+	public DespesaEntity recuperar(Long codigo) {
+		Optional<DespesaEntity> despesaEntityOptional = this.despesaRepository.findById(codigo);
+		return despesaEntityOptional.orElseThrow( () -> new ObjectNotFoundException(ConfiguradorErrorException.recuperarMensagemErroObjetoNaoEncontradoRequisicao(codigo)));
 	}
 
 }

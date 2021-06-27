@@ -2,6 +2,7 @@ package br.com.plataformalancamento.controller;
 
 import br.com.plataformalancamento.dto.DespesaFixaDTO;
 import br.com.plataformalancamento.entity.DespesaEntity;
+import br.com.plataformalancamento.entity.ReceitaEntity;
 import br.com.plataformalancamento.service.DespesaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -54,6 +55,11 @@ public class DespesaController implements Serializable {
     @GetMapping("/totalizador-despesas-pendentes")
     public ResponseEntity<Double> recuperarTotalDespesasPendentesAnoFinanceiro() {
         return ResponseEntity.ok().body(this.despesaService.recuperarValorTotalDespesasAnoFinanceiro(false));
+    }
+
+    @GetMapping("{codigo}")
+    public ResponseEntity<DespesaEntity> recuperar(@PathVariable Long codigo) {
+        return ResponseEntity.ok(this.despesaService.recuperar(codigo));
     }
 
 }

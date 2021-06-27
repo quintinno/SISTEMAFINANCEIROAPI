@@ -136,11 +136,11 @@ public class DateUtility {
 		return gregoriaCalendar.get(Calendar.DAY_OF_MONTH);
 	}
 
-	public static Date primeiroDiaMesCorrente() throws ParseException {
+	public static Date primeiroDiaMesCorrente() {
 		return gerarDataFormatoDate(recuperarAnoCorrente(), recuperarMesCorrente(), recuperarPrimeiroDiaMesCorrente());
 	}
 
-	public static Date ultimoDiaMesCorrente() throws ParseException {
+	public static Date ultimoDiaMesCorrente() {
 		return gerarDataFormatoDate(recuperarAnoCorrente(), recuperarMesCorrente(), recuperarUltimoDiaMesCorrente());
 	}
 	

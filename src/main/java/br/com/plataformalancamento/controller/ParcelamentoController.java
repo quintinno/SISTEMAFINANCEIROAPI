@@ -2,6 +2,7 @@ package br.com.plataformalancamento.controller;
 
 import br.com.plataformalancamento.entity.ParcelamentoEntity;
 import br.com.plataformalancamento.service.ParcelamentoService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +43,11 @@ public class ParcelamentoController implements Serializable {
 	public ResponseEntity<Void> remover(@PathVariable Long codigo) {
 		this.parcelamentoService.remover(codigo);
 		return ResponseEntity.noContent().build();
+	}
+
+	@GetMapping("/despesa/valor-total-despesa-fixa-mes-corrente")
+	public ResponseEntity<Double> recuperarValorTotalDespesasFixasMesCorrente() {
+		return ResponseEntity.ok(this.parcelamentoService.recuperarValorTotalDespesasFixasMesCorrente());
 	}
 
 }

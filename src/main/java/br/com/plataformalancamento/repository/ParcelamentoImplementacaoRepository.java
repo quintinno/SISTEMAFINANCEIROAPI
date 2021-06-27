@@ -2,11 +2,14 @@ package br.com.plataformalancamento.repository;
 
 import br.com.plataformalancamento.entity.ParcelamentoEntity;
 import br.com.plataformalancamento.enumeration.TipoSituacaoPagamentoEnumeration;
+import br.com.plataformalancamento.utility.DateUtility;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.lang.reflect.Type;
+import java.text.ParseException;
 import java.util.List;
 
 @Repository
@@ -36,6 +39,22 @@ public class ParcelamentoImplementacaoRepository {
 		} else {
 			return valor;
 		}
+	}
+
+	public Double recuperarValorTotalDespesasFixasMesCorrente() {
+		StringBuilder query = new StringBuilder("SELECT parcelamentoEntity.valorPrevistoParcela ")
+			.append("FROM ParcelamentoEntity parcelamentoEntity ")
+			.append("WHERE parcelamentoEntity.tipoSituacaoPagamentoEnumeration = :situacaoPagamentoParcelamentoDespesa ")
+			.append("AND parcelamentoEntity.dataVencimentoParcela BETWEEN :primeiroDiaMesCorrente AND :ultimoDiaMesCorrente ");
+		TypedQuery<Double> typedQuery = entityManager.createQuery(query.toString(), Double.class);
+			typedQuery.setParameter("primeiroDiaMesCorrente", DateUtility.primeiroDiaMesCorrente());
+			typedQuery.setParameter("ultimoDiaMesCorrente", DateUtility.ultimoDiaMesCorrente());
+			typedQuery.setParameter("situacaoPagamentoParcelamentoDespesa", TipoSituacaoPagamentoEnumeration.PENDENTE);
+		Double valorTotalDespesaFixaMesCorrente = 0D;
+		for(Double valor : typedQuery.getResultList()) {
+			valorTotalDespesaFixaMesCorrente += valor;
+		}
+		return valorTotalDespesaFixaMesCorrente;
 	}
 	
 }
