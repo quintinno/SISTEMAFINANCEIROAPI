@@ -25,7 +25,7 @@ public class UsuarioSistemaController implements Serializable {
 	
 	@PostMapping("/autenticar")
 	public ResponseEntity<UsuarioSistemaEntity> autenticarDadosUsuarioSistema(@RequestBody UsuarioSistemaDTO usuarioSistemaDTO) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(this.usuarioSistemaService.autenticarDadosUsuarioSistema(usuarioSistemaDTO));
+		return ResponseEntity.status(HttpStatus.OK).body(this.usuarioSistemaService.autenticarDadosUsuarioSistema(usuarioSistemaDTO));
 	}
 	
 	@PostMapping("/cadastrado")

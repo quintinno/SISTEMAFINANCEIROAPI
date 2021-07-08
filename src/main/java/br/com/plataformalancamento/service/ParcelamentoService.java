@@ -89,5 +89,9 @@ public class ParcelamentoService implements Serializable {
 		}
 		this.parcelamentoRepository.saveAll(parcelamentoEntityList);
 	}
+
+	public Double recuperarTotalizadorParcelamentoDespesaFixaMensal() {
+		return this.parcelamentoImplementacaoRepository.recuperarTotalizadorParcelamentoDespesaFixaMensal();
+	}
 	
 }

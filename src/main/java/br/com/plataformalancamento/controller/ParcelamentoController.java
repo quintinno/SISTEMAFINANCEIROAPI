@@ -44,4 +44,9 @@ public class ParcelamentoController implements Serializable {
 		return ResponseEntity.noContent().build();
 	}
 
+	@GetMapping("recuperar-totalizador-parcelamento-despesa-fixa-mensal")
+	public ResponseEntity<Double> recuperarTotalizadorParcelamentoDespesaFixaMensal() {
+		return ResponseEntity.ok().body(this.parcelamentoService.recuperarTotalizadorParcelamentoDespesaFixaMensal());
+	}
+
 }
