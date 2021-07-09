@@ -3,12 +3,16 @@
 
     -- Exportar - Dump Database
 
-        pg_dump -Fc -h localhost -U postgres dbsistemafinanceiro -f DUMP_DATABASE_DESENVOLVIMENTO.sql
+        pg_dump -Fc -h localhost -U postgres db_sistemafinanceiro -f DUMP_DATABASE_DESENVOLVIMENTO.sql
 
     -- Importar - Dump Database
 
-        pg_restore -d dbsistemafinanceiro -h localhost -U postgres DUMP_DATABASE_DESENVOLVIMENTO.sql
-
+		-- Linux
+        	pg_restore -d db_sistemafinanceiro -h localhost -U postgres DUMP_DATABASE_DESENVOLVIMENTO.sql
+        	
+        -- Windows
+        	pg_restore.exe --host localhost --port 5432 --username postgres --dbname db_sistemafinanceiro C:\Application\SISTEMAFINANCEIROAPI\src\main\resources\dump\DUMP_DATABASE_DESENVOLVIMENTO.sql
+        
 ------------------------------------------------------------------------------------------------------------------------
 INSERT INTO TB_TIPO_PESSOA (CODIGO, SIGLA, DESCRICAO) VALUES(NEXTVAL ('public.hibernate_sequence'), 'PF', 'Pessoa Física');
 INSERT INTO TB_TIPO_PESSOA (CODIGO, SIGLA, DESCRICAO) VALUES(NEXTVAL ('public.hibernate_sequence'), 'PJ', 'Pessoa Jurídica');
