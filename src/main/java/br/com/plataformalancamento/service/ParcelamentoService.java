@@ -1,15 +1,5 @@
 package br.com.plataformalancamento.service;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import javax.transaction.Transactional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import br.com.plataformalancamento.entity.ContratoEntity;
 import br.com.plataformalancamento.entity.DespesaEntity;
 import br.com.plataformalancamento.entity.ParcelamentoEntity;
@@ -19,6 +9,14 @@ import br.com.plataformalancamento.exception.ObjectNotFoundException;
 import br.com.plataformalancamento.repository.ParcelamentoImplementacaoRepository;
 import br.com.plataformalancamento.repository.ParcelamentoRepository;
 import br.com.plataformalancamento.utility.DateUtility;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ParcelamentoService implements Serializable {
@@ -52,14 +50,9 @@ public class ParcelamentoService implements Serializable {
 
 	@Transactional
 	public ParcelamentoEntity registrarPagamentoParcela(ParcelamentoEntity parcelamentoEntity) {
-//		ReceitaEntity receitaEntity = this.recuperarReceitaParcelamento(parcelamentoEntity);
-//		parcelamentoEntity.setReceitaEntity(receitaEntity);
-//		parcelamentoEntity.setDataVencimentoParcela(DateUtility.acrescentarDiasData(1, parcelamentoEntity.getDataVencimentoParcela()));
-//		parcelamentoEntity.setDataPagamentoParcela(DateUtility.acrescentarDiasData(1, parcelamentoEntity.getDataPagamentoParcela()));
-//		this.parcelamentoRepository.save(parcelamentoEntity);
-//		this.receitaService.atualizarValorPago(receitaEntity.getCodigo(), parcelamentoEntity.getValorEfetivoParcela());
-//		return this.parcelamentoRepository.save(parcelamentoEntity);
-		return null;
+		parcelamentoEntity.setTipoSituacaoPagamentoEnumeration(TipoSituacaoPagamentoEnumeration.PAGO);
+		parcelamentoEntity.setDataPagamentoParcela(DateUtility.corrigirData(parcelamentoEntity.getDataPagamentoParcela()));
+		return this.parcelamentoRepository.save(parcelamentoEntity);
 	}
 	 
 //	private ReceitaEntity recuperarReceitaParcelamento(ParcelamentoEntity parcelamentoEntity) {
@@ -92,6 +85,11 @@ public class ParcelamentoService implements Serializable {
 
 	public Double recuperarTotalizadorParcelamentoDespesaFixaMensal() {
 		return this.parcelamentoImplementacaoRepository.recuperarTotalizadorParcelamentoDespesaFixaMensal();
+	}
+
+	public ParcelamentoEntity recuperarParcelamentoPorCodigo(Long codigoParcelamento) {
+		Optional<ParcelamentoEntity> parcelamentoEntityOptional = this.parcelamentoRepository.findById(codigoParcelamento);
+		return parcelamentoEntityOptional.get();
 	}
 	
 }

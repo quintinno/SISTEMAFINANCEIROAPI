@@ -15,11 +15,15 @@ public class DespesaFixaDTO implements Serializable {
 
 	private Long codigoDespesa;
 	private Long codigoContrato;
+
+	private Long codigoParcela;
 	private String nomeFavorecido;
 
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date dataVencimento;
+
+	private Date dataPagamento;
 
 	private Double valorParcela;
 
@@ -28,9 +32,9 @@ public class DespesaFixaDTO implements Serializable {
 
 	public DespesaFixaDTO() { }
 
-	public DespesaFixaDTO(Long codigoDespesa, Long codigoContrato, String nomeFavorecido, Date dataVencimento, Double valorParcela, TipoSituacaoPagamentoEnumeration tipoSituacaoPagamentoEnumeration) {
+	public DespesaFixaDTO(Long codigoDespesa, Long codigoParcela, String nomeFavorecido, Date dataVencimento, Double valorParcela, TipoSituacaoPagamentoEnumeration tipoSituacaoPagamentoEnumeration) {
 		this.codigoDespesa = codigoDespesa;
-		this.codigoContrato = codigoContrato;
+		this.codigoParcela = codigoParcela;
 		this.nomeFavorecido = nomeFavorecido;
 		this.dataVencimento = dataVencimento;
 		this.valorParcela = valorParcela;
@@ -83,6 +87,22 @@ public class DespesaFixaDTO implements Serializable {
 
 	public void setTipoSituacaoPagamentoEnumeration(TipoSituacaoPagamentoEnumeration tipoSituacaoPagamentoEnumeration) {
 		this.tipoSituacaoPagamentoEnumeration = tipoSituacaoPagamentoEnumeration;
+	}
+
+	public Long getCodigoParcela() {
+		return codigoParcela;
+	}
+
+	public void setCodigoParcela(Long codigoParcela) {
+		this.codigoParcela = codigoParcela;
+	}
+
+	public Date getDataPagamento() {
+		return dataPagamento;
+	}
+
+	public void setDataPagamento(Date dataPagamento) {
+		this.dataPagamento = dataPagamento;
 	}
 
 }

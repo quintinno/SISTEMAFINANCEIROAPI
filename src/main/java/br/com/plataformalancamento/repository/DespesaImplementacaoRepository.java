@@ -1,18 +1,14 @@
 package br.com.plataformalancamento.repository;
 
-import java.text.ParseException;
-import java.util.Date;
-import java.util.List;
+import br.com.plataformalancamento.dto.DespesaFixaDTO;
+import br.com.plataformalancamento.utility.DateUtility;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-
-import br.com.plataformalancamento.dto.DespesaFixaDTO;
-import org.springframework.stereotype.Repository;
-
-import br.com.plataformalancamento.enumeration.TipoSituacaoPagamentoEnumeration;
-import br.com.plataformalancamento.utility.DateUtility;
+import java.text.ParseException;
+import java.util.List;
 
 @Repository
 public class DespesaImplementacaoRepository {
@@ -25,12 +21,10 @@ public class DespesaImplementacaoRepository {
 			.append("parcelamentoEntity.dataVencimentoParcela, parcelamentoEntity.valorPrevistoParcela, parcelamentoEntity.tipoSituacaoPagamentoEnumeration )")
 			.append("FROM ParcelamentoEntity parcelamentoEntity ")
 			.append("JOIN parcelamentoEntity.despesaEntity despesaEntity ")
-			.append("WHERE parcelamentoEntity.dataVencimentoParcela BETWEEN :primeiroDiaMesCorrente AND :ultimoDiaMesCorrente ")
-			.append("AND parcelamentoEntity.tipoSituacaoPagamentoEnumeration = :descricaoTipoSituacaoPendente ");
+			.append("WHERE parcelamentoEntity.dataVencimentoParcela BETWEEN :primeiroDiaMesCorrente AND :ultimoDiaMesCorrente ");
 		TypedQuery<DespesaFixaDTO> typedQuery = entityManager.createQuery(query.toString(), DespesaFixaDTO.class);
 			typedQuery.setParameter("primeiroDiaMesCorrente", DateUtility.primeiroDiaMesCorrente());
 			typedQuery.setParameter("ultimoDiaMesCorrente", DateUtility.ultimoDiaMesCorrente());
-			typedQuery.setParameter("descricaoTipoSituacaoPendente", TipoSituacaoPagamentoEnumeration.PENDENTE);
 		return typedQuery.getResultList();
 	}
 	

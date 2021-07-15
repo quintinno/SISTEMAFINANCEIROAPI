@@ -49,4 +49,9 @@ public class ParcelamentoController implements Serializable {
 		return ResponseEntity.ok().body(this.parcelamentoService.recuperarTotalizadorParcelamentoDespesaFixaMensal());
 	}
 
+	@GetMapping("/despesa-fixa/{codigoParcelamento}")
+	public ResponseEntity<ParcelamentoEntity> recuperarParcelamentoPorCodigo(@PathVariable Long codigoParcelamento) {
+		return ResponseEntity.ok(this.parcelamentoService.recuperarParcelamentoPorCodigo(codigoParcelamento));
+	}
+
 }
